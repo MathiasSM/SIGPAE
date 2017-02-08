@@ -1,0 +1,68 @@
+{% extends './base.html' %}
+{%load static%}
+{% block content %}
+<main class="two-col">
+    <section>
+        <div class="wintab">
+            <div class="tab upload-tab">
+                <a href="#" class="tab-link is-active">Subir PDF</a>
+                <div class="tab-content">SUBIR PDF</div>
+            </div>
+            <div class="tab pdf-viewer">
+                <a href="#" class="tab-link">Ver PDF</a>
+                <div class="tab-content">
+                    <iframe src="http://docs.google.com/gview?url=http://www.ll.usb.ve/sites/default/files/documentos/LLA-112.pdf&embedded=true"></iframe>
+                </div>
+            </div>
+            <div class="tab pdf-viewer">
+                <a href="#" class="tab-link">Extracción</a>
+                <div class="tab-content">EXXXXXX</div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>Información extraída</h2>
+
+        <form action="#" method="post">
+            <div>
+            <label for="name">Nombre:</label>
+            <input type="text" name="name" id="name" value="" tabindex="1" />
+            </div>
+
+            <div>
+            <label for="nadio-choice-1">Tipo:</label>
+            <input type="radio" name="radio-choice-1" id="radio-choice-1" tabindex="2" value="choice-1" />
+            <input type="radio" name="radio-choice-1" id="radio-choice-2" tabindex="3" value="choice-2" />
+            </div>
+
+            <div>
+            <label for="select-choice">Departamento:</label>
+            <select name="select-choice" id="select-choice">
+            <option value="Choice 1">Lengua y literatura</option>
+            <option value="Choice 2">Matemáticas</option>
+            <option value="Choice 3">Computación</option>
+            </select>
+            </div>
+
+            <div>
+            <label for="textarea">Notas:</label>
+            <textarea cols="40" rows="5" name="textarea" id="textarea"></textarea>
+            </div>
+
+            <div>
+            <label for="checkbox">Checkbox:</label>
+            <input type="checkbox" name="checkbox" id="checkbox" />
+            </div>
+
+            <div>
+            <input type="submit" value="Submit" />
+            </div>
+    </form>
+    </section>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+    {{block.super}}
+    <script src="{% static 'js/refills-tab.js' %}"></script>
+{% endblock %}

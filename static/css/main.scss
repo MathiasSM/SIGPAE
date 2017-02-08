@@ -1,0 +1,58 @@
+@import "reset";
+@import "bourbon/bourbon";
+@import "base/base";
+@import "neat/neat";
+
+@import "var";
+
+@import "wintab";
+
+html{
+    height:100%;
+}
+body{
+    height:100%;
+    @include flexify;
+    flex-direction:column;
+    align-items: stretch;
+    overflow-y:scroll;
+}
+header{
+    .site-title{@include pad(default);}
+    background: $black;
+    color: $white;
+    height:5em;
+    .site-logo {
+        background: url('../images/usb-logo.png') no-repeat right;
+        background-size:contain;
+        height:5em;
+        @include hide-text;
+    }
+}
+main {
+    @include outer-container;
+    width:100%;
+    flex:1;
+}
+footer{
+    @include pad(default);
+}
+
+
+
+
+.two-col{
+    display:flex;
+    align-items:stretch;
+    @include clearfix;
+
+
+
+    & > :first-child{
+        @include span-columns(8);
+    }
+    & > :last-child{
+        @include span-columns(4);
+        @include pad(1em);
+    }
+}

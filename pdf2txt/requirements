@@ -1,0 +1,22 @@
+# pdf2txt dependencies:
+
+# Python libraries (other libraries are required but are automatically
+# installed with the following libraries)
+wand
+pyocr
+pypdf2
+
+# to install these libraries run
+# $ pip install -r requirements
+
+
+
+
+# Tools:
+
+# $ apt-get install libmagickwand-dev 
+#### wand is a wrapper for this tool
+
+# $ apt-get install tesseract-ocr
+# $ apt-get install tesseract-ocr-spa
+#### pyocr is a wrapper for this tool

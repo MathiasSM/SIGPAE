@@ -13,15 +13,15 @@ $(document).ready(function () {
         }
     });
 });
-$(document).ready(function () {
-    var vspace = $wintab.parent().outerHeight() - $('.tab-link').outerHeight();
-    $('.pdf-viewer>div').css('height',vspace);
-    var timer, $win = $(window);
-    $win.on('resize',function(){
-        clearTimeout(timer);
-        timer = setTimeout(function(){
-            vspace = $wintab.parent().outerHeight() - $('.tab-link').outerHeight();
-            $('.pdf-viewer>div').css('height',vspace);
-        }, 1000);
-    });
-});
+// $(document).ready(function () {
+//     var vspace = $wintab.parent().outerHeight() - $('.tab-link').outerHeight();
+//     $('.pdf-viewer>div').css('height',vspace);
+//     var timer, $win = $(window);
+//     $win.on('resize',function(){
+//         clearTimeout(timer);
+//         timer = setTimeout(function(){
+//             vspace = $wintab.parent().outerHeight() - $('.tab-link').outerHeight();
+//             $('.pdf-viewer>div').css('height',vspace);
+//         }, 1000);
+//     });
+// });

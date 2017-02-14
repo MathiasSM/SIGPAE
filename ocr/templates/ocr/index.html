@@ -1,23 +1,22 @@
 {% extends './base.html' %}
 {%load static%}
+
 {% block content %}
 <main class="two-col">
-    <section>
-        <div class="wintab">
-            <div class="tab upload-tab">
-                <a href="#" class="tab-link is-active">Subir PDF</a>
-                <div class="tab-content">SUBIR PDF</div>
+    <section class="wintab">
+        <div class="tab upload-tab">
+            <a href="#" class="tab-link is-active">Subir PDF</a>
+            <div class="tab-content">SUBIR PDF</div>
+        </div>
+        <div class="tab pdf-viewer">
+            <a href="#" class="tab-link">Ver PDF</a>
+            <div class="tab-content">
+                <iframe src="http://docs.google.com/gview?url=http://www.ll.usb.ve/sites/default/files/documentos/LLA-112.pdf&embedded=true"></iframe>
             </div>
-            <div class="tab pdf-viewer">
-                <a href="#" class="tab-link">Ver PDF</a>
-                <div class="tab-content">
-                    <iframe src="http://docs.google.com/gview?url=http://www.ll.usb.ve/sites/default/files/documentos/LLA-112.pdf&embedded=true"></iframe>
-                </div>
-            </div>
-            <div class="tab pdf-viewer">
-                <a href="#" class="tab-link">Extracción</a>
-                <div class="tab-content">EXXXXXX</div>
-            </div>
+        </div>
+        <div class="tab pdf-viewer">
+            <a href="#" class="tab-link">Extracción</a>
+            <div class="tab-content">EXXXXXX</div>
         </div>
     </section>
     <section>

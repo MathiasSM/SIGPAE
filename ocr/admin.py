@@ -2,11 +2,20 @@ from django.contrib import admin
 from ocr.models import *
 
 # Register your models here.
+
+class AdscritoAInline(admin.TabularInline):
+    model = UnidadAcademica.organo.through
+    extra = 1
+    verbose_name = "pertenencia de Unidad a Organo Académico"
+
 class OrganoAcademicoAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'tipo')
+    inlines = [AdscritoAInline,]
 
 class UnidadAcademicaAdmin(admin.ModelAdmin):
     list_display = ('nombre',)
+    inlines = [AdscritoAInline,]
+    exclude = ('organo',)
 
 class ProgramaAdmin(admin.ModelAdmin):
     list_display = (
@@ -24,7 +33,8 @@ class ProgramaAdmin(admin.ModelAdmin):
         'objetivos',
         'contenidos_sinopticos',
         'estrategias_metodologicas',
-        'estrategias_evaluacion'
+        'estrategias_evaluacion',
+        'pdf'
     )
 
 class RequisitoAdmin(admin.ModelAdmin):

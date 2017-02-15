@@ -82,7 +82,7 @@ class Programa(models.Model):
         ordering = ["departamento", "fecha_año", "fecha_periodo"]
 
     def clean_pdf(self):
-        files = self.cleaned_data['pdf']
+        files = self.cleaned_data.get('pdf')
         for f in files:
             if f:
                 if f._size > 20*1024*1024:
@@ -92,9 +92,15 @@ class Programa(models.Model):
         return files
 
     def clean(self):
-        if self.horas_teoria + self.horas_practica + self.horas_laboratorio > 40:
+        ht = self.horas_teoria
+        hp = self.horas_practica
+        hl = self.horas_laboratorio
+        fa = self.fecha_año
+        if not (ht and hp and hl and fa):
+            raise ValidationError('Falta información')
+        if ht + hp + hl > 40:
             raise ValidationError('Un programa no debe tener más de 40 horas semanales (en total)')
-        if self.fecha_año > datetime.datetime.now().year+1:
+        if fa > datetime.datetime.now().year+1:
             raise ValidationError('No está permitido registrar programas que aun no entran en vigencia')
 
 

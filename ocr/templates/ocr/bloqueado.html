@@ -5,34 +5,31 @@
 <main class="two-col">
     {% block wintab %}
     <section class="wintab">
-        <div class="tab upload-tab">
+        {% block upload %}<div class="tab upload-tab">
             <a href="#" class="tab-link is-active">Subir PDF</a>
-            <div class="tab-content">
+            <div class="tab-content is-open">
                 <form action="" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ pdf_form }}
                     <input type="submit" value="Submit" />
                 </form>
             </div>
-        </div>
-        <div class="tab pdf-viewer">
-            <a href="#" class="tab-link blocked">Ver PDF</a>
+        </div>{% endblock %}
+        {% block verpdf %}<div class="tab pdf-viewer">
+            <a href="#" class="tab-link is-blocked">Ver PDF</a>
             <div class="tab-content">
-            {% block verpdf %}{% endblock %}
             </div>
-        </div>
-        <div class="tab pdf-viewer">
-            <a href="#" class="tab-link blocked">Extracción</a>
+        </div>{% endblock %}
+        {% block texto %}<div class="tab pdf-viewer">
+            <a href="#" class="tab-link is-blocked">Texto</a>
             <div class="tab-content">
-            {% block extraccion %}{% endblock %}
             </div>
-        </div>
-        <div class="tab pdf-viewer">
-            <a href="#" class="tab-link blocked">Posible info.</a>
+        </div>{% endblock %}
+        {% block posibleinfo %}<div class="tab pdf-viewer">
+            <a href="#" class="tab-link is-blocked">Posible Info</a>
             <div class="tab-content">
-            {% block posibleinfo %}{% endblock %}
             </div>
-        </div>
+        </div>{% endblock %}
     </section>
     {% endblock wintab %}
     <section class="infotab">
@@ -44,7 +41,4 @@
 </main>
 {% endblock content %}
 
-{% block scripts %}
-    {{block.super}}
-    <script src="{% static 'js/refills-tab.js' %}"></script>
-{% endblock %}
+{% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>{% endblock %}

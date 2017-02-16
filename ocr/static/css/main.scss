@@ -18,7 +18,10 @@ body{
     overflow-y:scroll;
 }
 header{
-    .site-title{@include pad(default);}
+    .site-title{
+        & a{color:white;}
+        @include pad(default);
+    }
     background: $black;
     color: $white;
     height:5em;
@@ -54,5 +57,6 @@ footer{
     & > :last-child{
         @include span-columns(4);
         @include pad(1em);
+        overflow-y: auto;
     }
 }

@@ -37,6 +37,23 @@ class ProgramaAdmin(admin.ModelAdmin):
         'pdf'
     )
 
+class PDFAnonimoAdmin(admin.ModelAdmin):
+    def view_link(self, obj):
+        return u"<a href='%d/'>View</a>" % obj.id
+    view_link.short_description = ''
+    view_link.allow_tags = True
+
+    list_display = (
+        'pdf',
+        'tipo',
+        'view_link'
+    )
+    fields = (
+        ('pdf', 'tipo'),
+        'texto'
+    )
+
+
 class RequisitoAdmin(admin.ModelAdmin):
     list_display = ('texto', 'programa')
 
@@ -49,5 +66,6 @@ class ReferenciaBibliograficaAdmin(admin.ModelAdmin):
 admin.site.register(OrganoAcademico, OrganoAcademicoAdmin)
 admin.site.register(UnidadAcademica, UnidadAcademicaAdmin)
 admin.site.register(Programa, ProgramaAdmin)
+admin.site.register(PDFAnonimo, PDFAnonimoAdmin)
 admin.site.register(Requisito, RequisitoAdmin)
 admin.site.register(ReferenciaBibliografica, ReferenciaBibliograficaAdmin)

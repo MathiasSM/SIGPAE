@@ -6,26 +6,27 @@ from .forms import *
 
 # View para subir un nuevo archivo. El resto bloqueado.
 def index(request):
-    pdf_form = PDFForm()
 
     if request.method == 'POST':
         pdf_form = PDFForm(request.POST, request.FILES)
         whole_form = ProgramaForm(request.POST)
         if pdf_form.is_valid():
-            pdf = request.FILES['pdf']
-            fs = FileSystemStorage()
-            filename = fs.save('tmp/'+pdf.name, pdf)
-            pdf_url = fs.url(filename)
-            print("PDF is valid")
-            return render(request, 'ocr/activado.html', {'pdf_form': PDFForm(), 'pdf_url': pdf_url, 'whole_form': ProgramaForm()})
+            instance = pdf_form.save()
+            pdf_url = '/media/' + str(instance.pdf.name)
+            req = request.POST
+            req.appendlist('pdf_url',pdf_url)
+            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':instance.texto, 'whole_form': ProgramaForm(req)})
         elif whole_form.is_valid():
             print("PDF not valid. Form is valid.")
+            whole_form.save()
             return render(request, 'ocr/archivo.html')
         else:
             print("None valid.")
-            return render(request, 'ocr/bloqueado.html', {'pdf_form': PDFForm()})
+            pdf_form = PDFForm()
+            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
 
     else:
+        pdf_form = PDFForm()
         print("Regular GET")
         return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form})
 

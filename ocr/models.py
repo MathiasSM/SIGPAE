@@ -63,7 +63,6 @@ class Programa(models.Model):
     departamento = models.ForeignKey(UnidadAcademica, on_delete=models.CASCADE,
                                 help_text="El departamento responsable por la asignatura", verbose_name="departamento")
     def determinar_lugar(instance, filename):
-        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
         dept = UnidadAcademica.objects.get(programa__codigo=instance.codigo)
         periodo = instance.fecha_periodo
         if periodo[0] == 'E':   periodo="EM"
@@ -102,6 +101,16 @@ class Programa(models.Model):
             raise ValidationError('Un programa no debe tener más de 40 horas semanales (en total)')
         if fa > datetime.datetime.now().year+1:
             raise ValidationError('No está permitido registrar programas que aun no entran en vigencia')
+
+
+from ocr.pdf2txt.pdf2txt import *
+class PDFAnonimo(models.Model):
+    pdf     = models.FileField(upload_to='tmp', help_text="El PDF del programa a analizar", verbose_name="pdf")
+    tipo    = models.CharField(max_length=1, choices=(('T','Texto'),('I','Imagen')), help_text="El tipo de PDF a analizar", verbose_name="tipo")
+    texto   = models.TextField(help_text="El texto extraído del PDF", verbose_name="texto extraído")
+
+    def __str__(self):
+        return self.pdf.name
 
 
 class Requisito(models.Model):

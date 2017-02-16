@@ -35,3 +35,7 @@ class UnidadAcademicaSingle(TestCase):
     def test_organoCorrecto(self):
         """Setea correctamente el organo al que está adscrito"""
         self.assertTrue(self.dep.organo.filter(nombre=self.org.nombre).exists())
+
+    def test_unidadCorrectamenteEnOrgano(self):
+        """Setea correctamente la unidad adscrita al organo"""
+        self.assertTrue(self.org.adscritoa.filter(nombre=self.dep.nombre).exists())

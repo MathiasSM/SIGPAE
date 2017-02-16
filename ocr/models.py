@@ -49,7 +49,8 @@ class UnidadAcademica(models.Model):
         verbose_name="nombre")
     organo                                              = models.ManyToManyField(OrganoAcademico,
         help_text="Relación de pertencia a órgano académico",
-        verbose_name="organos")
+        verbose_name="organos",
+        related_name="adscritoa")
 
     def __str__(self):
         return self.nombre

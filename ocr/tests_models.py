@@ -24,6 +24,7 @@ class UnidadAcademicaSingle(TestCase):
     def setUp(self):
         self.org = OrganoAcademico.objects.create(nombre=self.nombreO,tipo=self.tipoO)
         self.org.save()
+
         self.dep = UnidadAcademica.objects.create(nombre=self.nombreD)
         self.dep.save()
         self.dep.organo.add(self.org)
@@ -39,3 +40,49 @@ class UnidadAcademicaSingle(TestCase):
     def test_unidadCorrectamenteEnOrgano(self):
         """Setea correctamente la unidad adscrita al organo"""
         self.assertTrue(self.org.adscritoa.filter(nombre=self.dep.nombre).exists())
+
+
+class ProgramaSingle(TestCase):
+    """Un único programa presente"""
+
+    nombreO='División de Ciencias Básicas'
+    tipoO='Divi'
+    nombreD='Departamento de Ciencias Repetidas'
+
+    codigo = "CI3131"
+    denominacion = "Aprendiendo Django a la fuerza"
+    fecha_periodo = "2"
+    fecha_año = 1999
+    horas_teoria = 12
+    horas_practica = 9
+    horas_laboratorio = 2
+    creditos = 8
+
+    def setUp(self):
+        self.org = OrganoAcademico.objects.create(nombre=self.nombreO,tipo=self.tipoO)
+        self.org.save()
+
+        self.dep = UnidadAcademica.objects.create(nombre=self.nombreD)
+        self.dep.save()
+        self.dep.organo.add(self.org)
+
+        self.pro = Programa.objects.create(
+            codigo=             self.codigo,
+            denominacion=       self.denominacion,
+            fecha_periodo=      self.fecha_periodo,
+            fecha_año=          self.fecha_año,
+            horas_teoria=       self.horas_teoria,
+            horas_practica=     self.horas_practica,
+            horas_laboratorio=  self.horas_laboratorio,
+            creditos=           self.creditos,
+            departamento=       self.dep
+        )
+        self.pro.save()
+
+    def test_printsOk(self):
+        """Model prints as it should"""
+        self.assertEqual(self.pro.__str__(), self.pro.codigo + " (" + self.pro.PERIODOS[int(self.pro.fecha_periodo)][1] + " " + str(self.pro.fecha_año) + ")")
+
+    def test_depCorrecto(self):
+        """Setea correctamente el departamento que la regula"""
+        self.assertEqual(self.pro.departamento, self.dep)

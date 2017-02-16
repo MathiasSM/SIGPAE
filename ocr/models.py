@@ -88,12 +88,13 @@ class Programa(models.Model):
         max_length=40,
         help_text="El nombre completo de la materia",
         verbose_name="nombre")
+    PERIODOS=(('1','Enero-Marzo'),
+            ('2','Abril-Julio'),
+            ('3','Verano'),
+            ('4','Septiembre-Diciembre'))
     fecha_periodo                                       = models.CharField(
         max_length=1,
-        choices=(('1','Enero-Marzo'),
-                ('2','Abril-Julio'),
-                ('3','Verano'),
-                ('4','Septiembre-Diciembre')),
+        choices=PERIODOS,
         help_text="El trimestre cuando entra en vigencia el programa",
         verbose_name="trimestre")
     fecha_año                                           = models.PositiveSmallIntegerField(
@@ -115,16 +116,20 @@ class Programa(models.Model):
         verbose_name="créditos")
     objetivos                                           = models.TextField(
         help_text="Los objetivos de la materia",
-        verbose_name="objetivos")
+        verbose_name="objetivos",
+        blank=True)
     contenidos_sinopticos                               = models.TextField(
         help_text="Resumen del contenido de la materia",
-        verbose_name="contenido")
+        verbose_name="contenido",
+        blank=True)
     estrategias_metodologicas                           = models.TextField(
         help_text="Las estratégias metodológicas de enseñanza utilizadas",
-        verbose_name="estretegias metodológicas")
+        verbose_name="estretegias metodológicas",
+        blank=True)
     estrategias_evaluacion                              = models.TextField(
         help_text="Las estrategias de evaluación utilizadas",
-        verbose_name="estrategias de evaluación")
+        verbose_name="estrategias de evaluación",
+        blank=True)
     departamento                                        = models.ForeignKey(
         UnidadAcademica, on_delete=models.CASCADE,
         help_text="El departamento responsable por la asignatura",

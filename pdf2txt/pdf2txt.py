@@ -39,16 +39,16 @@ def convertImgPdf(pdfName):
     images = sorted([f for f in listdir(tempDir)])
     returnText = ""
     
+    try:
+        tool = (pyocr.get_available_tools())[0]
+    except:
+        #print("No se encontro una herramienta OCR.")
+        #print("Instale tesseract-ocr.")
+        shutil.rmtree(tempDir)
+        return('')
+
     # Running tesseract-ocr over the images... 
     for img in images:
-        try:
-            tool = (pyocr.get_available_tools())[0]
-        except:
-            #print("No se encontro una herramienta OCR.")
-            #print("Instale tesseract-ocr.")
-            shutil.rmtree(tempDir)
-            return('')
-            
         builder = pyocr.builders.TextBuilder()
         txt = tool.image_to_string(
             PIL.Image.open(tempDir  + '/'+ img),

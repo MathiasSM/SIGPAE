@@ -62,6 +62,7 @@ class Programa(models.Model):
     # bibliografia (Otra tabla, 1aN)
     departamento = models.ForeignKey(UnidadAcademica, on_delete=models.CASCADE,
                                 help_text="El departamento responsable por la asignatura", verbose_name="departamento")
+
     def determinar_lugar(instance, filename):
         dept = UnidadAcademica.objects.get(programa__codigo=instance.codigo)
         periodo = instance.fecha_periodo
@@ -103,7 +104,6 @@ class Programa(models.Model):
             raise ValidationError('No está permitido registrar programas que aun no entran en vigencia')
 
 
-from ocr.pdf2txt.pdf2txt import *
 class PDFAnonimo(models.Model):
     pdf     = models.FileField(upload_to='tmp', help_text="El PDF del programa a analizar", verbose_name="pdf")
     tipo    = models.CharField(max_length=1, choices=(('T','Texto'),('I','Imagen')), help_text="El tipo de PDF a analizar", verbose_name="tipo")

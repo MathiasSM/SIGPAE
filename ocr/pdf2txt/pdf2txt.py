@@ -15,15 +15,24 @@ import pyocr.builders
 
 import PyPDF2
 
+import magic
+
+class NoTesseractError(Exception):
+    pass
+
+class BadFormatError(Exception):
+    pass
+
 
 # Library for extracting text out of a pdf file.
 
+def checkPdfFile(pdfName):
+    open(pdfName)
+    if not ("pdf" in magic.from_file(pdfName, mime=True).lower()):
+        raise BadFormatError
+
 def convertImgPdf(pdfName):
-    try:
-        open(pdfName)
-    except:
-        return('')
-        # Throw exception
+    checkPdfFile(pdfName)
 
     tempDir = os.path.abspath(tempfile.mkdtemp())
     # Fetching images...
@@ -39,16 +48,14 @@ def convertImgPdf(pdfName):
     images = sorted([f for f in listdir(tempDir)])
     returnText = ""
     
+    try:
+        tool = (pyocr.get_available_tools())[0]
+    except:
+        shutil.rmtree(tempDir)
+        raise NoTesseractError
+
     # Running tesseract-ocr over the images... 
     for img in images:
-        try:
-            tool = (pyocr.get_available_tools())[0]
-        except:
-            #print("No se encontro una herramienta OCR.")
-            #print("Instale tesseract-ocr.")
-            shutil.rmtree(tempDir)
-            return('')
-            
         builder = pyocr.builders.TextBuilder()
         txt = tool.image_to_string(
             PIL.Image.open(tempDir  + '/'+ img),
@@ -60,12 +67,8 @@ def convertImgPdf(pdfName):
 
 
 def convertTxtPdf(pdfName):
-    try:
-        pdfFile = open(pdfName, 'rb')
-    except:
-        return('')
-        # Throw exception
-    
+    checkPdfFile(pdfName)
+    pdfFile = open(pdfName, 'rb')
     readPdf = PyPDF2.PdfFileReader(pdfFile)
     numberOfPages = readPdf.getNumPages()
     returnText = ""

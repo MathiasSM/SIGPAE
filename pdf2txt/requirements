@@ -5,6 +5,7 @@
 wand
 pyocr
 pypdf2
+python-magic
 
 # to install these libraries run
 # $ pip install -r requirements

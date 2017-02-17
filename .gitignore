@@ -145,3 +145,4 @@ local.properties
 
 #########################
 media/
+db.sqlite3

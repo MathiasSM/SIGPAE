@@ -146,3 +146,5 @@ local.properties
 #########################
 media/
 db.sqlite3
+#Not a good practice but it's driving us mad
+ocr/migrations/

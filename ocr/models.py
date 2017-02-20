@@ -2,6 +2,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import *
 import datetime
+import os
+from django.conf import settings
+
 
 class OrganoAcademico(models.Model):
     """Entidad que agrupa departamentos/coordinaciones en divisiones/decanatos
@@ -54,6 +57,11 @@ class UnidadAcademica(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    def save(self, *args, **kwargs):
+        os.mkdir(settings.MEDIA_ROOT+"/"+self.nombre)
+        super(UnidadAcademica,self).save(*args, **kwargs)
+
 
 
 class Programa(models.Model):
@@ -191,7 +199,8 @@ class PDFAnonimo(models.Model):
         verbose_name="tipo")
     texto                                               = models.TextField(
         help_text="El texto extraído del PDF",
-        verbose_name="texto extraído")
+        verbose_name="texto extraído",
+        blank=True)
 
     def __str__(self):
         """Imprime como nombre del PDF"""

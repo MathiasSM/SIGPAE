@@ -24,15 +24,14 @@ class PDFForm(BaseModelForm):
 
     def save(self, commit=True):
         instance = super(PDFForm, self).save(commit=False)
-        filename = get_valid_filename(instance.pdf.name)
-        print("HELLO" +settings.MEDIA_ROOT+'/tmp/'+ filename)
-        if self.cleaned_data['tipo']=='I':
-            instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/tmp/'+filename)
-        else:
-            instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/tmp/'+filename)
 
         if commit:
             instance.save()
+            # if self.cleaned_data['tipo']=='I':
+            #     instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            # else:
+            #     instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
         return instance
 
 class ProgramaForm(BaseModelForm):

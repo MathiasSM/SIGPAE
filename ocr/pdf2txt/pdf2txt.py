@@ -36,7 +36,7 @@ def convertImgPdf(pdfName):
 
     tempDir = os.path.abspath(tempfile.mkdtemp())
     # Fetching images...
-    with wand.image.Image(filename=pdfName, resolution=300) as original:
+    with wand.image.Image(filename=pdfName, resolution=250) as original:
         with original.convert('png') as imgs:
             i = 0
             for imgi in imgs.sequence:
@@ -46,7 +46,6 @@ def convertImgPdf(pdfName):
                 img.save(filename = tempDir  + '/'+ str(i) + '.png')
                 i += 1
     images = sorted([f for f in listdir(tempDir)])
-    returnText = ""
     
     try:
         tool = (pyocr.get_available_tools())[0]
@@ -54,6 +53,8 @@ def convertImgPdf(pdfName):
         shutil.rmtree(tempDir)
         raise NoTesseractError
 
+
+    returnText = ""
     # Running tesseract-ocr over the images... 
     for img in images:
         builder = pyocr.builders.TextBuilder()
@@ -65,6 +66,45 @@ def convertImgPdf(pdfName):
     shutil.rmtree(tempDir)
     return returnText
 
+
+def convertImgPdf2HTML(pdfName):
+    checkPdfFile(pdfName)
+
+    tempDir = os.path.abspath(tempfile.mkdtemp())
+    # Fetching images...
+    with wand.image.Image(filename=pdfName, resolution=250) as original:
+        with original.convert('png') as imgs:
+            i = 0
+            for imgi in imgs.sequence:
+                img = wand.image.Image(image=imgi)
+                img.background_color = Color("white")
+                img.alpha_channel = 'remove'
+                img.save(filename = tempDir  + '/'+ str(i) + '.png')
+                i += 1
+    images = sorted([f for f in listdir(tempDir)])
+    
+    try:
+        tool = (pyocr.get_available_tools())[0]
+    except:
+        shutil.rmtree(tempDir)
+        raise NoTesseractError
+
+
+    builder = pyocr.builders.LineBoxBuilder()
+    all_lines = []
+    for img in images:
+        line_boxes = tool.image_to_string(
+            PIL.Image.open(tempDir  + '/'+ img),
+            lang="spa",
+            builder=builder)
+        # list of LineBox (each box points to a list of word boxes)
+        all_lines = all_lines + line_boxes
+
+    with codecs.open("htmlOutput.html", 'w', encoding='utf-8') as file_descriptor:
+        builder.write_file(file_descriptor, all_lines)
+    shutil.rmtree(tempDir)
+
+        
 
 def convertTxtPdf(pdfName):
     checkPdfFile(pdfName)

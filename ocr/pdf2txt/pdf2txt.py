@@ -31,11 +31,11 @@ def checkPdfFile(pdfName):
     if not ("pdf" in magic.from_file(pdfName, mime=True).lower()):
         raise BadFormatError
 
-def convertImgPdf(pdfName):
+def getImagesAndTmpDir(pdfName):
     checkPdfFile(pdfName)
-
     tempDir = os.path.abspath(tempfile.mkdtemp())
     # Fetching images...
+
     with wand.image.Image(filename=pdfName, resolution=250) as original:
         with original.convert('png') as imgs:
             i = 0
@@ -46,57 +46,44 @@ def convertImgPdf(pdfName):
                 img.save(filename = tempDir  + '/'+ str(i) + '.png')
                 i += 1
     images = sorted([f for f in listdir(tempDir)])
-    
+    return images, tempDir
+
+def getOCR():
     try:
         tool = (pyocr.get_available_tools())[0]
+        return tool
     except:
         shutil.rmtree(tempDir)
         raise NoTesseractError
 
 
+def convertImgPdf(pdfName):
+    images, tempDir = getImagesAndTmpDir(pdfName)
+    tool = getOCR()
+
+    builder = pyocr.builders.TextBuilder()
     returnText = ""
     # Running tesseract-ocr over the images... 
     for img in images:
-        builder = pyocr.builders.TextBuilder()
         txt = tool.image_to_string(
             PIL.Image.open(tempDir  + '/'+ img),
-            lang="spa",
-            builder=builder)
+            lang="spa", builder=builder)
         returnText = returnText + txt
     shutil.rmtree(tempDir)
     return returnText
 
 
 def convertImgPdf2HTML(pdfName):
-    checkPdfFile(pdfName)
-
-    tempDir = os.path.abspath(tempfile.mkdtemp())
-    # Fetching images...
-    with wand.image.Image(filename=pdfName, resolution=250) as original:
-        with original.convert('png') as imgs:
-            i = 0
-            for imgi in imgs.sequence:
-                img = wand.image.Image(image=imgi)
-                img.background_color = Color("white")
-                img.alpha_channel = 'remove'
-                img.save(filename = tempDir  + '/'+ str(i) + '.png')
-                i += 1
-    images = sorted([f for f in listdir(tempDir)])
-    
-    try:
-        tool = (pyocr.get_available_tools())[0]
-    except:
-        shutil.rmtree(tempDir)
-        raise NoTesseractError
-
+    images, tempDir = getImagesAndTmpDir(pdfName)
+    tool = getOCR()
 
     builder = pyocr.builders.LineBoxBuilder()
     all_lines = []
     for img in images:
         line_boxes = tool.image_to_string(
             PIL.Image.open(tempDir  + '/'+ img),
-            lang="spa",
-            builder=builder)
+            lang="spa", builder=builder)
+
         # list of LineBox (each box points to a list of word boxes)
         all_lines = all_lines + line_boxes
 

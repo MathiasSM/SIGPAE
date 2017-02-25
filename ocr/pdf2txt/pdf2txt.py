@@ -38,7 +38,7 @@ def getImagesAndTmpDir(pdfName):
     tempDir = os.path.abspath(tempfile.mkdtemp())
     # Fetching images...
 
-    with wand.image.Image(filename=pdfName, resolution=250) as original:
+    with wand.image.Image(filename=pdfName, resolution=220) as original:
         with original.convert('png') as imgs:
             i = 0
             for imgi in imgs.sequence:

@@ -17,6 +17,8 @@ import PyPDF2
 
 import magic
 
+from multiprocessing import Process, Pipe
+
 class NoTesseractError(Exception):
     pass
 
@@ -50,14 +52,51 @@ def getImagesAndTmpDir(pdfName):
 
 def getOCR():
     try:
-        tool = (pyocr.get_available_tools())[0]
+        tool = (pyocr.get_available_tools())[0] # FIX
+                                    # should try to get tesseract
+                                    # even if there are other tools
         return tool
     except:
         shutil.rmtree(tempDir)
         raise NoTesseractError
 
+def convertImgPdfPageProcess(chPipe, pageImg, tool, builder):
+    txt = tool.image_to_string(
+        PIL.Image.open(pageImg),
+        lang="spa", builder=builder)
+    chPipe.send(txt)
+    chPipe.close()
 
 def convertImgPdf(pdfName):
+    images, tempDir = getImagesAndTmpDir(pdfName)
+    tool = getOCR()
+    builder = pyocr.builders.TextBuilder()
+    
+    # Running tesseract-ocr over the images...
+    childs = []
+    pipes = []
+    for img in images:
+        parPipe, chPipe = Pipe()
+        pageImg = tempDir  + '/'+ img
+        nChild = Process(target=convertImgPdfPageProcess,
+                    args=(chPipe, pageImg, tool, builder))
+        childs.append(nChild)
+        pipes.append(parPipe)
+
+    for c in childs:
+        c.start()
+    for c in childs:
+        c.join()
+
+    returnText = ""
+    for p in pipes:
+        returnText = returnText + p.recv()
+
+    shutil.rmtree(tempDir)
+    return returnText
+
+
+def convertImgPdf1Process(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
     tool = getOCR()
 
@@ -71,6 +110,7 @@ def convertImgPdf(pdfName):
         returnText = returnText + txt
     shutil.rmtree(tempDir)
     return returnText
+
 
 
 def convertImgPdf2HTML(pdfName):

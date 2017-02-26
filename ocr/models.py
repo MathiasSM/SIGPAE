@@ -1,3 +1,5 @@
+u""""""
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import *
@@ -17,8 +19,8 @@ class OrganoAcademico(models.Model):
         return self.nombre
 
     class Meta:
-        verbose_name = "órgano académico"
-        verbose_name_plural = "órganos académicos"
+        verbose_name = u"órgano académico"
+        verbose_name_plural = u"órganos académicos"
 
 
 
@@ -31,14 +33,14 @@ class UnidadAcademica(models.Model):
 
     class Meta:
     #    order_with_respect_to = "organo"
-        verbose_name = "unidad académica"
-        verbose_name_plural = "unidades académicas"
+        verbose_name = u"unidad académica"
+        verbose_name_plural = u"unidades académicas"
 
 
 class Programa(models.Model):
     codigo = models.CharField(max_length=6, validators=[RegexValidator(regex='^([A-Z0-9]){6}$')],
-                                help_text="El código de la materia", verbose_name="código")
-    denominacion = models.CharField(max_length=40, help_text="El nombre completo de la materia", verbose_name="nombre")
+                                help_text=u"El código de la materia", verbose_name="código")
+    denominacion = models.CharField(max_length=40, help_text=u"El nombre completo de la materia", verbose_name="nombre")
     PERIODOS = (
         ('1', 'Enero-Marzo'),
         ('2', 'Abril-Julio'),
@@ -47,7 +49,7 @@ class Programa(models.Model):
     )
     fecha_periodo       = models.CharField(max_length=1, choices=PERIODOS,
                                 help_text="El trimestre cuando entra en vigencia el programa", verbose_name="trimestre")
-    fecha_año           = models.PositiveSmallIntegerField(validators=[MinValueValidator(1967)],
+    fecha_year           = models.PositiveSmallIntegerField(validators=[MinValueValidator(1967)],
                                 help_text="El año cuando entra en vigencia el programa", verbose_name="año")
     horas_teoria        = models.PositiveSmallIntegerField(help_text="El número de horas de teoría semanales", verbose_name="horas de teoría")
     horas_practica      = models.PositiveSmallIntegerField(help_text="El número de horas de práctica semanales", verbose_name="horas de práctica")
@@ -69,16 +71,16 @@ class Programa(models.Model):
         elif periodo[0] == 'A': periodo="AJ"
         elif periodo[0] == 'V': periodo="VE"
         else:                   periodo="SD"
-        return "%s/%s-%s-%s.pdf" % (dept, instance.codigo, instance.fecha_año, periodo)
+        return "%s/%s-%s-%s.pdf" % (dept, instance.codigo, instance.fecha_year, periodo)
     pdf = models.FileField(upload_to=determinar_lugar, help_text="El PDF del programa a analizar", verbose_name="pdf")
 
     def __str__(self):
-        return self.codigo + " (" + self.PERIODOS[int(self.fecha_periodo)][1] + " " + str(self.fecha_año) + ")"
+        return self.codigo + " (" + self.PERIODOS[int(self.fecha_periodo)][1] + " " + str(self.fecha_year) + ")"
 
     class Meta:
-        unique_together = ("codigo", "fecha_periodo", "fecha_año")
+        unique_together = ("codigo", "fecha_periodo", "fecha_year")
         verbose_name = "programa"
-        ordering = ["departamento", "fecha_año", "fecha_periodo"]
+        ordering = ["departamento", "fecha_year", "fecha_periodo"]
 
     def clean_pdf(self):
         files = self.cleaned_data.get('pdf')
@@ -94,7 +96,7 @@ class Programa(models.Model):
         ht = self.horas_teoria
         hp = self.horas_practica
         hl = self.horas_laboratorio
-        fa = self.fecha_año
+        fa = self.fecha_year
         if not (ht and hp and hl and fa):
             raise ValidationError('Falta información')
         if ht + hp + hl > 40:

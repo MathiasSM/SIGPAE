@@ -95,7 +95,7 @@ class Programa(models.Model):
         help_text="El código de la materia",
         verbose_name="código")
     denominacion                                        = models.CharField(
-        max_length=40,
+        max_length=100,
         help_text="El nombre completo de la materia",
         verbose_name="nombre")
     fecha_periodo                                       = models.CharField(

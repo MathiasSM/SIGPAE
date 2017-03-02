@@ -100,14 +100,14 @@ class Programa(models.Model):
         verbose_name="nombre")
     fecha_periodo                                       = models.CharField(
         max_length=1,
-        choices=(('1','Enero-Marzo'),
-                ('2','Abril-Julio'),
-                ('3','Verano'),
-                ('4','Septiembre-Diciembre')),
+        choices=(('1','ene-mar'),
+                ('2','abr-jul'),
+                ('3','intensivo'),
+                ('4','sep-dic')),
         help_text="El trimestre cuando entra en vigencia el programa",
         verbose_name="trimestre")
     fecha_año                                           = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1967)],
+        validators=[MinValueValidator(1969)],
         help_text="El año cuando entra en vigencia el programa",
         verbose_name="año")
     horas_teoria                                        = models.PositiveSmallIntegerField(

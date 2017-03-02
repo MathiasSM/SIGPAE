@@ -23,7 +23,7 @@ def index(request):
         else:
             print("None valid.")
             pdf_form = PDFForm()
-            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
+            return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
 
     else:
         pdf_form = PDFForm()

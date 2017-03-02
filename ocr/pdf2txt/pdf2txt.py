@@ -31,24 +31,44 @@ class BadFormatError(Exception):
 # Library for extracting text out of a pdf file.
 
 def checkPdfFile(pdfName):
-    open(pdfName)
+    tmp = open(pdfName)
     if not ("pdf" in magic.from_file(pdfName, mime=True).lower()):
         raise BadFormatError
+
+
+def getSeparatePages(pdfName, pdfsDir):
+    pdfFileObj = open(pdfName, 'rb')
+    pdfReader = PyPDF2.PdfFileReader(pdfFileObj, False)
+
+    # saves pages in pdfsDir
+    for i in range(pdfReader.numPages):
+        pdfWriter = PyPDF2.PdfFileWriter()
+        pageObj = pdfReader.getPage(i)
+        pdfWriter.addPage(pageObj)
+        pdfOutput = open(pdfsDir  + '/'+ str(i) + '.pdf', 'wb')
+        pdfWriter.write(pdfOutput)
+        pdfOutput.close()
+
+    return pdfReader.numPages
+
 
 def getImagesAndTmpDir(pdfName):
     checkPdfFile(pdfName)
     tempDir = os.path.abspath(tempfile.mkdtemp())
-    # Fetching images...
+    pdfsDir = os.path.abspath(tempfile.mkdtemp())
 
-    with wand.image.Image(filename=pdfName, resolution=220) as original:
-        with original.convert('png') as imgs:
-            i = 0
-            for imgi in imgs.sequence:
-                img = wand.image.Image(image=imgi)
-                img.background_color = Color("white")
-                img.alpha_channel = 'remove'
-                img.save(filename = tempDir  + '/'+ str(i) + '.png')
-                i += 1
+    nPages = getSeparatePages(pdfName, pdfsDir)
+
+    for i in range(nPages):
+        with wand.image.Image(filename=pdfsDir + '/' + str(i) + '.pdf', resolution=220) as original:
+            with original.convert('png') as imgs:
+                for imgi in imgs.sequence:
+                    img = wand.image.Image(image=imgi)
+                    img.background_color = Color("white")
+                    img.alpha_channel = 'remove'
+                    img.save(filename = tempDir  + '/'+ str(i) + '.png')
+                    break
+
     images = sorted([f for f in listdir(tempDir)])
     return images, tempDir
 
@@ -71,6 +91,8 @@ def convertImgPdfPageProcess(chPipe, pageImg, tool, builder):
         lang="spa", builder=builder)
     chPipe.send(txt)
     chPipe.close()
+
+
 
 def convertImgPdf(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
@@ -105,8 +127,7 @@ def convertImgPdf(pdfName):
 
 
 
-
-
+# JustInCase
 def convertImgPdf1Process(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
     tool = getOCR()
@@ -120,12 +141,12 @@ def convertImgPdf1Process(pdfName):
             lang="spa", builder=builder)
         returnText = returnText + txt
     shutil.rmtree(tempDir)
-    return returnText
+    return cleanText(returnText)
 
 
 # HOCR
 # Unnaceptable
-def convertImgPdf2HTML(pdfName):
+def convertImgPdf2HOCR(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
     tool = getOCR()
 
@@ -153,5 +174,4 @@ def convertTxtPdf(pdfName):
     returnText = ""
     for i in range(numberOfPages):
         returnText = returnText + readPdf.getPage(i).extractText()
-    return returnText 
-    
+    return cleanText(returnText)

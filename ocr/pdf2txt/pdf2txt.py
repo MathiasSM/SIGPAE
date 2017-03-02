@@ -39,7 +39,7 @@ def checkPdfFile(pdfName):
 
 
 # Breaks a pdf file into one-page pdf files, saving them in pdfsDir
-# Return number of pages
+# Returns number of pages
 def getSeparatePages(pdfName, pdfsDir):
     pdfFileObj = open(pdfName, 'rb')
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj, False)
@@ -55,7 +55,7 @@ def getSeparatePages(pdfName, pdfsDir):
 
     return pdfReader.numPages
 
-# Function that get a high quality image from a one-page pdf file
+# Gets a high quality image from a one-page pdf file
 # and saves it into ImgsDir
 def getPageImg(pdfsDir, ImgsDir, n):
     with wand.image.Image(filename=pdfsDir + '/' + str(n) + '.pdf', resolution=220) as original:
@@ -67,7 +67,8 @@ def getPageImg(pdfsDir, ImgsDir, n):
                 img.save(filename = ImgsDir  + '/'+ str(n) + '.png')
                 break
 
-
+# Gets images from a pdf file and saves them into a tmp dir
+# In parallel
 def getImagesAndTmpDir(pdfName):
     checkPdfFile(pdfName)
     tempDir = os.path.abspath(tempfile.mkdtemp())

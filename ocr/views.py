@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
+from django.contrib import messages
 
 from .forms import *
 
@@ -22,6 +23,7 @@ def index(request):
             return render(request, 'ocr/archivo.html')
         else:
             print("None valid.")
+            messages.error(request, 'El archivo no parece ser un archivo PDF')
             pdf_form = PDFForm()
             return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
 

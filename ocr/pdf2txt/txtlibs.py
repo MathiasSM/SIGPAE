@@ -8,7 +8,7 @@ def cleanText(txt):
     return txt
 
 def htmlParagraph(par):
-    return '<p>\n' + par.group(0) + '<\p>\n'
+    return '<p>\n' + par.group(0)[:-2] + '<\p>\n'
 
 def txt2HTML(txt):
     txt = re.sub('>', '\>', txt)

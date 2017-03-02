@@ -143,7 +143,9 @@ def convertImgPdf(pdfName):
     shutil.rmtree(tempDir)
     return returnText
 
-
+def convertImgPdf2HTML(pdfName):
+    txt = convertImgPdf(pdfName)
+    return txt2HTML(txt)
 
 
 # JustInCase
@@ -161,6 +163,8 @@ def convertImgPdf1Process(pdfName):
         returnText = returnText + txt
     shutil.rmtree(tempDir)
     return cleanText(returnText)
+
+
 
 
 # HOCR

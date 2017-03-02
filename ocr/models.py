@@ -3,7 +3,9 @@ from django.core.exceptions import ValidationError
 from django.core.validators import *
 import datetime
 import os
+from ocr.validators import validate_pdf_ext_mime
 from django.conf import settings
+
 
 
 class OrganoAcademico(models.Model):
@@ -189,6 +191,7 @@ class PDFAnonimo(models.Model):
     herramientas incluídas."""
 
     pdf                                                 = models.FileField(
+        validators=[validate_pdf_ext_mime],
         upload_to='tmp',
         help_text="El PDF del programa a analizar",
         verbose_name="pdf")

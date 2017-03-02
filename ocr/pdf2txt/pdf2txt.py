@@ -17,6 +17,8 @@ import PyPDF2
 
 import magic
 
+from ocr.pdf2txt.txtlibs import *
+
 from multiprocessing import Process, Pipe
 
 class NoTesseractError(Exception):
@@ -60,6 +62,9 @@ def getOCR():
         shutil.rmtree(tempDir)
         raise NoTesseractError
 
+
+# Function of a process that runs OCR over an Img and sends
+# the output through a pipe.
 def convertImgPdfPageProcess(chPipe, pageImg, tool, builder):
     txt = tool.image_to_string(
         PIL.Image.open(pageImg),
@@ -92,8 +97,14 @@ def convertImgPdf(pdfName):
     for p in pipes:
         returnText = returnText + p.recv()
 
+    returnText = cleanText(returnText)
+
     shutil.rmtree(tempDir)
     return returnText
+
+
+
+
 
 
 def convertImgPdf1Process(pdfName):
@@ -112,7 +123,8 @@ def convertImgPdf1Process(pdfName):
     return returnText
 
 
-
+# HOCR
+# Unnaceptable
 def convertImgPdf2HTML(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
     tool = getOCR()

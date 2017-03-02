@@ -30,12 +30,16 @@ class BadFormatError(Exception):
 
 # Library for extracting text out of a pdf file.
 
+
+# Checks a pdf file
 def checkPdfFile(pdfName):
     tmp = open(pdfName)
     if not ("pdf" in magic.from_file(pdfName, mime=True).lower()):
         raise BadFormatError
 
 
+# Breaks a pdf file into one-page pdf files, saving them in pdfsDir
+# Return number of pages
 def getSeparatePages(pdfName, pdfsDir):
     pdfFileObj = open(pdfName, 'rb')
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj, False)
@@ -51,6 +55,18 @@ def getSeparatePages(pdfName, pdfsDir):
 
     return pdfReader.numPages
 
+# Function that get a high quality image from a one-page pdf file
+# and saves it into ImgsDir
+def getPageImg(pdfsDir, ImgsDir, n):
+    with wand.image.Image(filename=pdfsDir + '/' + str(n) + '.pdf', resolution=220) as original:
+        with original.convert('png') as imgs:
+            for imgi in imgs.sequence:
+                img = wand.image.Image(image=imgi)
+                img.background_color = Color("white")
+                img.alpha_channel = 'remove'
+                img.save(filename = ImgsDir  + '/'+ str(n) + '.png')
+                break
+
 
 def getImagesAndTmpDir(pdfName):
     checkPdfFile(pdfName)
@@ -59,17 +75,19 @@ def getImagesAndTmpDir(pdfName):
 
     nPages = getSeparatePages(pdfName, pdfsDir)
 
+    childs = []
     for i in range(nPages):
-        with wand.image.Image(filename=pdfsDir + '/' + str(i) + '.pdf', resolution=220) as original:
-            with original.convert('png') as imgs:
-                for imgi in imgs.sequence:
-                    img = wand.image.Image(image=imgi)
-                    img.background_color = Color("white")
-                    img.alpha_channel = 'remove'
-                    img.save(filename = tempDir  + '/'+ str(i) + '.png')
-                    break
+        nChild = Process(target=getPageImg,
+                    args=(pdfsDir, tempDir, i))
+        childs.append(nChild)
+
+    for c in childs:
+        c.start()
+    for c in childs:
+        c.join()
 
     images = sorted([f for f in listdir(tempDir)])
+    shutil.rmtree(pdfsDir)
     return images, tempDir
 
 def getOCR():

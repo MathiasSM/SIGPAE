@@ -36,7 +36,7 @@ class PDFForm(BaseModelForm):
 
 class ProgramaForm(BaseModelForm):
     class Meta:
-        model = Programa
+        model = Programa_Borrador
         exclude = [ 'pdf', ]
 
     pdf_url = forms.CharField(max_length=100, widget = forms.HiddenInput())
@@ -57,5 +57,3 @@ class ProgramaForm(BaseModelForm):
         if commit:
             instance.save()
         return instance
-
-

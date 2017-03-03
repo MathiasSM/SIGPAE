@@ -2,8 +2,13 @@
 {%load static%}
 
 {% block content %}
-<main class="two-col">
-FINALLY
+<main>
+<table>
+  <tr><th>Código</th><th>Nombre</th><th>Período</th><th>Año</th><th>Acción</th></tr>
+  {% for borrador in borradores %}
+  <tr><td>{{borrador.codigo}}</td><td>{{borrador.denominacion}}</td><td>{{borrador.get_fecha_periodo_display}}</td><td>{{borrador.fecha_año}}</td><td><a href="#">Editar</td></tr>
+  {% endfor %}
+</table>
 </main>
 {% endblock content %}
 

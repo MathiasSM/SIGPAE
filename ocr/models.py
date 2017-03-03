@@ -208,9 +208,7 @@ class Programa_Borrador(models.Model):
         max_length=6,
         validators=[RegexValidator(regex='^([A-Z0-9]){6}$')],
         help_text="El código de la materia",
-        verbose_name="código",
-        blank=True,
-        null=True)
+        verbose_name="código")
     denominacion                                        = models.CharField(
         max_length=100,
         help_text="El nombre completo de la materia",
@@ -224,15 +222,11 @@ class Programa_Borrador(models.Model):
                 ('3','intensivo'),
                 ('4','sep-dic')),
         help_text="El trimestre cuando entra en vigencia el programa",
-        verbose_name="trimestre",
-        blank=True,
-        null=True)
+        verbose_name="trimestre")
     fecha_año                                           = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1969)],
         help_text="El año cuando entra en vigencia el programa",
-        verbose_name="año",
-        blank=True,
-        null=True)
+        verbose_name="año")
     horas_teoria                                        = models.PositiveSmallIntegerField(
         help_text="El número de horas de teoría semanales",
         verbose_name="horas de teoría",
@@ -274,7 +268,7 @@ class Programa_Borrador(models.Model):
         verbose_name="estrategias de evaluación",
         blank=True,
         null=True)
-    Instancia                                           = models.ForeignKey(
+    instancia                                           = models.ForeignKey(
         Instancia, on_delete=models.CASCADE,
         help_text="Instancia responsable por la asignatura",
         verbose_name="instancia")
@@ -307,4 +301,3 @@ class Programa_Borrador(models.Model):
             else:
                 raise forms.ValidationError("No se pudo leer el archivo.")
         return files
-

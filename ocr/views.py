@@ -35,3 +35,5 @@ def index(request):
 # View del archivo de programas
 def archivo(request):
     return render(request, 'ocr/archivo.html')
+
+

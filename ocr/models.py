@@ -7,62 +7,25 @@ from ocr.validators import validate_pdf_ext_mime
 from django.conf import settings
 
 
-
-class OrganoAcademico(models.Model):
-    """Entidad que agrupa departamentos/coordinaciones en divisiones/decanatos
-
-    Sus atributos son el nombre del órgano y el tipo (Decanato, Divisón u Otro).
-    Se utilizará principalemente para organización interna de las unidades que manejen
-    programas de estudio.
+class Instancia(models.Model):
+    """Instancia responsable del programa de estudio.
     """
 
     class Meta:
-        verbose_name = "órgano académico"
-        verbose_name_plural = "órganos académicos"
-
-    nombre                                              = models.CharField(
-        max_length=70,
-        help_text="El nombre completo del órgano académico",
-        verbose_name="nombre")
-    tipo                                                = models.CharField(
-        max_length=4,
-        choices=(('Deca', 'Decanato'),
-                ('Divi', 'División'),
-                ('Otro', 'Otro')),
-        help_text="El tipo de órgano académico (decanato, división, etc.)",
-        verbose_name="tipo")
-
-    def __str__(self):
-        return self.nombre
-
-
-class UnidadAcademica(models.Model):
-    """Entidad (como un departamento) que maneja programas de estudio
-
-    Sus atributos son el nombre de la unidad y los órganos a los que está adscrita.
-    Esta relación es de N a N, pues un órgano tiene varias unidades y la misma
-    puede pertenecer a varios órganos.
-    """
-
-    class Meta:
-        verbose_name = "unidad académica"
-        verbose_name_plural = "unidades académicas"
+        verbose_name = "instancia"
+        verbose_name_plural = "instancias"
 
     nombre                                              = models.CharField(
         max_length=40,
         help_text="El nombre completo de la unidad académica",
         verbose_name="nombre")
-    organo                                              = models.ManyToManyField(OrganoAcademico,
-        help_text="Relación de pertencia a órgano académico",
-        verbose_name="organos",
-        related_name="adscritoa")
 
     def __str__(self):
         return self.nombre
 
     def save(self, *args, **kwargs):
         os.mkdir(settings.MEDIA_ROOT+"/"+self.nombre)
-        super(UnidadAcademica,self).save(*args, **kwargs)
+        super(Instancia,self).save(*args, **kwargs)
 
 
 
@@ -135,13 +98,16 @@ class Programa(models.Model):
     estrategias_evaluacion                              = models.TextField(
         help_text="Las estrategias de evaluación utilizadas",
         verbose_name="estrategias de evaluación")
-    departamento                                        = models.ForeignKey(
-        UnidadAcademica, on_delete=models.CASCADE,
-        help_text="El departamento responsable por la asignatura",
-        verbose_name="departamento")
+    requisito                                           = models.TextField(
+        help_text="Requisitos para cursar la materia",
+        verbose_name="requisito")
+    instancia                                           = models.ForeignKey(
+        Instancia, on_delete=models.CASCADE,
+        help_text="Instancia responsable por la asignatura",
+        verbose_name="instancia")
     def determinar_lugar(instance, filename):
         """Callable para determinar lugar apropiado en el FS para el PDF subido."""
-        dept = UnidadAcademica.objects.get(programa__codigo=instance.codigo)
+        dept = Instancia.objects.get(programa__codigo=instance.codigo)
         periodo = instance.fecha_periodo
         if periodo[0] == 'E':   periodo="EM"
         elif periodo[0] == 'A': periodo="AJ"
@@ -210,33 +176,9 @@ class PDFAnonimo(models.Model):
         return self.pdf.name
 
 
-class Requisito(models.Model):
-    """Entidad relacionada a Programa (N a 1); se refiere a las materias requisito para el curso
-
-    Sus atributos son el texto que señala el requisito, así como el programa al
-    al cual se refiere."""
-
-    class Meta:
-        order_with_respect_to = "programa"
-        verbose_name = "requisito"
-        verbose_name_plural = "requisitos"
-
-    texto                                               = models.CharField(
-        max_length=500,
-        help_text="Un requisito de la asignatura (para un programa específico)",
-        verbose_name="requisito")
-    programa                                            = models.ForeignKey(
-        Programa, on_delete=models.CASCADE,
-        help_text="El programa de la asignatura que lo requiere",
-        verbose_name="programa")
-
-    def __str__(self):
-        """Imprime como parte inicial del texto"""
-        return self.texto[:30]
-
 
 class ReferenciaBibliografica(models.Model):
-    """Entidad relacionada a PRograma (N a 1); se refiere a libros u otro material de apoyo en el curso.
+    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
 
     Sus atributos son el texto que señala la referencia bibliográfica, así como el
     programa al cual se refiere."""
@@ -258,3 +200,111 @@ class ReferenciaBibliografica(models.Model):
     def __str__(self):
         """Imprime como un extracto de la referencia"""
         return self.texto[:30]
+
+
+class Programa_Borrador(models.Model):
+
+    codigo                                              = models.CharField(
+        max_length=6,
+        validators=[RegexValidator(regex='^([A-Z0-9]){6}$')],
+        help_text="El código de la materia",
+        verbose_name="código",
+        blank=True,
+        null=True)
+    denominacion                                        = models.CharField(
+        max_length=100,
+        help_text="El nombre completo de la materia",
+        verbose_name="nombre",
+        blank=True,
+        null=True)
+    fecha_periodo                                       = models.CharField(
+        max_length=1,
+        choices=(('1','ene-mar'),
+                ('2','abr-jul'),
+                ('3','intensivo'),
+                ('4','sep-dic')),
+        help_text="El trimestre cuando entra en vigencia el programa",
+        verbose_name="trimestre",
+        blank=True,
+        null=True)
+    fecha_año                                           = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1969)],
+        help_text="El año cuando entra en vigencia el programa",
+        verbose_name="año",
+        blank=True,
+        null=True)
+    horas_teoria                                        = models.PositiveSmallIntegerField(
+        help_text="El número de horas de teoría semanales",
+        verbose_name="horas de teoría",
+        blank=True,
+        null=True)
+    horas_practica                                      = models.PositiveSmallIntegerField(
+        help_text="El número de horas de práctica semanales",
+        verbose_name="horas de práctica",
+        blank=True,
+        null=True)
+    horas_laboratorio                                   = models.PositiveSmallIntegerField(
+        help_text="El número de horas de laboratorio semanales",
+        verbose_name="horas de laboratorio",
+        blank=True,
+        null=True)
+    creditos                                            = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(16)],
+        help_text="La cantidad de créditos que vale la materia",
+        verbose_name="créditos",
+        blank=True,
+        null=True)
+    objetivos                                           = models.TextField(
+        help_text="Los objetivos de la materia",
+        verbose_name="objetivos",
+        blank=True,
+        null=True)
+    contenidos_sinopticos                               = models.TextField(
+        help_text="Resumen del contenido de la materia",
+        verbose_name="contenido",
+        blank=True,
+        null=True)
+    estrategias_metodologicas                           = models.TextField(
+        help_text="Las estratégias metodológicas de enseñanza utilizadas",
+        verbose_name="estretegias metodológicas",
+        blank=True,
+        null=True)
+    estrategias_evaluacion                              = models.TextField(
+        help_text="Las estrategias de evaluación utilizadas",
+        verbose_name="estrategias de evaluación",
+        blank=True,
+        null=True)
+    Instancia                                           = models.ForeignKey(
+        Instancia, on_delete=models.CASCADE,
+        help_text="Instancia responsable por la asignatura",
+        verbose_name="instancia")
+    def determinar_lugar(instance, filename):
+        """Callable para determinar lugar apropiado en el FS para el PDF subido."""
+        dept = Instancia.objects.get(programa__codigo=instance.codigo)
+        periodo = instance.fecha_periodo
+        if periodo[0] == 'E':   periodo="EM"
+        elif periodo[0] == 'A': periodo="AJ"
+        elif periodo[0] == 'V': periodo="VE"
+        else:                   periodo="SD"
+        return "%s/%s-%s-%s.pdf" % (dept, instance.codigo, instance.fecha_año, periodo)
+    pdf                                                 = models.FileField(
+        upload_to=determinar_lugar,
+        help_text="El PDF del programa a analizar",
+        verbose_name="pdf")
+
+    def __str__(self):
+        """Imprime como '[Código] ([Periodo (dos letras)] [año (0000)])''"""
+        return self.codigo + " (" + self.PERIODOS[int(self.fecha_periodo)][1] + " " + str(self.fecha_año) + ")"
+        ordering = ["departamento", "fecha_año", "fecha_periodo"]
+
+    def clean_pdf(self):
+        """Rechaza archivos mayores a un tamaño límite (20MB)."""
+        files = self.cleaned_data.get('pdf')
+        for f in files:
+            if f:
+                if f._size > 20*1024*1024:
+                    raise forms.ValidationError("El archivo es demasiado grande ( > 20MB ).")
+            else:
+                raise forms.ValidationError("No se pudo leer el archivo.")
+        return files
+

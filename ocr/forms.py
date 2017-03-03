@@ -50,7 +50,7 @@ class ProgramaForm(BaseModelForm):
         elif periodo[0] == 'V': periodo="VE"
         else:                   periodo="SD"
 
-        nurl = "%s/%s-%s-%s.pdf" % (str(instance.departamento), instance.codigo, instance.fecha_año, periodo)
+        nurl = "%s/%s-%s-%s.pdf" % (str(instance.instancia), instance.codigo, instance.fecha_año, periodo)
 
         file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'], settings.MEDIA_ROOT+'/'+nurl, allow_overwrite=True)
         instance.pdf.name = nurl

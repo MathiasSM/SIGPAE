@@ -36,4 +36,7 @@ def index(request):
 def archivo(request):
     return render(request, 'ocr/archivo.html')
 
-
+def upload(request):
+    pdf_form = PDFForm()
+    print("Regular GET")
+    return render(request, 'ocr/upload.html', {'pdf_form': pdf_form})

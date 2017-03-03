@@ -19,6 +19,7 @@ import magic
 
 from ocr.pdf2txt.txtlibs import *
 
+import subprocess
 from multiprocessing import Process, Pipe
 
 class NoTesseractError(Exception):
@@ -117,7 +118,7 @@ def convertImgPdf(pdfName):
     images, tempDir = getImagesAndTmpDir(pdfName)
     tool = getOCR()
     builder = pyocr.builders.TextBuilder()
-    
+
     # Running tesseract-ocr over the images...
     childs = []
     pipes = []
@@ -188,8 +189,12 @@ def convertImgPdf2HOCR(pdfName):
     shutil.rmtree(tempDir)
 
         
-
 def convertTxtPdf(pdfName):
+    stdoutdata = subprocess.getoutput("gs -dBATCH -dNOPAUSE -sDEVICE=txtwrite -sOutputFile=- "+pdfName)
+    return stdoutdata
+
+
+def convertTxtPdfPyPDF(pdfName):
     checkPdfFile(pdfName)
     pdfFile = open(pdfName, 'rb')
     readPdf = PyPDF2.PdfFileReader(pdfFile)

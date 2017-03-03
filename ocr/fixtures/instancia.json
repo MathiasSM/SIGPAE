@@ -175,31 +175,10 @@
 },
 {
     "fields": {
-        "nombre": "Coordinación de Tecnología e Ingeniería Eléctrica"
-    },
-    "model": "ocr.instancia",
-    "pk": 25
-},
-{
-    "fields": {
         "nombre": "Coordinación de Tecnología Eléctrica y Electrónica"
     },
     "model": "ocr.instancia",
     "pk": 26
-},
-{
-    "fields": {
-        "nombre": "Coordinación de Ingeniería de Producción y Organización Empresarial "
-    },
-    "model": "ocr.instancia",
-    "pk": 27
-},
-{
-    "fields": {
-        "nombre": "Coordinación de Turismo, Hotelería y Hospitalidad"
-    },
-    "model": "ocr.instancia",
-    "pk": 28
 },
 {
     "fields": {
@@ -210,24 +189,10 @@
 },
 {
     "fields": {
-        "nombre": "Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional"
-    },
-    "model": "ocr.instancia",
-    "pk": 30
-},
-{
-    "fields": {
         "nombre": "Coordinación de Administración del Transporte y Organización Empresarial"
     },
     "model": "ocr.instancia",
     "pk": 31
-},
-{
-    "fields": {
-        "nombre": "Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento"
-    },
-    "model": "ocr.instancia",
-    "pk": 32
 },
 {
     "fields": {

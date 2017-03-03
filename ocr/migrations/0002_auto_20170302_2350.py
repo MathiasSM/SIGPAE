@@ -4,9 +4,13 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
+from ocr.models import Instancia
+
 def load_stores_from_fixture(apps, schema_editor):
     from django.core.management import call_command
     call_command("loaddata", "instancia")
+    for x in Instancia.objects.all():
+        x.save()
 
 class Migration(migrations.Migration):
 

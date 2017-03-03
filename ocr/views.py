@@ -16,7 +16,7 @@ def index(request):
             pdf_url = '/media/' + str(instance.pdf.name)
             req = request.POST
             req.appendlist('pdf_url',pdf_url)
-            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':instance.texto, 'whole_form': ProgramaForm(req)})
+            return render(request, 'ocr/extract.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':instance.texto, 'whole_form': ProgramaForm(req)})
         elif whole_form.is_valid():
             print("PDF not valid. Form is valid.")
             whole_form.save()
@@ -25,12 +25,12 @@ def index(request):
             print("None valid.")
             messages.error(request, 'El archivo no parece ser un archivo PDF')
             pdf_form = PDFForm()
-            return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
+            return render(request, 'ocr/upload.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
 
     else:
         pdf_form = PDFForm()
         print("Regular GET")
-        return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form})
+        return render(request, 'ocr/upload.html', {'pdf_form': pdf_form})
 
 # View del archivo de programas
 def archivo(request):

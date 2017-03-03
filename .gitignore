@@ -149,4 +149,4 @@ __pycache__/
 local_settings.py
 db.sqlite3
 #Not a good practice but it's driving us mad
-ocr/migrations/
+#ocr/migrations/

@@ -191,7 +191,7 @@ def convertImgPdf2HOCR(pdfName):
         
 def convertTxtPdf(pdfName):
     stdoutdata = subprocess.getoutput("gs -dBATCH -dNOPAUSE -sDEVICE=txtwrite -sOutputFile=- "+pdfName)
-    return stdoutdata
+    return cleangs(stdoutdata)
 
 
 def convertTxtPdfPyPDF(pdfName):

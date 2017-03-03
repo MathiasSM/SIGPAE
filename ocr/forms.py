@@ -27,11 +27,11 @@ class PDFForm(BaseModelForm):
 
         if commit:
             instance.save()
-            # if self.cleaned_data['tipo']=='I':
-            #     instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
-            # else:
-            #     instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
-            instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            if self.cleaned_data['tipo']=='I':
+                instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            else:
+                instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            #instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
         return instance
 
 class ProgramaForm(BaseModelForm):

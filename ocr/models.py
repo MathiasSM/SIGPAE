@@ -204,6 +204,10 @@ class ReferenciaBibliografica(models.Model):
 
 class Programa_Borrador(models.Model):
 
+    class Meta:
+        unique_together = ("codigo", "fecha_periodo", "fecha_año")
+        verbose_name = "programa_borrador"
+
     codigo                                              = models.CharField(
         max_length=6,
         validators=[RegexValidator(regex='^([A-Z0-9]){6}$')],

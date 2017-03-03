@@ -37,9 +37,10 @@ class PDFForm(BaseModelForm):
 class ProgramaForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = [ 'pdf', ]
+        exclude = [ 'pdf', 'texto']
 
     pdf_url = forms.CharField(max_length=100, widget = forms.HiddenInput())
+    pdf_texto = forms.CharField(max_length=1000000, widget=forms.HiddenInput())
 
     def save(self, commit=True):
         instance = super(ProgramaForm, self).save(commit=False)
@@ -54,6 +55,7 @@ class ProgramaForm(BaseModelForm):
 
         file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'], settings.MEDIA_ROOT+'/'+nurl, allow_overwrite=True)
         instance.pdf.name = nurl
+        instance.texto = self.cleaned_data['pdf_texto']
         if commit:
             instance.save()
         return instance

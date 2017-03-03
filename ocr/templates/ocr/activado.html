@@ -5,11 +5,7 @@
     <a href="#" class="tab-link">Subir PDF</a>
     <div class="tab-content">
         <h2>Subir otro PDF:</h2>
-        <form action="" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ pdf_form }}
-            <input type="submit" value="Submit" />
-        </form>
+        <a href="/ocr">Subir</a>
     </div>
 </div>{% endblock %}
 
@@ -23,9 +19,7 @@
 {% block texto %}<div class="tab pdf-viewer">
     <a href="#" class="tab-link">Texto</a>
     <div class="tab-content">
-        <textarea rows="4" cols="50">
-            {{pdf_texto}}
-        </textarea>
+        <textarea rows="4" cols="50" >{{pdf_texto}}</textarea>
     </div>
 </div>{% endblock %}
 

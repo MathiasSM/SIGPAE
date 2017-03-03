@@ -26,6 +26,27 @@ class ProgramaAdmin(admin.ModelAdmin):
         'pdf'
     )
 
+class ProgramaBorradorAdmin(admin.ModelAdmin):
+    list_display = (
+        'codigo',
+        'fecha_periodo',
+        'fecha_año',
+        'instancia'
+    )
+    fields = (
+        ('codigo', 'creditos'),
+        'instancia',
+        'denominacion',
+        ('fecha_periodo', 'fecha_año'),
+        ('horas_teoria', 'horas_practica', 'horas_laboratorio'),
+        'objetivos',
+        'contenidos_sinopticos',
+        'estrategias_metodologicas',
+        'estrategias_evaluacion',
+        'pdf',
+        'texto'
+    )
+
 class PDFAnonimoAdmin(admin.ModelAdmin):
     def view_link(self, obj):
         return u"<a href='%d/'>View</a>" % obj.id
@@ -51,5 +72,6 @@ class ReferenciaBibliograficaAdmin(admin.ModelAdmin):
 
 admin.site.register(Instancia, InstanciaAdmin)
 admin.site.register(Programa, ProgramaAdmin)
+admin.site.register(Programa_Borrador, ProgramaBorradorAdmin)
 admin.site.register(PDFAnonimo, PDFAnonimoAdmin)
 admin.site.register(ReferenciaBibliografica, ReferenciaBibliograficaAdmin)

@@ -121,7 +121,7 @@ class Programa(models.Model):
 
     def __str__(self):
         """Imprime como '[Código] ([Periodo (dos letras)] [año (0000)])''"""
-        return self.codigo + " (" + self.PERIODOS[int(self.fecha_periodo)][1] + " " + str(self.fecha_año) + ")"
+        return self.codigo + " (" + str(int(self.fecha_periodo)) + " " + str(self.fecha_año) + ")"
         ordering = ["departamento", "fecha_año", "fecha_periodo"]
 
     def clean_pdf(self):
@@ -276,6 +276,10 @@ class Programa_Borrador(models.Model):
         Instancia, on_delete=models.CASCADE,
         help_text="Instancia responsable por la asignatura",
         verbose_name="instancia")
+    texto                                               = models.TextField(
+        help_text="El texto extraído del PDF",
+        verbose_name="texto extraído",
+        blank=True)
     def determinar_lugar(instance, filename):
         """Callable para determinar lugar apropiado en el FS para el PDF subido."""
         dept = Instancia.objects.get(programa__codigo=instance.codigo)
@@ -292,7 +296,7 @@ class Programa_Borrador(models.Model):
 
     def __str__(self):
         """Imprime como '[Código] ([Periodo (dos letras)] [año (0000)])''"""
-        return self.codigo + " (" + self.PERIODOS[int(self.fecha_periodo)][1] + " " + str(self.fecha_año) + ")"
+        return self.codigo + " (" + str(int(self.fecha_periodo)) + " " + str(self.fecha_año) + ")"
         ordering = ["departamento", "fecha_año", "fecha_periodo"]
 
     def clean_pdf(self):

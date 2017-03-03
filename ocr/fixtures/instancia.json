@@ -1,0 +1,497 @@
+[{
+    "fields": {
+        "nombre": "Decanato de Estudios Generales"
+    },
+    "model": "ocr.instancia",
+    "pk": 0
+},
+{
+    "fields": {
+        "nombre": "Coordinación del Ciclo Básico"
+    },
+    "model": "ocr.instancia",
+    "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Coordinación del Ciclo Profesional"
+    },
+    "model": "ocr.instancia",
+    "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Formación General"
+    },
+    "model": "ocr.instancia",
+    "pk": 3
+},
+{
+    "fields": {
+        "nombre": "Coordinación del Ciclo de Iniciación Universitaria"
+    },
+    "model": "ocr.instancia",
+    "pk": 4
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios Profesionales"
+    },
+    "model": "ocr.instancia",
+    "pk": 5
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Química"
+    },
+    "model": "ocr.instancia",
+    "pk": 6
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Matemática"
+    },
+    "model": "ocr.instancia",
+    "pk": 7
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Biología"
+    },
+    "model": "ocr.instancia",
+    "pk": 8
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Física"
+    },
+    "model": "ocr.instancia",
+    "pk": 9
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología e Ingeniería Eléctrica   "
+    },
+    "model": "ocr.instancia",
+    "pk": 10
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología e Ingeniería Electrónica"
+    },
+    "model": "ocr.instancia",
+    "pk": 11
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería Mecánica"
+    },
+    "model": "ocr.instancia",
+    "pk": 12
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería Química"
+    },
+    "model": "ocr.instancia",
+    "pk": 13
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería de Computación"
+    },
+    "model": "ocr.instancia",
+    "pk": 14
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería Geofísica"
+    },
+    "model": "ocr.instancia",
+    "pk": 15
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería de Materiales"
+    },
+    "model": "ocr.instancia",
+    "pk": 16
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería de Producción y Organización Empresarial"
+    },
+    "model": "ocr.instancia",
+    "pk": 17
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento"
+    },
+    "model": "ocr.instancia",
+    "pk": 18
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería de Telecomunicaciones"
+    },
+    "model": "ocr.instancia",
+    "pk": 19
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Arquitectura"
+    },
+    "model": "ocr.instancia",
+    "pk": 20
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Estudios Urbanos"
+    },
+    "model": "ocr.instancia",
+    "pk": 21
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Turismo, Hotelería y Hospitalidad"
+    },
+    "model": "ocr.instancia",
+    "pk": 22
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional"
+    },
+    "model": "ocr.instancia",
+    "pk": 23
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios Tecnológicos"
+    },
+    "model": "ocr.instancia",
+    "pk": 24
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología e Ingeniería Eléctrica"
+    },
+    "model": "ocr.instancia",
+    "pk": 25
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología Eléctrica y Electrónica"
+    },
+    "model": "ocr.instancia",
+    "pk": 26
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Ingeniería de Producción y Organización Empresarial "
+    },
+    "model": "ocr.instancia",
+    "pk": 27
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Turismo, Hotelería y Hospitalidad"
+    },
+    "model": "ocr.instancia",
+    "pk": 28
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Administración Aduanera"
+    },
+    "model": "ocr.instancia",
+    "pk": 29
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional"
+    },
+    "model": "ocr.instancia",
+    "pk": 30
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Administración del Transporte y Organización Empresarial"
+    },
+    "model": "ocr.instancia",
+    "pk": 31
+},
+{
+    "fields": {
+        "nombre": "Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento"
+    },
+    "model": "ocr.instancia",
+    "pk": 32
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios de Postgrado"
+    },
+    "model": "ocr.instancia",
+    "pk": 33
+},
+{
+    "fields": {
+        "nombre": "Ciencias Básicas y Aplicadas"
+    },
+    "model": "ocr.instancia",
+    "pk": 34
+},
+{
+    "fields": {
+        "nombre": "Ciencias Sociales y Humanidades"
+    },
+    "model": "ocr.instancia",
+    "pk": 35
+},
+{
+    "fields": {
+        "nombre": "Ingeniería y Tecnología"
+    },
+    "model": "ocr.instancia",
+    "pk": 36
+},
+{
+    "fields": {
+        "nombre": "Decanato de Investigación y Desarrollo"
+    },
+    "model": "ocr.instancia",
+    "pk": 37
+},
+{
+    "fields": {
+        "nombre": "Decanato de Extensión"
+    },
+    "model": "ocr.instancia",
+    "pk": 38
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Físicas y Matemáticas"
+    },
+    "model": "ocr.instancia",
+    "pk": 39
+},
+{
+    "fields": {
+        "nombre": "Departamento de Física"
+    },
+    "model": "ocr.instancia",
+    "pk": 40
+},
+{
+    "fields": {
+        "nombre": "Departamento de Química"
+    },
+    "model": "ocr.instancia",
+    "pk": 41
+},
+{
+    "fields": {
+        "nombre": "Departamento de Mecánica"
+    },
+    "model": "ocr.instancia",
+    "pk": 42
+},
+{
+    "fields": {
+        "nombre": "Departamento de Matemáticas Puras y Aplicadas"
+    },
+    "model": "ocr.instancia",
+    "pk": 43
+},
+{
+    "fields": {
+        "nombre": "Departamento de Computación y Tecnología de la Información"
+    },
+    "model": "ocr.instancia",
+    "pk": 44
+},
+{
+    "fields": {
+        "nombre": "Departamento de Cómputo Científico y Estadística"
+    },
+    "model": "ocr.instancia",
+    "pk": 45
+},
+{
+    "fields": {
+        "nombre": "Departamento de Electrónica y Circuitos"
+    },
+    "model": "ocr.instancia",
+    "pk": 46
+},
+{
+    "fields": {
+        "nombre": "Departamento de Termodinámica y Fenómenos de Transferencia"
+    },
+    "model": "ocr.instancia",
+    "pk": 47
+},
+{
+    "fields": {
+        "nombre": "Departamento de Conversión y Transporte de Energía"
+    },
+    "model": "ocr.instancia",
+    "pk": 48
+},
+{
+    "fields": {
+        "nombre": "Departamento de Procesos y Sistemas"
+    },
+    "model": "ocr.instancia",
+    "pk": 49
+},
+{
+    "fields": {
+        "nombre": "Departamento de Ciencias de los Materiales"
+    },
+    "model": "ocr.instancia",
+    "pk": 50
+},
+{
+    "fields": {
+        "nombre": "Departamento de Ciencias de la Tierra"
+    },
+    "model": "ocr.instancia",
+    "pk": 51
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Sociales y Humanidades:"
+    },
+    "model": "ocr.instancia",
+    "pk": 52
+},
+{
+    "fields": {
+        "nombre": "Departamento de Ciencia y Tecnología del Comportamiento"
+    },
+    "model": "ocr.instancia",
+    "pk": 53
+},
+{
+    "fields": {
+        "nombre": "Departamento de Lengua y Literatura"
+    },
+    "model": "ocr.instancia",
+    "pk": 54
+},
+{
+    "fields": {
+        "nombre": "Departamento de Ciencias Económicas y Administrativas"
+    },
+    "model": "ocr.instancia",
+    "pk": 55
+},
+{
+    "fields": {
+        "nombre": "Departamento de Idiomas"
+    },
+    "model": "ocr.instancia",
+    "pk": 56
+},
+{
+    "fields": {
+        "nombre": "Departamento de Filosofía"
+    },
+    "model": "ocr.instancia",
+    "pk": 57
+},
+{
+    "fields": {
+        "nombre": "Departamento de Ciencias Sociales"
+    },
+    "model": "ocr.instancia",
+    "pk": 58
+},
+{
+    "fields": {
+        "nombre": "Departamento de Diseño Arquitectura y Artes Plásticas"
+    },
+    "model": "ocr.instancia",
+    "pk": 59
+},
+{
+    "fields": {
+        "nombre": "Departamento de Planificación Urbana"
+    },
+    "model": "ocr.instancia",
+    "pk": 60
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Biológicas:"
+    },
+    "model": "ocr.instancia",
+    "pk": 61
+},
+{
+    "fields": {
+        "nombre": "Departamento de Biología Celular"
+    },
+    "model": "ocr.instancia",
+    "pk": 62
+},
+{
+    "fields": {
+        "nombre": "Departamento de Estudios Ambientales"
+    },
+    "model": "ocr.instancia",
+    "pk": 63
+},
+{
+    "fields": {
+        "nombre": "Departamento de Biología de Organismos"
+    },
+    "model": "ocr.instancia",
+    "pk": 64
+},
+{
+    "fields": {
+        "nombre": "Departamento de Tecnología de Procesos Biológicos y Bioquímicos"
+    },
+    "model": "ocr.instancia",
+    "pk": 65
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias y Tecnologías Administrativas e Industriales"
+    },
+    "model": "ocr.instancia",
+    "pk": 66
+},
+{
+    "fields": {
+        "nombre": "Departamento de Tecnología de Servicios"
+    },
+    "model": "ocr.instancia",
+    "pk": 67
+},
+{
+    "fields": {
+        "nombre": "Departamento de Tecnología Industrial"
+    },
+    "model": "ocr.instancia",
+    "pk": 68
+},
+{
+    "fields": {
+        "nombre": "Departamento de Formación General y Ciencias Básicas"
+    },
+    "model": "ocr.instancia",
+    "pk": 69
+},
+{
+    "fields": {
+        "nombre": "Unidad de Laboratorios"
+    },
+    "model": "ocr.instancia",
+    "pk": 70
+}]

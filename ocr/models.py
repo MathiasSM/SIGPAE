@@ -24,7 +24,7 @@ class Instancia(models.Model):
         return self.nombre
 
     def save(self, *args, **kwargs):
-        os.mkdir(settings.MEDIA_ROOT+"/"+self.nombre)
+        os.makedirs(settings.MEDIA_ROOT+"/"+self.nombre)
         super(Instancia,self).save(*args, **kwargs)
 
 

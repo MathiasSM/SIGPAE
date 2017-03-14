@@ -6,9 +6,14 @@ from django.db import migrations
 
 from ocr.models import Instancia
 
+import os.path, os
+import shutil
+
 def load_stores_from_fixture(apps, schema_editor):
     from django.core.management import call_command
     call_command("loaddata", "instancia")
+    if os.path.isdir('media'):
+        shutil.rmtree('media')
     for x in Instancia.objects.all():
         x.save()
 

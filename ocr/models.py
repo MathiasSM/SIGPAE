@@ -6,6 +6,20 @@ import os
 from ocr.validators import validate_pdf_ext_mime
 from django.conf import settings
 
+class Decanato(models.Model):
+    """Decanato o Division en las que se agrupan las instancias responsables.
+    """
+    class Meta:
+        verbose_name = "Decanato"
+        verbose_name_plural = "Decanato"
+
+    nombre                                              = models.CharField(
+        max_length=40,
+        help_text="El nombre completo del decanato o division",
+        verbose_name="nombre")
+
+    def __str__(self):
+        return self.nombre
 
 class Instancia(models.Model):
     """Instancia responsable del programa de estudio.
@@ -19,6 +33,11 @@ class Instancia(models.Model):
         max_length=40,
         help_text="El nombre completo de la unidad académica",
         verbose_name="nombre")
+
+    decanato                                            = models.ManyToManyField(
+        Decanato, #on_delete=models.CASCADE,
+        help_text="Decanato o Division a la que pertenece la Unidad",
+        verbose_name="Decanato o Division")
 
     def __str__(self):
         return self.nombre

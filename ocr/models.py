@@ -307,6 +307,46 @@ class Programa_Borrador(models.Model):
 
 
 
+class TipoCampoAdicional(models.Model):
+    """Entidad que mantiene los campos adicionales usados"""
+
+    class Meta:
+        verbose_name = "campo adicional"
+
+    nombre                                              = models.CharField(
+        max_length=100,
+        help_text="El nombre completo del campo adicional",
+        verbose_name="nombre")
+
+    def __str__(self):
+        """Imprime nombre del campo adicional"""
+        return self.nombre
+
+class CampoAdicional(models.Model):
+    """ Entidad que mantiene los campos adicionales usados en cada programa """
+    class Meta:
+        verbose_name = "descripción de campo adicional"
+
+    texto                                               = models.TextField(
+        help_text="La descripción del campo adicional",
+        verbose_name="descripción",
+        blank=True)
+
+    tipo_campo_adicional                                = models.ForeignKey(
+        TipoCampoAdicional, on_delete=models.CASCADE,
+        help_text="tipo de campo adicional",
+        verbose_name="campo adicional",null=True)
+
+    programa_borrador                                   = models.ForeignKey(
+        Programa_Borrador, #on_delete=models.CASCADE,
+        help_text="El programa asociado",
+        verbose_name="programa",null=True)
+
+    programa                                            = models.ForeignKey(
+        Programa, #on_delete=models.CASCADE,
+        help_text="El programa asociado",
+        verbose_name="programa",null=True)
+
 class ReferenciaBibliografica(models.Model):
     """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
 
@@ -322,10 +362,15 @@ class ReferenciaBibliografica(models.Model):
         max_length=500,
         help_text="Una fuente bibliográfica recomendada",
         verbose_name="referencia")
-    programa                                            = models.ForeignKey(
+    programa_borrador                                   = models.ForeignKey(
         Programa_Borrador, #on_delete=models.CASCADE,
-        help_text="El prgrama que la recomienda",
-        verbose_name="programa")
+        help_text="El programa que la recomienda",
+        verbose_name="programa",null=True)
+
+    programa                                            = models.ForeignKey(
+        Programa, #on_delete=models.CASCADE,
+        help_text="El programa que la recomienda",
+        verbose_name="programa",null=True)
 
     def __str__(self):
         """Imprime como un extracto de la referencia"""

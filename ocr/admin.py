@@ -64,14 +64,9 @@ class PDFAnonimoAdmin(admin.ModelAdmin):
     )
 
 
-class ReferenciaBibliograficaAdmin(admin.ModelAdmin):
-    list_display = ('texto', 'programa')
-
-
 
 
 admin.site.register(Instancia, InstanciaAdmin)
 admin.site.register(Programa, ProgramaAdmin)
 admin.site.register(Programa_Borrador, ProgramaBorradorAdmin)
 admin.site.register(PDFAnonimo, PDFAnonimoAdmin)
-admin.site.register(ReferenciaBibliografica, ReferenciaBibliograficaAdmin)

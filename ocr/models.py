@@ -347,31 +347,79 @@ class CampoAdicional(models.Model):
         help_text="El programa asociado",
         verbose_name="programa",null=True)
 
-class ReferenciaBibliografica(models.Model):
-    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
 
-    Sus atributos son el texto que señala la referencia bibliográfica, así como el
-    programa al cual se refiere."""
+class SeccionFuenteInformacion(models.Model):
+    """Seccion de fuente de informacion asociada a un borrador o PASA
 
+    Cada seccion esta asociada a una lista (no vacia) de referencias"""
     class Meta:
-        order_with_respect_to = "programa"
-        verbose_name = "referencia"
-        verbose_name_plural = "referencias"
+        verbose_name = "seccion"
+        verbose_name_plural = "secciones"
+    subtitulo                                           = models.CharField(
+        max_length=100,
+        help_text="subtítulo de la sección")
 
-    texto                                               = models.CharField(
-        max_length=500,
-        help_text="Una fuente bibliográfica recomendada",
-        verbose_name="referencia")
     programa_borrador                                   = models.ForeignKey(
         Programa_Borrador, #on_delete=models.CASCADE,
-        help_text="El programa que la recomienda",
+        help_text="El programa asociado a la seccion",
         verbose_name="programa",null=True)
 
     programa                                            = models.ForeignKey(
         Programa, #on_delete=models.CASCADE,
-        help_text="El programa que la recomienda",
+        help_text="El programa asociado a la seccion",
         verbose_name="programa",null=True)
+    
+    def __str__(self):
+        return self.subtitulo
+
+
+class ReferenciaBibliografica(models.Model):
+    """Referencias bibliograficas (libros)"""
+
+    class Meta:
+        verbose_name = "referencia"
+        verbose_name_plural = "referencias"
+
+    titulo                                                  = models.CharField(
+        max_length=100,
+        help_text="Titulo de la funte recomendada",
+        verbose_name="titulo")
+
+    editorial                                               = models.CharField(
+        max_length=100,
+        help_text="Editorial de la funte recomendada",
+        verbose_name="editorial")
+
+    edicion                                                 = models.CharField(
+        max_length=100,
+        help_text="Edicion o año recomendado",
+        verbose_name="edicion")
+
+    notas                                                   = models.CharField(
+        max_length=1000,
+        help_text="Notas adicionales",
+        verbose_name="notas")
+
+    seccion                                                 = models.ForeignKey(
+        SeccionFuenteInformacion, on_delete=models.CASCADE,
+        help_text="Seccion a la que pertenece la referencia",
+        verbose_name="seccion")
+    
 
     def __str__(self):
         """Imprime como un extracto de la referencia"""
-        return self.texto[:30]
+        return self.titulo
+
+class AutorReferencia(models.Model):
+    """Entidad que representa los autores de una referencia"""
+    class Meta:
+        verbose_name = "autor"
+        verbose_name_plural = "autores"
+
+    nombres                                                 = models.CharField(
+        max_length=100,
+        verbose_name="nombres")
+
+    apellidos                                               = models.CharField(
+        max_length=100,
+        verbose_name="apellidos")

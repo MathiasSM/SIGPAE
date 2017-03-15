@@ -150,3 +150,5 @@ local_settings.py
 db.sqlite3
 #Not a good practice but it's driving us mad
 #ocr/migrations/
+# Existe una migracion que la borra y la crea, ya no es necesaria
+media/

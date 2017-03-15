@@ -110,10 +110,10 @@ class Programa(models.Model):
         verbose_name="objetivos")
     contenidos_sinopticos                               = models.TextField(
         help_text="Resumen del contenido de la materia",
-        verbose_name="contenido")
+        verbose_name="contenido sinóptico")
     estrategias_metodologicas                           = models.TextField(
         help_text="Las estratégias metodológicas de enseñanza utilizadas",
-        verbose_name="estretegias metodológicas")
+        verbose_name="estrategias metodológicas")
     estrategias_evaluacion                              = models.TextField(
         help_text="Las estrategias de evaluación utilizadas",
         verbose_name="estrategias de evaluación")
@@ -254,12 +254,12 @@ class Programa_Borrador(models.Model):
         null=True)
     contenidos_sinopticos                               = models.TextField(
         help_text="Resumen del contenido de la materia",
-        verbose_name="contenido",
+        verbose_name="contenido sinóptico",
         blank=True,
         null=True)
     estrategias_metodologicas                           = models.TextField(
         help_text="Las estratégias metodológicas de enseñanza utilizadas",
-        verbose_name="estretegias metodológicas",
+        verbose_name="estrategias metodológicas",
         blank=True,
         null=True)
     estrategias_evaluacion                              = models.TextField(

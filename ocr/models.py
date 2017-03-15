@@ -196,30 +196,6 @@ class PDFAnonimo(models.Model):
 
 
 
-class ReferenciaBibliografica(models.Model):
-    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
-
-    Sus atributos son el texto que señala la referencia bibliográfica, así como el
-    programa al cual se refiere."""
-
-    class Meta:
-        order_with_respect_to = "programa"
-        verbose_name = "referencia"
-        verbose_name_plural = "referencias"
-
-    texto                                               = models.CharField(
-        max_length=500,
-        help_text="Una fuente bibliográfica recomendada",
-        verbose_name="referencia")
-    programa                                            = models.ForeignKey(
-        Programa, on_delete=models.CASCADE,
-        help_text="El prgrama que la recomienda",
-        verbose_name="programa")
-
-    def __str__(self):
-        """Imprime como un extracto de la referencia"""
-        return self.texto[:30]
-
 
 class Programa_Borrador(models.Model):
 
@@ -328,3 +304,29 @@ class Programa_Borrador(models.Model):
             else:
                 raise forms.ValidationError("No se pudo leer el archivo.")
         return files
+
+
+
+class ReferenciaBibliografica(models.Model):
+    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
+
+    Sus atributos son el texto que señala la referencia bibliográfica, así como el
+    programa al cual se refiere."""
+
+    class Meta:
+        order_with_respect_to = "programa"
+        verbose_name = "referencia"
+        verbose_name_plural = "referencias"
+
+    texto                                               = models.CharField(
+        max_length=500,
+        help_text="Una fuente bibliográfica recomendada",
+        verbose_name="referencia")
+    programa                                            = models.ForeignKey(
+        Programa_Borrador, #on_delete=models.CASCADE,
+        help_text="El prgrama que la recomienda",
+        verbose_name="programa")
+
+    def __str__(self):
+        """Imprime como un extracto de la referencia"""
+        return self.texto[:30]

@@ -2,6 +2,7 @@ from django import forms
 from ocr.models import *
 from django.core.files.move import file_move_safe
 from django.conf import settings
+from django.forms import FileInput, HiddenInput
 
 class BaseModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -20,21 +21,24 @@ from django.utils.text import get_valid_filename
 class PDFForm(BaseModelForm):
     class Meta:
         model = PDFAnonimo
-        fields = [ 'pdf', 'tipo', ]
+        fields = ['pdf', 'tipo']
+        widgets = {
+            'pdf': FileInput(attrs={'class':'main-upload'}),
+            'tipo': HiddenInput(),
+        }
 
     def save(self, commit=True):
         instance = super(PDFForm, self).save(commit=False)
 
         if commit:
             instance.save()
-            if self.cleaned_data['tipo']=='I':
+            if self.cleaned_data['tipo'] == 'I':
                 instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
             else:
                 instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
-            #instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
         return instance
 
-class ProgramaForm(BaseModelForm):
+class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
         exclude = [ 'pdf', 'texto']
@@ -43,7 +47,7 @@ class ProgramaForm(BaseModelForm):
     pdf_texto = forms.CharField(max_length=1000000, widget=forms.HiddenInput())
 
     def save(self, commit=True):
-        instance = super(ProgramaForm, self).save(commit=False)
+        instance = super(AnonForm, self).save(commit=False)
 
         periodo = instance.fecha_periodo
         if periodo[0] == 'E':   periodo="EM"
@@ -56,6 +60,18 @@ class ProgramaForm(BaseModelForm):
         file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'], settings.MEDIA_ROOT+'/'+nurl, allow_overwrite=True)
         instance.pdf.name = nurl
         instance.texto = self.cleaned_data['pdf_texto']
+        if commit:
+            instance.save()
+        return instance
+        
+class ProgramaForm(BaseModelForm):
+    class Meta:
+        model = Programa_Borrador
+        exclude = [ 'pdf', 'texto']
+
+    def save(self, commit=True):
+        instance = super(ProgramaForm, self).save(commit=False)
+        
         if commit:
             instance.save()
         return instance

@@ -152,3 +152,4 @@ db.sqlite3
 #ocr/migrations/
 # Existe una migracion que la borra y la crea, ya no es necesaria
 media/
+samplePDFs/

@@ -31,9 +31,9 @@
 
 {% block infotab%}
 <h2>Información a extraer</h2>
-<form action="" method="post">
+<form action="{% block whodoireportto %}{% endblock %}" method="post">
     {% csrf_token %}
-    {{ whole_form }}
+    {{ form }}
     <input type="submit" value="Submit" />
 </form>
 {% endblock infotab %}

@@ -6,6 +6,20 @@ import os
 from ocr.validators import validate_pdf_ext_mime
 from django.conf import settings
 
+class Decanato(models.Model):
+    """Decanato o Division en las que se agrupan las instancias responsables.
+    """
+    class Meta:
+        verbose_name = "Decanato"
+        verbose_name_plural = "Decanato"
+
+    nombre                                              = models.CharField(
+        max_length=40,
+        help_text="El nombre completo del decanato o division",
+        verbose_name="nombre")
+
+    def __str__(self):
+        return self.nombre
 
 class Instancia(models.Model):
     """Instancia responsable del programa de estudio.
@@ -19,6 +33,11 @@ class Instancia(models.Model):
         max_length=40,
         help_text="El nombre completo de la unidad académica",
         verbose_name="nombre")
+
+    decanato                                            = models.ManyToManyField(
+        Decanato, #on_delete=models.CASCADE,
+        help_text="Decanato o Division a la que pertenece la Unidad",
+        verbose_name="Decanato o Division")
 
     def __str__(self):
         return self.nombre
@@ -91,10 +110,10 @@ class Programa(models.Model):
         verbose_name="objetivos")
     contenidos_sinopticos                               = models.TextField(
         help_text="Resumen del contenido de la materia",
-        verbose_name="contenido")
+        verbose_name="contenido sinóptico")
     estrategias_metodologicas                           = models.TextField(
         help_text="Las estratégias metodológicas de enseñanza utilizadas",
-        verbose_name="estretegias metodológicas")
+        verbose_name="estrategias metodológicas")
     estrategias_evaluacion                              = models.TextField(
         help_text="Las estrategias de evaluación utilizadas",
         verbose_name="estrategias de evaluación")
@@ -177,30 +196,6 @@ class PDFAnonimo(models.Model):
 
 
 
-class ReferenciaBibliografica(models.Model):
-    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
-
-    Sus atributos son el texto que señala la referencia bibliográfica, así como el
-    programa al cual se refiere."""
-
-    class Meta:
-        order_with_respect_to = "programa"
-        verbose_name = "referencia"
-        verbose_name_plural = "referencias"
-
-    texto                                               = models.CharField(
-        max_length=500,
-        help_text="Una fuente bibliográfica recomendada",
-        verbose_name="referencia")
-    programa                                            = models.ForeignKey(
-        Programa, on_delete=models.CASCADE,
-        help_text="El prgrama que la recomienda",
-        verbose_name="programa")
-
-    def __str__(self):
-        """Imprime como un extracto de la referencia"""
-        return self.texto[:30]
-
 
 class Programa_Borrador(models.Model):
 
@@ -259,12 +254,12 @@ class Programa_Borrador(models.Model):
         null=True)
     contenidos_sinopticos                               = models.TextField(
         help_text="Resumen del contenido de la materia",
-        verbose_name="contenido",
+        verbose_name="contenido sinóptico",
         blank=True,
         null=True)
     estrategias_metodologicas                           = models.TextField(
         help_text="Las estratégias metodológicas de enseñanza utilizadas",
-        verbose_name="estretegias metodológicas",
+        verbose_name="estrategias metodológicas",
         blank=True,
         null=True)
     estrategias_evaluacion                              = models.TextField(
@@ -309,3 +304,29 @@ class Programa_Borrador(models.Model):
             else:
                 raise forms.ValidationError("No se pudo leer el archivo.")
         return files
+
+
+
+class ReferenciaBibliografica(models.Model):
+    """Entidad relacionada a Programa (N a 1); se refiere a libros u otro material de apoyo en el curso.
+
+    Sus atributos son el texto que señala la referencia bibliográfica, así como el
+    programa al cual se refiere."""
+
+    class Meta:
+        order_with_respect_to = "programa"
+        verbose_name = "referencia"
+        verbose_name_plural = "referencias"
+
+    texto                                               = models.CharField(
+        max_length=500,
+        help_text="Una fuente bibliográfica recomendada",
+        verbose_name="referencia")
+    programa                                            = models.ForeignKey(
+        Programa_Borrador, #on_delete=models.CASCADE,
+        help_text="El prgrama que la recomienda",
+        verbose_name="programa")
+
+    def __str__(self):
+        """Imprime como un extracto de la referencia"""
+        return self.texto[:30]

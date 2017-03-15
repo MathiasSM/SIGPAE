@@ -27,19 +27,20 @@ class PDFForm(BaseModelForm):
 
         if commit:
             instance.save()
-            # if self.cleaned_data['tipo']=='I':
-            #     instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
-            # else:
-            #     instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
-            instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            if self.cleaned_data['tipo']=='I':
+                instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            else:
+                instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+            #instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
         return instance
 
 class ProgramaForm(BaseModelForm):
     class Meta:
-        model = Programa
-        exclude = [ 'pdf', ]
+        model = Programa_Borrador
+        exclude = [ 'pdf', 'texto']
 
     pdf_url = forms.CharField(max_length=100, widget = forms.HiddenInput())
+    pdf_texto = forms.CharField(max_length=1000000, widget=forms.HiddenInput())
 
     def save(self, commit=True):
         instance = super(ProgramaForm, self).save(commit=False)
@@ -50,12 +51,11 @@ class ProgramaForm(BaseModelForm):
         elif periodo[0] == 'V': periodo="VE"
         else:                   periodo="SD"
 
-        nurl = "%s/%s-%s-%s.pdf" % (str(instance.departamento), instance.codigo, instance.fecha_año, periodo)
+        nurl = "%s/%s-%s-%s.pdf" % (str(instance.instancia), instance.codigo, instance.fecha_año, periodo)
 
         file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'], settings.MEDIA_ROOT+'/'+nurl, allow_overwrite=True)
         instance.pdf.name = nurl
+        instance.texto = self.cleaned_data['pdf_texto']
         if commit:
             instance.save()
         return instance
-
-

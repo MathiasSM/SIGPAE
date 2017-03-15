@@ -1,35 +1,48 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.core.files.storage import FileSystemStorage
-
+from django.contrib import messages
+from .models import *
 from .forms import *
 
 # View para subir un nuevo archivo. El resto bloqueado.
 def index(request):
-
     if request.method == 'POST':
         pdf_form = PDFForm(request.POST, request.FILES)
         whole_form = ProgramaForm(request.POST)
         if pdf_form.is_valid():
             instance = pdf_form.save()
             pdf_url = '/media/' + str(instance.pdf.name)
+            pdf_texto = instance.texto
             req = request.POST
             req.appendlist('pdf_url',pdf_url)
-            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':instance.texto, 'whole_form': ProgramaForm(req)})
+            req.appendlist('pdf_texto',pdf_texto)
+            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':pdf_texto, 'whole_form': ProgramaForm(req)})
         elif whole_form.is_valid():
             print("PDF not valid. Form is valid.")
             whole_form.save()
-            return render(request, 'ocr/archivo.html')
+            return HttpResponseRedirect(reverse('ocr:borradores'))
         else:
             print("None valid.")
+            messages.error(request, 'El archivo no parece ser un archivo PDF')
             pdf_form = PDFForm()
-            return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
+            return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
 
     else:
         pdf_form = PDFForm()
         print("Regular GET")
         return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form})
 
+def borrador(request, draft_id):
+    borrador = Programa_Borrador.objects.get(pk=draft_id)
+    whole_form = ProgramaForm(instance=borrador)
+    pdf_url = '/media/' + str(borrador.pdf.name)
+    return render(request, 'ocr/activado.html', {'pdf_url': pdf_url, 'pdf_texto':borrador.texto, 'whole_form': whole_form})
+
+
 # View del archivo de programas
-def archivo(request):
-    return render(request, 'ocr/archivo.html')
+def borradores(request):
+    borradores = Programa_Borrador.objects.all()
+    
+    return render(request, 'ocr/archivo.html', {'borradores':borradores})

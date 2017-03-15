@@ -18,6 +18,10 @@ python-magic
 # $ apt-get install libmagickwand-dev 
 #### wand is a wrapper for this tool
 
+# Wand also requires freetype and imagemagick, they're usually installed
+# by default
+
+
 # $ apt-get install tesseract-ocr
 # $ apt-get install tesseract-ocr-spa
 #### pyocr is a wrapper for this tool

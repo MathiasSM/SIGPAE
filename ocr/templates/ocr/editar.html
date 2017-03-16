@@ -1,48 +1,60 @@
-{% extends './bloqueado.html' %}
+{% extends './base.html' %}
 {%load static%}
 
-{% block upload %}<div class="tab upload-tab">
-    <a href="#" class="tab-link">Subir PDF</a>
-    <div class="tab-content">
-        <h2>Subir otro PDF:</h2>
-        <a href="/ocr">Subir</a>
-    </div>
-</div>{% endblock %}
-
-{% block verpdf %}<div class="tab pdf-viewer">
-    <a href="#" class="tab-link is-active">Ver PDF</a>
-    <div class="tab-content is-open">
-    <object width="400" height="400" type="application/pdf" data="{{pdf_url}}"></object>
-    </div>
-</div>{% endblock %}
-
-{% block texto %}<div class="tab pdf-viewer">
-    <a href="#" class="tab-link">Texto</a>
-    <div class="tab-content">
-        <textarea rows="4" cols="50" >{{pdf_texto}}</textarea>
-    </div>
-</div>{% endblock %}
-
-{% block posibleinfo %}<div class="tab pdf-viewer">
-    <a href="#" class="tab-link">Posible Info</a>
-    <div class="tab-content">
-    </div>
-</div>{% endblock %}
-
-{% block infotab%}
-<h2>Información a extraer</h2>
-<form action="{% block whodoireportto %}{% endblock %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}<div class="fieldRow {{ field.id_for_label }}">
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field }}
-    {% if field.errors %}<p class="errors">{{ field.errors }}</p>
-    {% endif %}{% if field.help_text %}<p class="help">{{ field.help_text|safe }}</p>{% endif %}
-    </div>
+{% block content %}
+<main class="two-col">
+    {% block wintab %}
+    <section class="wintab">
+      {% block upload %}<div class="tab upload-tab">
+          <a href="#" class="tab-link">Subir PDF</a>
+          <div class="tab-content">
+              <h2>Subir otro PDF:</h2>
+              <a href="/ocr">Subir</a>
+          </div>
+      </div>{% endblock %}
+      {% block verpdf %}<div class="tab pdf-viewer">
+          <a href="#" class="tab-link is-active">Ver PDF</a>
+          <div class="tab-content is-open">
+          <object width="400" height="400" type="application/pdf" data="{{pdf_url}}"></object>
+          </div>
+      </div>{% endblock %}
+      {% block texto %}<div class="tab pdf-viewer">
+          <a href="#" class="tab-link">Texto</a>
+          <div class="tab-content">
+              <textarea rows="4" cols="50" >{{pdf_texto}}</textarea>
+          </div>
+      </div>{% endblock %}
+      {% block posibleinfo %}<div class="tab pdf-viewer">
+          <a href="#" class="tab-link">Posible Info</a>
+          <div class="tab-content">
+          </div>
+      </div>{% endblock %}
+    </section>
+    {% endblock wintab %}
+    <section class="infotab">
+      {% block infotab%}
+      <h2>Información a extraer</h2>
+      <form action="{% block whodoireportto %}{% endblock %}" method="post">
+          {% csrf_token %}
+          {% for field in form.visible_fields %}<div class="fieldRow {{ field.id_for_label }}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<p class="errors">{{ field.errors }}</p>
+          {% endif %}{% if field.help_text %}<p class="help">{{ field.help_text|safe }}</p>{% endif %}
+          </div>
+          {% endfor %}
+          <input type="submit" value="Submit" />
+      </form>
+      {% endblock infotab %}
+    </section>
+</main>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
-    <input type="submit" value="Submit" />
-</form>
-{% endblock infotab %}
+</ul>
+{% endif %}
+{% endblock content %}
 
-
-{% block scripts %}{{block.super}}{% endblock %}
+{% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>{% endblock %}

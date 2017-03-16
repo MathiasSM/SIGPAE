@@ -17,11 +17,13 @@ def index(request):
             print("Got a 'POST with invalid PDF'")
             messages.error(request, 'El archivo no parece ser un PDF')
             pdf_form = PDFForm(initial={'tipo': 'T'})
-            return render(request, 'ocr/index.html', {'form': pdf_form})
+            borradores = Programa_Borrador.objects.all()
+            return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
     else: # if request.method == 'GET'
         pdf_form = PDFForm(initial={'tipo': 'T'})
         print("Got a 'GET'")
-        return render(request, 'ocr/index.html', {'form': pdf_form})
+        borradores = Programa_Borrador.objects.all()
+        return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
 
 def try_edit(request):
     u"""Vista intermedia/falsa para la generación de html para edición de programa anónimo"""

@@ -10,9 +10,8 @@
       {{ form.pdf }}
       {{ form.tipo }}
       {% if messages %}
-      <div class="alert-messages">
-        <ul>
-        {% for message in messages %}
+      <div id="django-msgs" class="alert-messages">
+        <ul>{% for message in messages %}
           <li {% if message.tags %} id="{{ message.tags }}" class="alert-messages"{% endif %} >
             <span>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}{{ message }}</span>
           </li>

@@ -23,7 +23,7 @@ class PDFForm(BaseModelForm):
         model = PDFAnonimo
         fields = ['pdf', 'tipo']
         widgets = {
-            'pdf': FileInput(attrs={'class':'main-upload'}),
+            'pdf': FileInput(attrs={'class':'main-upload'}, ),
             'tipo': HiddenInput(),
         }
 

@@ -89,34 +89,3 @@ def listar_borradores(request):
     u"""Vista de todos los borradores almacenados en el sistema"""
     borradores = Programa_Borrador.objects.all()
     return render(request, 'ocr/archivo.html', {'borradores':borradores})
-
-# def indexold(request):
-#     if request.method == 'POST':
-#         pdf_form = PDFForm(request.POST, request.FILES)
-#         whole_form = ProgramaForm(request.POST)
-#         if pdf_form.is_valid():
-#             instance = pdf_form.save()
-#             pdf_url = '/media/' + str(instance.pdf.name)
-#             pdf_texto = instance.texto
-#             req = request.POST
-#             req.appendlist('pdf_url',pdf_url)
-#             req.appendlist('pdf_texto',pdf_texto)
-#             return render(request, 'ocr/activado.html', {'pdf_form': pdf_form, 'pdf_url': pdf_url, 'pdf_texto':pdf_texto, 'whole_form': ProgramaForm(req)})
-#         elif whole_form.is_valid():
-#             print("PDF not valid. Form is valid.")
-#             whole_form.save()
-#             return HttpResponseRedirect(reverse('ocr:borradores'))
-#         else:
-#             print("None valid.")
-#             messages.error(request, 'El archivo no parece ser un archivo PDF')
-#             pdf_form = PDFForm()
-#             return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form, 'whole_form': whole_form})
-#
-#     else:
-#         pdf_form = PDFForm()
-#         print("Regular GET")
-#         return render(request, 'ocr/bloqueado.html', {'pdf_form': pdf_form})
-#
-#
-#
-# # View del archivo de programas

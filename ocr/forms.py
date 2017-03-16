@@ -4,6 +4,7 @@ from django.core.files.move import file_move_safe
 from django.conf import settings
 from django.forms import FileInput, HiddenInput
 from ocr.pdf2txt.pdf2txt import *
+from ocr.pdf2txt.txtlibs import *
 from django.utils.text import get_valid_filename
 
 class BaseModelForm(forms.ModelForm):
@@ -36,6 +37,28 @@ class PDFForm(BaseModelForm):
                 instance.texto = convertImgPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
             else:
                 instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
+
+        instancia_pk, codigo_encontrado, instancia_nombre = getCode(instance.texto)
+        
+        print('\n')
+        if instancia_pk > -1:
+            instancia_nombre = Instancia.objects.get(pk=instancia_pk).nombre
+
+            print("Codigo encontrado, en la tabla y con dependencia asociada:")
+            print("Codigo: "+codigo_encontrado)
+            print("Dependencia: "+instancia_nombre)
+            
+        elif instancia_pk == -1:
+            print("Codigo encontrado, en la tabla pero sin dependencias asociadas:")
+            print("Codigo: "+codigo_encontrado)
+            print("Instancia: "+instancia_nombre)
+
+        elif instancia_pk == -2:
+            print("Codigo encontrado, pero no en la tabla:")
+            print("Codigo: "+codigo_encontrado)
+        else:
+            print("No se encontro codigo")
+        
         return instance
 
 class AnonForm(BaseModelForm):

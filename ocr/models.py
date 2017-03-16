@@ -441,3 +441,7 @@ class AutorReferencia(models.Model):
     apellidos                                               = models.CharField(
         max_length=100,
         verbose_name="apellidos")
+
+    referencia                                              = models.ForeignKey(
+        ReferenciaBibliografica, on_delete=models.CASCADE,
+        verbose_name="referencia")

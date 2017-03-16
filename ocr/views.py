@@ -8,7 +8,17 @@ from .forms import PDFForm, ProgramaForm, AnonForm
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
     if request.method == 'POST':
+        print('POST:')
         print(request.POST)
+        print('FILES:')
+        print(request.FILES)
+        print()
+        if request.FILES is {}:
+            print("Got a 'POST without PDF'")
+            messages.error(request, 'No has seleccionado algún archivo')
+            pdf_form = PDFForm(initial={'tipo': 'T'})
+            borradores = Programa_Borrador.objects.all()
+            return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
         vista_editar = try_edit(request)
         if vista_editar is not None:
             return vista_editar

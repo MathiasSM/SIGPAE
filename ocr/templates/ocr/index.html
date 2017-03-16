@@ -10,7 +10,7 @@
       {{ form.pdf }}
       {{ form.tipo }}
       {% if messages %}
-      <div class="alert-messages">        
+      <div class="alert-messages">
         <ul>
         {% for message in messages %}
           <li {% if message.tags %} id="{{ message.tags }}" class="alert-messages"{% endif %} >
@@ -19,7 +19,7 @@
         {% endfor %}
         </ul>
       </div>
-      {% endif %}     
+      {% endif %}
       <button type="button" id="bt-t" class="bt-x"> Escaneo sencillo </button>
       <button type="button" id="bt-i" class="bt-x">Escaneo óptimo</button>
     </form>
@@ -40,5 +40,5 @@
 
 {% block scripts %}
 {{block.super}}
-<script src="{% static 'js/calctext.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

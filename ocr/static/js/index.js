@@ -6,18 +6,17 @@ $(document).ready(function () {
       form.submit()
     }
     else{
-      var x = $('#django-msgs').length
-      if (x) {
-        console.log(x)
-      } else {
-        $("<div id=\"django-msgs\" class=\"alert-messages\">\
+      var x = $('#django-msgs')
+      if (x.length) {
+        x.remove()
+      }
+      $("<div id=\"django-msgs\" class=\"alert-messages\">\
         <ul>\
           <li  id=\"error\" class=\"alert-messages\" >\
             <span>Error: No se ha seleccionado algún archivo </span>\
           </li>\
         </ul>\
       </div>").insertBefore("#bt-t")
-      }
     }
   })
   $('#bt-i').on('click', function () {

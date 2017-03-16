@@ -1,14 +1,24 @@
+"""Modelos de la Base de Datos
+
+Se tienen Decanato (o Divisón), Instancia (Reponsable), Programa (Completo),
+Programa_Borrador (incompleto), PDFAnonimo (para PDF que no tienen asignado un borrador aun)
+TipoCampoAdicional (para agrupar campos adicionales), CampoAdicional,
+SeccionFuenteInformacion, AutorReferencia y ReferenciaBibliografica.
+"""
+
+import datetime, os
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import *
-import datetime
-import os
-from ocr.validators import validate_pdf_ext_mime
 from django.conf import settings
+from ocr.validators import validate_pdf_ext_mime
 
 class Decanato(models.Model):
     """Decanato o Division en las que se agrupan las instancias responsables.
+
+    De atributo tiene el nombre del decanato o división.
     """
+
     class Meta:
         verbose_name = "Decanato"
         verbose_name_plural = "Decanato"
@@ -23,6 +33,9 @@ class Decanato(models.Model):
 
 class Instancia(models.Model):
     """Instancia responsable del programa de estudio.
+
+    Como atributo tiene el nombre de la instancia responsable y la referencia al
+    decanato o divisón al que pertenece.
     """
 
     class Meta:
@@ -44,7 +57,7 @@ class Instancia(models.Model):
 
     def save(self, *args, **kwargs):
         os.makedirs(settings.MEDIA_ROOT+"/"+self.nombre)
-        super(Instancia,self).save(*args, **kwargs)
+        super(Instancia, self).save(*args, **kwargs)
 
 
 
@@ -82,10 +95,10 @@ class Programa(models.Model):
         verbose_name="nombre")
     fecha_periodo                                       = models.CharField(
         max_length=1,
-        choices=(('1','ene-mar'),
-                ('2','abr-jul'),
-                ('3','intensivo'),
-                ('4','sep-dic')),
+        choices=(('1', 'ene-mar'),
+                ('2', 'abr-jul'),
+                ('3', 'intensivo'),
+                ('4', 'sep-dic')),
         help_text="El trimestre cuando entra en vigencia el programa",
         verbose_name="trimestre")
     fecha_año                                           = models.PositiveSmallIntegerField(
@@ -128,10 +141,14 @@ class Programa(models.Model):
         """Callable para determinar lugar apropiado en el FS para el PDF subido."""
         dept = Instancia.objects.get(programa__codigo=instance.codigo)
         periodo = instance.fecha_periodo
-        if periodo[0] == 'E':   periodo="EM"
-        elif periodo[0] == 'A': periodo="AJ"
-        elif periodo[0] == 'V': periodo="VE"
-        else:                   periodo="SD"
+        if periodo[0] == 'E':
+            periodo = "EM"
+        elif periodo[0] == 'A':
+            periodo = "AJ"
+        elif periodo[0] == 'V':
+            periodo = "VE"
+        else:
+            periodo = "SD"
         return "%s/%s-%s-%s.pdf" % (dept, instance.codigo, instance.fecha_año, periodo)
     pdf                                                 = models.FileField(
         upload_to=determinar_lugar,
@@ -141,7 +158,8 @@ class Programa(models.Model):
     def __str__(self):
         """Imprime como '[Código] ([Periodo (dos letras)] [año (0000)])''"""
         return self.codigo + " (" + str(int(self.fecha_periodo)) + " " + str(self.fecha_año) + ")"
-        ordering = ["departamento", "fecha_año", "fecha_periodo"]
+    
+    ordering = ["departamento", "fecha_año", "fecha_periodo"]
 
     def clean_pdf(self):
         """Rechaza archivos mayores a un tamaño límite (20MB)."""

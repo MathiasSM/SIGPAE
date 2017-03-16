@@ -3,6 +3,8 @@ from ocr.models import *
 from django.core.files.move import file_move_safe
 from django.conf import settings
 from django.forms import FileInput, HiddenInput
+from ocr.pdf2txt.pdf2txt import *
+from django.utils.text import get_valid_filename
 
 class BaseModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -16,8 +18,6 @@ class BaseModelForm(forms.ModelForm):
                 field.widget.attrs.update({'placeholder': field.help_text})
 
 
-from ocr.pdf2txt.pdf2txt import *
-from django.utils.text import get_valid_filename
 class PDFForm(BaseModelForm):
     class Meta:
         model = PDFAnonimo
@@ -41,10 +41,10 @@ class PDFForm(BaseModelForm):
 class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = [ 'pdf', 'texto']
+        exclude = ['pdf', 'texto']
 
-    pdf_url = forms.CharField(max_length=100, widget = forms.HiddenInput())
-    pdf_texto = forms.CharField(max_length=1000000, widget=forms.HiddenInput())
+    pdf_url = forms.CharField(max_length = 100, widget = forms.HiddenInput())
+    pdf_texto = forms.CharField(max_length = 1000000, widget = forms.HiddenInput())
 
     def save(self, commit=True):
         instance = super(AnonForm, self).save(commit=False)
@@ -55,9 +55,14 @@ class AnonForm(BaseModelForm):
         elif periodo[0] == 'V': periodo="VE"
         else:                   periodo="SD"
 
-        nurl = "%s/%s-%s-%s.pdf" % (str(instance.instancia), instance.codigo, instance.fecha_año, periodo)
+        nurl = "%s/%s-%s-%s.pdf" % (str(instance.instancia),
+                                    instance.codigo,
+                                    instance.fecha_año,
+                                    periodo)
 
-        file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'], settings.MEDIA_ROOT+'/'+nurl, allow_overwrite=True)
+        file_move_safe(settings.BASE_DIR+self.cleaned_data['pdf_url'],
+                       settings.MEDIA_ROOT+'/'+nurl,
+                       allow_overwrite=True)
         instance.pdf.name = nurl
         instance.texto = self.cleaned_data['pdf_texto']
         if commit:

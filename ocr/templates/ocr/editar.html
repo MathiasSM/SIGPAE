@@ -35,15 +35,17 @@
       {% block infotab%}
       <h2>Información a extraer</h2>
       <form action="{% block whodoireportto %}{% endblock %}" method="post">
-          {% csrf_token %}
-          {% for field in form.visible_fields %}<div class="fieldRow {{ field.id_for_label }}">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}<p class="errors">{{ field.errors }}</p>
-          {% endif %}{% if field.help_text %}<p class="help">{{ field.help_text|safe }}</p>{% endif %}
-          </div>
-          {% endfor %}
-          <input type="submit" value="Submit" />
+        {% for hidden in form.hidden_fields %}{{ hidden }}
+        {% endfor %}
+        {% csrf_token %}
+        {% for field in form.visible_fields %}<div class="fieldRow {{ field.id_for_label }}">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<p class="errors">{{ field.errors }}</p>
+        {% endif %}{% if field.help_text %}<p class="help">{{ field.help_text|safe }}</p>{% endif %}
+        </div>
+        {% endfor %}
+        <input type="submit" value="Submit" />
       </form>
       {% endblock infotab %}
     </section>

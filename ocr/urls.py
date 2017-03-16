@@ -1,3 +1,5 @@
+"""Manejo de URLs de la aplicación OCR."""
+
 from django.conf.urls import url
 
 from . import views

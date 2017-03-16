@@ -1,13 +1,12 @@
-u"""Vistas de control del sistema SIGPAE-Históricos"""
+"""Vistas de control del sistema SIGPAE-Históricos"""
 
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.contrib import messages
 from .models import Programa_Borrador
 from .forms import PDFForm, ProgramaForm, AnonForm
 
 def index(request):
-    u"""Vista principal del sistema SIGPAE-Historico"""
+    """Vista principal del sistema SIGPAE-Histórico"""
     if request.method == 'POST':
         print(request.POST)
         vista_editar = try_edit(request)
@@ -26,7 +25,7 @@ def index(request):
         return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
 
 def try_edit(request):
-    u"""Vista intermedia/falsa para la generación de html para edición de programa anónimo"""
+    """Vista intermedia/falsa para la generación de html para edición de programa anónimo"""
     print(request.POST)
     form = PDFForm(request.POST, request.FILES)
     if form.is_valid():
@@ -36,14 +35,15 @@ def try_edit(request):
         req = request.POST
         req.appendlist('pdf_url', pdf_url)
         req.appendlist('pdf_texto', pdf_texto)
+        form = AnonForm(initial={'pdf_url': pdf_url, 'pdf_texto': pdf_texto})
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,
-                       'form': AnonForm(req)})
+                       'form': form})
     return None
 
 def try_keep(request):
-    u"""Vista para subir info del PDF anónimo"""
+    """Vista para subir info del PDF anónimo"""
     if request.method == 'POST':
         print(request.POST)
         form = AnonForm(request.POST)
@@ -52,13 +52,14 @@ def try_keep(request):
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)
             return redirect('ocr:borradores')
 
+        messages.error(request, 'No se ha guardado el borrador')
         return render(request, 'ocr/editar_anon.html',
                       {'form': AnonForm(request.POST)})
     return redirect('ocr:index')
 
 
 def editar_borrador(request, draft_id):
-    u"""Vista de edición de un borrador"""
+    """Vista de edición de un borrador"""
     try:
         borrador = Programa_Borrador.objects.get(pk=draft_id)
         if request.method == 'POST':
@@ -88,6 +89,6 @@ def editar_borrador(request, draft_id):
 
 
 def listar_borradores(request):
-    u"""Vista de todos los borradores almacenados en el sistema"""
+    """Vista de todos los borradores almacenados en el sistema"""
     borradores = Programa_Borrador.objects.all()
     return render(request, 'ocr/archivo.html', {'borradores':borradores})

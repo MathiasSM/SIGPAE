@@ -19,24 +19,27 @@ $(document).ready(function() {
     })
     $("#fecha_periodo").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('')
         if (textfield.validity.valueMissing) {
-          textfield.setCustomValidity('Este campo es obligatorio');  
+          textfield.setCustomValidity('Este campo es obligatorio');
         }
     })
-    /*$("#codigo").attr({
-        "pattern" : "[A-Za-z][A-Za-z]\d\d\d\d"
-    })*/
+    $("#codigo").attr({
+        "pattern" : "[A-Za-z]{2}[0-9]{4}"
+    })
     $("#codigo").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('')
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
-        /*if(textfield.validity.patternMismatch) {
+        if(textfield.validity.patternMismatch) {
             textfield.setCustomValidity('Código en formato incorrecto');
-        }*/
+        }
     })
     $("#instancia").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('')
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }

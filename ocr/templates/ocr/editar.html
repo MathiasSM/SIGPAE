@@ -15,13 +15,6 @@
 <main class="two-col">
     {% block wintab %}
     <section class="wintab">
-      {% block upload %}<div class="tab upload-tab">
-          <a href="#" class="tab-link">Subir PDF</a>
-          <div class="tab-content">
-              <h2>Subir otro PDF:</h2>
-              <a href="/ocr">Subir</a>
-          </div>
-      </div>{% endblock %}
       {% block verpdf %}<div class="tab pdf-viewer">
           <a href="#" class="tab-link is-active">Ver PDF</a>
           <div class="tab-content is-open">
@@ -29,14 +22,9 @@
           </div>
       </div>{% endblock %}
       {% block texto %}<div class="tab pdf-viewer">
-          <a href="#" class="tab-link">Texto</a>
+          <a href="#" class="tab-link">Ver Texto Extraído</a>
           <div class="tab-content">
               <textarea rows="4" cols="50" >{{pdf_texto}}</textarea>
-          </div>
-      </div>{% endblock %}
-      {% block posibleinfo %}<div class="tab pdf-viewer">
-          <a href="#" class="tab-link">Posible Info</a>
-          <div class="tab-content">
           </div>
       </div>{% endblock %}
     </section>
@@ -142,7 +130,7 @@
         </div>
         <p><strong>Campos Adicionales</strong></p>
         <div id="adicionalCNT">
-          <div id="adicional1"> 
+          <div id="adicional1">
             <label><small>Tipo:</small></label>
             <input type="text" name="tipo1" placeholder="Tipo de campo adicional">
             <label><small>Valor:</small></label>
@@ -158,7 +146,7 @@
         <div id="seccionCNT">
           <div id="seccion1">
             <label><small>Nombre:</small></label>
-            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">            
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
             <p><strong>Referencias:</strong></p>
             <div id="referenciaCNT1">
               <div id="referencia1-1">

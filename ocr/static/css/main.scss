@@ -35,7 +35,7 @@ header{
 }
 main {
     @include outer-container;
-    width:100%;
+    width:95%;
     flex:1 1 auto;
 }
 footer{

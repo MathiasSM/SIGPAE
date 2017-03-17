@@ -85,10 +85,14 @@ def try_keep(request):
         if form.is_valid():
             instance = form.save()
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)
+            print(request.POST['pdf_texto'])
+            print(str(instance.pdf))
             return render(request, 'ocr/editar_anon.html',
                           {'form': form,
                           'selectI': INSTANCIAS,
-                          'instancia': a})
+                          'instancia': a,
+                          'pdf_texto': request.POST['pdf_texto'],
+                          'pdf_url': str(instance.pdf)})
 
         messages.error(request, 'No se ha guardado el borrador')
         print(request.POST['instancia'])
@@ -96,7 +100,9 @@ def try_keep(request):
         return render(request, 'ocr/editar_anon.html',
                       {'form': form,
                       'selectI': INSTANCIAS,
-                      'instancia': a})
+                      'instancia': a,
+                      'pdf_texto': request.POST['pdf_texto'],
+                      'pdf_url': request.POST['pdf_url']})
     return redirect('ocr:index')
 
 
@@ -141,3 +147,11 @@ def listar_borradores(request):
     """Vista de todos los borradores almacenados en el sistema"""
     borradores = Programa_Borrador.objects.all()
     return render(request, 'ocr/archivo.html', {'borradores':borradores})
+    
+def buscar_publicados(request, codigo, año=9999, periodo=3):
+    """Vista de busqueda de PAs"""
+    programas = Programa_Borrador.objects.filter(published=True).filter(codigo=codigo).filter(fecha_año__lt=año)
+    if programas:
+        return render(request, 'ocr/archivo.html' context={'programas': programa})
+    else:
+        return render(request, 'ocr/archivo.html')

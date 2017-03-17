@@ -64,7 +64,8 @@ class PDFForm(BaseModelForm):
 class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = ['pdf', 'texto']
+        exclude = ['pdf', 'texto','published']
+        initial = {'horas_laboratorio':0, 'horas_teoria':0, 'horas_practica':0}
 
     pdf_url = forms.CharField(max_length = 100, widget = forms.HiddenInput())
     pdf_texto = forms.CharField(max_length = 1000000, widget = forms.HiddenInput())
@@ -95,7 +96,7 @@ class AnonForm(BaseModelForm):
 class ProgramaForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = ['pdf', 'texto']
+        exclude = ['pdf', 'texto','published']
         widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     def save(self, commit=True):

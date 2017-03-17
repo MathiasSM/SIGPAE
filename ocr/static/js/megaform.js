@@ -3,7 +3,7 @@ $(document).ready(function () {
   var seccionCNT = $("#seccionCNT");          // ID del contenedor de las secciones
   var addAdicional = $("#agregarAdicional");  // ID del botón para añadir campo adicional
   var addSeccion = $("#agregarSeccion");      // ID del botón para añadir seccion
-  var adicionalCount = 1;                     // Contador de campos adicionales
+  var adicionalCount = 0;                     // Contador de campos adicionales
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
@@ -13,7 +13,7 @@ $(document).ready(function () {
     e.preventDefault();
     $('#field-objetivosE').show();
   });
-  
+
   $('#btn-mix-obj').on('click', function (e) {
     e.preventDefault();
     var extra = $('#field-objetivosE');

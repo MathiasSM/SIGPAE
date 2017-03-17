@@ -1,0 +1,43 @@
+{% extends './base.html' %}
+{%load static%}
+
+{% block content %}
+<main>
+  <div class="simple-container">
+    <h2>Sube un programa</h2>
+    <form action="" method="post" enctype="multipart/form-data" class="main-form" id="main-form">
+      {% csrf_token %}
+      {{ form.pdf }}
+      {{ form.tipo }}
+      {% if messages %}
+      <div id="django-msgs" class="alert-messages">
+        <ul>{% for message in messages %}
+          <li {% if message.tags %} id="{{ message.tags }}" class="alert-messages"{% endif %} >
+            <span>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}{{ message }}</span>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      <button type="button" id="bt-t" class="bt-x"> Escaneo rápido </button>
+      <button type="button" id="bt-i" class="bt-x">Escaneo óptimo</button>
+    </form>
+  </div>
+
+  <div class="simple-container">
+    <h3>Borradores recientes</h3>
+    <table>
+      <tr><th>Código</th><th>Nombre</th><th>Período</th><th>Año</th><th>Acción</th></tr>
+      {% for borrador in borradores %}
+      <tr><td>{{borrador.codigo}}</td><td>{{borrador.denominacion}}</td><td>{{borrador.get_fecha_periodo_display}}</td><td>{{borrador.fecha_año}}</td><td><a href="borradores/{{borrador.pk}}">Editar</a></td></tr>
+      {% endfor %}
+    </table>
+    <p class="right"><a href="{% url 'ocr:borradores' %}">Ver todos</a></p>
+  </div>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+{{block.super}}
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

@@ -8,6 +8,8 @@
 <title>{% block page_title %}SIGPAE Históricos{% endblock %}</title>
 {% block page_meta_extra %}{% endblock %}
 <link rel="stylesheet" href="{% static 'css/main.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/messages.css' %}"/>
+<link rel="stylesheet" href="{% static 'css/validateFields.css' %}"/>
 {% block page_style_extra %}{% endblock %}
 </head>
 
@@ -18,7 +20,6 @@
     <section class="site-logo">Universidad Simón Bolívar</section>
     {% endblock %}
 </header>
-<nav class="main-nav">{% block navbar %}{% endblock %}</nav>
 {% block content %}
 {% endblock %}
 <footer>
@@ -26,6 +27,8 @@
 </footer>
 {% block scripts %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{% static 'js/sweetalert.min.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
 {% endblock %}
 </body>
 </html>

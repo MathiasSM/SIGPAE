@@ -25,6 +25,7 @@ header{
     background: $black;
     color: $white;
     height:5em;
+    flex: 0 0 auto;
     .site-logo {
         background: url('../images/usb-logo.png') no-repeat right;
         background-size:contain;
@@ -34,8 +35,8 @@ header{
 }
 main {
     @include outer-container;
-    width:100%;
-    flex:1;
+    width:95%;
+    flex:1 1 auto;
 }
 footer{
     @include pad(default);

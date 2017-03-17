@@ -1,0 +1,56 @@
+[{
+    "fields": {
+        "nombre": "Decanato de Estudios de Postgrado"
+        },
+        "model": "ocr.Decanato",
+        "pk": 0
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios Generales"
+        },
+        "model": "ocr.Decanato",
+        "pk": 1
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios Profesionales"
+        },
+        "model": "ocr.Decanato",
+        "pk": 2
+},
+{
+    "fields": {
+        "nombre": "Decanato de Estudios Tecnológicos"
+        },
+        "model": "ocr.Decanato",
+        "pk": 3
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Biológicas"
+        },
+        "model": "ocr.Decanato",
+        "pk": 4
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Físicas y Matemáticas"
+        },
+        "model": "ocr.Decanato",
+        "pk": 5
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias Sociales y Humanidades"
+        },
+        "model": "ocr.Decanato",
+        "pk": 6
+},
+{
+    "fields": {
+        "nombre": "División de Ciencias y Tecnologías Administrativas e Industriales"
+        },
+        "model": "ocr.Decanato",
+        "pk": 7
+}]

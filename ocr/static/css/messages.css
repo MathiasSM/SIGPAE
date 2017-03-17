@@ -1,0 +1,27 @@
+.alert-messages {
+	background: red;
+    word-wrap: break-word;
+    color: white;
+    font-size: 12pt;
+    font-weight: 600;
+    text-align: center;
+    padding: 2px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.success-messages {
+    background: green;
+    word-wrap: break-word;
+    color: white;
+    font-size: 12pt;
+    font-weight: 600;
+    text-align: center;
+    padding: 2px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+.simple-container {
+	padding-bottom: 1.5em;
+}

@@ -2,8 +2,24 @@
 {%load static%}
 
 {% block content %}
-<main class="two-col">
-FINALLY
+<main>
+  {% if messages %}
+  <div id="django-success" class="success-messages">
+    <ul>{% for message in messages %}
+      <li {% if message.tags %} id="{{ message.tags }}" class="success-messages"{% endif %} >
+        <span>{{ message }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+<table>
+  <tr><th>Código</th><th>Nombre</th><th>Período</th><th>Año</th><th>Acción</th></tr>
+  {% for borrador in borradores %}
+  <tr id="draft-{{borrador.pk}}"><td>{{borrador.codigo}}</td><td>{{borrador.denominacion}}</td><td>{{borrador.get_fecha_periodo_display}}</td><td>{{borrador.fecha_año}}</td><td><a href="borradores/{{borrador.pk}}">Editar</td></tr>
+  {% endfor %}
+</table>
 </main>
 {% endblock content %}
 

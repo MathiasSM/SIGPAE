@@ -5,8 +5,25 @@ from django.contrib import messages
 from .models import Programa_Borrador
 from .forms import PDFForm, ProgramaForm, AnonForm, Instancia
 
+from django.db import connections
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
+
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
+
+    cursor = connections['SIGPAEdb'].cursor()
+    cursor.execute("SELECT b1.clave, b2.clave FROM test as b1, test as b2")
+    #row = dictfetchall(cursor)
+    row = cursor.fetchall()
+    print(row)
+
     if request.method == 'POST':
         print('POST:')
         print(request.POST)

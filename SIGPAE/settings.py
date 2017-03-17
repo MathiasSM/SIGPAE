@@ -70,6 +70,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'SIGPAEdb': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'sigpae',
+        'USER': 'sigpaeuser',
+        'PASSWORD': '1234qwer',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 

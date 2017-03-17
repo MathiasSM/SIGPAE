@@ -8,11 +8,6 @@ from .forms import PDFForm, ProgramaForm, AnonForm
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
     if request.method == 'POST':
-        print('POST:')
-        print(request.POST)
-        print('FILES:')
-        print(request.FILES)
-        print()
         if request.FILES is {}:
             print("Got a 'POST without PDF'")
             messages.error(request, 'No has seleccionado algún archivo')

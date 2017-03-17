@@ -19,6 +19,7 @@ $(document).ready(function() {
     })
     $("#fecha_periodo").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
@@ -28,6 +29,7 @@ $(document).ready(function() {
     })*/
     $("#codigo").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
@@ -37,6 +39,7 @@ $(document).ready(function() {
     })
     $("#instancia").on('change invalid', function() {
         var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }

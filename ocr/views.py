@@ -55,6 +55,7 @@ def try_edit(request):
         req = request.POST
         req.appendlist('pdf_url', pdf_url)
         req.appendlist('pdf_texto', pdf_texto)
+        print(pdf_url)
         instPK, instS, cod = form.instancia_pk, form.instancia_nombre, form.codigo_encontrado
         if(instPK>-1):
             instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
@@ -87,16 +88,9 @@ def try_keep(request):
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)
             print(request.POST['pdf_texto'])
             print(str(instance.pdf))
-            return render(request, 'ocr/editar_anon.html',
-                          {'form': form,
-                          'selectI': INSTANCIAS,
-                          'instancia': a,
-                          'pdf_texto': request.POST['pdf_texto'],
-                          'pdf_url': str(instance.pdf)})
+            return redirect('ocr:borradores')
 
         messages.error(request, 'No se ha guardado el borrador')
-        print(request.POST['instancia'])
-        print('TRYING : '+str(a))
         return render(request, 'ocr/editar_anon.html',
                       {'form': form,
                       'selectI': INSTANCIAS,
@@ -118,7 +112,7 @@ def editar_borrador(request, draft_id):
                 instance = form.save()
                 messages.success(request, 'Se han guardado cambios al borrador #%s!' % instance.pk)
                 return render(request, 'ocr/editar_borrador.html',
-                              {'pdf_url': '/media/%s' % str(borrador.pdf),
+                              {'pdf_url': '/media/%s' % str(borrador.pdf.name),
                                'pdf_texto': borrador.texto,
                                'form': form,
                                'selectI': INSTANCIAS,
@@ -126,7 +120,7 @@ def editar_borrador(request, draft_id):
             else:
                 messages.error(request, 'Hubo un error al guardar los cambios')
                 return render(request, 'ocr/editar_borrador.html',
-                              {'pdf_url': '/media/%s' % str(borrador.pdf),
+                              {'pdf_url': '/media/%s' % str(borrador.pdf.name),
                                'pdf_texto': borrador.texto,
                                'form': form,
                                'selectI': INSTANCIAS,
@@ -134,7 +128,7 @@ def editar_borrador(request, draft_id):
         else:
             form = ProgramaForm(instance=borrador)
             return render(request, 'ocr/editar_borrador.html',
-                          {'pdf_url': '/media/%s' % str(borrador.pdf),
+                          {'pdf_url': '/media/%s' % str(borrador.pdf.name),
                            'pdf_texto': borrador.texto,
                            'form': form,
                            'selectI': INSTANCIAS,
@@ -148,10 +142,16 @@ def listar_borradores(request):
     borradores = Programa_Borrador.objects.all()
     return render(request, 'ocr/archivo.html', {'borradores':borradores})
     
+
+
 def buscar_publicados(request, codigo, año=9999, periodo=3):
     """Vista de busqueda de PAs"""
-    programas = Programa_Borrador.objects.filter(published=True).filter(codigo=codigo).filter(fecha_año__lt=año)
+    programas = Programa_Borrador.objects.filter(published=True).filter(codigo=codigo).filter(fecha_año__lt=año+1)
+    telotengo = Programa_Borrador.objects.filter(published=True).filter(codigo=codigo).filter(fecha_año=año).filter(fecha_periodo=periodo)
+    if telotengo:
+        pass
+        # ir de una al de sacar de este programa un borrador
     if programas:
-        return render(request, 'ocr/archivo.html', context={'programas': programa})
+        return render(request, 'ocr/archivo.html', context={'programas': programas})
     else:
         return render(request, 'ocr/archivo.html')

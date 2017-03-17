@@ -16,8 +16,7 @@ class BaseModelForm(forms.ModelForm):
         for field_name in self.fields:
             field = self.fields.get(field_name)
             if field:
-                obligatorio = ["denominacion","fecha_periodo","fecha_año","horas_teoria","horas_practica","horas_laboratorio",\
-                                "creditos","objetivos","contenidos_sinopticos"]
+                obligatorio = ["fecha_periodo","fecha_año"]
                 if field_name in obligatorio:
                     field.widget.attrs.update({'placeholder': field.help_text, 'data-validation' : 'required'})
                 else:
@@ -92,6 +91,7 @@ class AnonForm(BaseModelForm):
                        settings.MEDIA_ROOT+'/'+nurl,
                        allow_overwrite=True)
         instance.pdf.name = nurl
+        instance.published = False
         instance.texto = self.cleaned_data['pdf_texto']
         if commit:
             instance.save()

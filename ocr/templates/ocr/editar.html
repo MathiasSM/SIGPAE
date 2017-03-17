@@ -40,8 +40,8 @@
         <hr><h2 style="text-align: center;">Campos Obligatorios</h2><hr>
       </div>
       <form id="edit" action="{% block whodoireportto %}{% endblock %}" method="post">
-        {% for hidden in form.hidden_fields %}{{ hidden }}
-        {% endfor %}
+
+        <input type="hidden" name="pdf_url" value="{{pdf_url}}"><input type="hidden" name="pdf_texto" value="{{pdf_texto}}">
         {% csrf_token %}
         <div class="field" id="field-{{ form.codigo.id_for_label }}">
           <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}*</label>
@@ -115,20 +115,20 @@
         <div id="seccionCNT">          
           <div id="seccion1">
             <label>Sección 1*</label>
-            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección" data-validation="required">
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
             <div align="left"><label>Referencias</label></div>
             <div id="referenciaCNT1">              
               <div id="referencia1-1">
-                <label><small>Referencia 1.1*</small></label>
-                <input type="text" name="titulo1-1" placeholder="Título de la referencia" data-validation="required">
-                <label><small>Autor*</small></label>
-                <input type="text" name="autor-1" placeholder="Autor de la referencia" data-validation="required">
-                <label><small>Editorial*</small></label>
-                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia" data-validation="required">
-                <label><small>Edición*</small></label>
-                <input type="text" name="edicion1-1" placeholder="Edición de la referencia" data-validation="required">
-                <label><small>Notas*</small></label>
-                <input type="text" name="notas1-1" placeholder="Notas de la referencia" data-validation="required">
+                <label><small>Referencia 1.1</small></label>
+                <input type="text" name="titulo1-1" placeholder="Título de la referencia">
+                <label><small>Autor</small></label>
+                <input type="text" name="autor-1" placeholder="Autor de la referencia">
+                <label><small>Editorial</small></label>
+                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
+                <label><small>Edición</small></label>
+                <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
+                <label><small>Notas</small></label>
+                <input type="text" name="notas1-1" placeholder="Notas de la referencia">
               </div>
             </div>
             <div align="right">

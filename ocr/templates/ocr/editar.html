@@ -38,81 +38,94 @@
         {% for hidden in form.hidden_fields %}{{ hidden }}
         {% endfor %}
         {% csrf_token %}
-        <div class="fieldRow {{ form.codigo.id_for_label }}">
+        <div class="field" id="field-{{ form.codigo.id_for_label }}">
           <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}</label>
-          <input id="codigo" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
+          <input id="{{ form.codigo.id_for_label }}" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
           {% if form.codigo.errors %}<p class="errors">{{ form.codigo.errors }}</p>
           {% endif %}{% if form.codigo.help_text %}<p class="help">{{ form.codigo.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.denominacion.id_for_label }}">
+        <div class="field" id="field-{{ form.denominacion.id_for_label }}">
           <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}</label>
           {{ form.denominacion }}
           {% if form.denominacion.errors %}<p class="errors">{{ form.denominacion.errors }}</p>
           {% endif %}{% if form.denominacion.help_text %}<p class="help">{{ form.denominacion.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.fecha_periodo.id_for_label }}">
+        <div class="field" id="field-{{ form.fecha_periodo.id_for_label }}">
           <label for="{{ form.fecha_periodo.id_for_label }}">{{ form.fecha_periodo.label }}</label>
           {{ form.fecha_periodo }}
           {% if form.fecha_periodo.errors %}<p class="errors">{{ form.fecha_periodo.errors }}</p>
           {% endif %}{% if form.fecha_periodo.help_text %}<p class="help">{{ form.fecha_periodo.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.fecha_año.id_for_label }}">
+        <div class="field" id="field-{{ form.fecha_año.id_for_label }}">
           <label for="{{ form.fecha_año.id_for_label }}">{{ form.fecha_año.label }}</label>
           {{ form.fecha_año }}
           {% if form.fecha_año.errors %}<p class="errors">{{ form.fecha_año.errors }}</p>
           {% endif %}{% if form.fecha_año.help_text %}<p class="help">{{ form.fecha_año.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.horas_teoria.id_for_label }}">
+        <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
           <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
           {{ form.horas_teoria }}
           {% if form.horas_teoria.errors %}<p class="errors">{{ form.horas_teoria.errors }}</p>
           {% endif %}{% if form.horas_teoria.help_text %}<p class="help">{{ form.horas_teoria.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.horas_practica.id_for_label }}">
+        <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
           <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
           {{ form.horas_practica }}
           {% if form.horas_practica.errors %}<p class="errors">{{ form.horas_practica.errors }}</p>
           {% endif %}{% if form.horas_practica.help_text %}<p class="help">{{ form.horas_practica.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.horas_laboratorio.id_for_label }}">
+        <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
           <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
           {{ form.horas_laboratorio }}
           {% if form.horas_laboratorio.errors %}<p class="errors">{{ form.horas_laboratorio.errors }}</p>
           {% endif %}{% if form.horas_laboratorio.help_text %}<p class="help">{{ form.horas_laboratorio.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.creditos.id_for_label }}">
+        <div class="field" id="field-{{ form.creditos.id_for_label }}">
           <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}</label>
           {{ form.creditos }}
           {% if form.creditos.errors %}<p class="errors">{{ form.creditos.errors }}</p>
           {% endif %}{% if form.creditos.help_text %}<p class="help">{{ form.creditos.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.objetivos.id_for_label }}">
+        <div class="field" id="field-{{ form.objetivos.id_for_label }}">
           <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}</label>
           {{ form.objetivos }}
           {% if form.objetivos.errors %}<p class="errors">{{ form.objetivos.errors }}</p>
           {% endif %}{% if form.objetivos.help_text %}<p class="help">{{ form.objetivos.help_text|safe }}</p>{% endif %}
+          <a href="#" id="btn-sep-obj">Añadir objetivos específicos</a>
         </div>
-        <div class="fieldRow {{ form.contenidos_sinopticos.id_for_label }}">
+        <div class="field" id="field-{{ form.objetivosE.id_for_label }}">
+          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}</label>
+          {{ form.objetivosE }}
+          {% if form.objetivosE.errors %}<p class="errors">{{ form.objetivosE.errors }}</p>
+          {% endif %}{% if form.objetivosE.help_text %}<p class="help">{{ form.objetivosE.help_text|safe }}</p>{% endif %}
+          <a href="#" id="btn-mix-obj">Mezclar objetivos (generales y específicos)</a>
+        </div>
+        <div class="field" id="field-{{ form.contenidos_sinopticos.id_for_label }}">
           <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}</label>
           {{ form.contenidos_sinopticos }}
           {% if form.contenidos_sinopticos.errors %}<p class="errors">{{ form.contenidos_sinopticos.errors }}</p>
           {% endif %}{% if form.contenidos_sinopticos.help_text %}<p class="help">{{ form.contenidos_sinopticos.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.estrategias_metodologicas.id_for_label }}">
+        <div class="field" id="field-{{ form.estrategias_metodologicas.id_for_label }}">
           <label for="{{ form.estrategias_metodologicas.id_for_label }}">{{ form.estrategias_metodologicas.label }}</label>
           {{ form.estrategias_metodologicas }}
           {% if form.estrategias_metodologicas.errors %}<p class="errors">{{ form.estrategias_metodologicas.errors }}</p>
           {% endif %}{% if form.estrategias_metodologicas.help_text %}<p class="help">{{ form.estrategias_metodologicas.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.estrategias_evaluacion.id_for_label }}">
+        <div class="field" id="field-{{ form.estrategias_evaluacion.id_for_label }}">
           <label for="{{ form.estrategias_evaluacion.id_for_label }}">{{ form.estrategias_evaluacion.label }}</label>
           {{ form.estrategias_evaluacion }}
           {% if form.estrategias_evaluacion.errors %}<p class="errors">{{ form.estrategias_evaluacion.errors }}</p>
           {% endif %}{% if form.estrategias_evaluacion.help_text %}<p class="help">{{ form.estrategias_evaluacion.help_text|safe }}</p>{% endif %}
         </div>
-        <div class="fieldRow {{ form.instancia.id_for_label }}">
+        <div class="field" id="field-{{ form.instancia.id_for_label }}">
           <label for="{{ form.instancia.id_for_label }}">{{ form.instancia.label }}</label>
-          {{ form.instancia }}
+          <select id="{{ form.instancia.id_for_label }}" name="{{ form.instancia.html_name }}" placeholder="{{ form.instancia.help_text|safe }}" required>
+          <option value="">---------</option>
+          {% for sec,list in selectI.items %}<optgroup label="{{sec}}">
+            {% for l1, l2 in list %}<option class="{{l1}} {{instancia}}" value="{{ l1 }}"{% if instancia and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
+            {% endfor %}
+          {% endfor %}
           {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
           {% endif %}{% if form.instancia.help_text %}<p class="help">{{ form.instancia.help_text|safe }}</p>{% endif %}
         </div>

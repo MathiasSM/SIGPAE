@@ -1,11 +1,17 @@
 import re
+import string
+
+def removeNonPrintable(txt):
+    printable = set(string.printable)
+    txt = ''.join(list(filter(lambda x: x in printable, txt)))
+    return txt
 
 def cleanText(txt):
     txt = re.sub('  +', '  ', txt)
     txt = re.sub('[ º.<>!\*\':]{4,}','',txt)
     txt = txt + "\n\n\n"
     txt = re.sub('( *\n){3,}', '\n\n\n', txt)
-    return txt
+    return removeNonPrintable(txt)
 
 def htmlParagraph(par):
     return '<p>\n' + par.group(0)[:-2] + '<\p>\n'
@@ -27,12 +33,10 @@ def cleangs(txt):
     txt = re.sub('Can\'t find \(o[^\n]+\n', ' ', txt)
     txt = re.sub('Querying operating syste[^\n]+\n', ' ', txt)
     txt = re.sub('Loading [^\n]+\n', ' ', txt)
-
-    return txt
+    return removeNonPrintable(txt)
 
 def getCode(txt):
-    match = re.search(r'([A-Zl][A-Zl][A-Zl]).?(\d\d\d)|([A-Zl][A-Zl1]).?(\d\d\d\d)',txt)
-    print()
+    match = re.search(r'([A-Zl][A-Zl][A-Zl])[\ -]?(\d\d\d)|([A-Zl][A-Zl1])[\ -]?(\d\d\d\d)',txt)
     if match:
         if match.group(1) is None:
             dpt = match.group(3).replace('l','I').replace('1','I')

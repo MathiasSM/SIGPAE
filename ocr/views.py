@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Programa_Borrador
-from .forms import PDFForm, ProgramaForm, AnonForm
+from .forms import PDFForm, ProgramaForm, AnonForm, Instancia, Decanato
 
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
@@ -34,6 +34,18 @@ def index(request):
         borradores = Programa_Borrador.objects.all()
         return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
 
+def get_instancias_ordenaditas():
+    """Esto NO es una vista. Función helper para el dropdown de selección de instancia."""
+    secs = Decanato.objects.values_list('pk', 'nombre').order_by('nombre')
+    dic = {}
+    for pk, no in secs:
+        insL = []
+        insQ = Instancia.objects.values_list('pk', 'nombre').filter(decanato=pk).order_by('nombre')
+        for i_pk, i_no in insQ:
+            insL += [(i_pk, i_no),]
+        dic.update({no: insL})
+    return dic
+
 def try_edit(request):
     """Vista intermedia/falsa para la generación de html para edición de programa anónimo"""
     print(request.POST)
@@ -45,11 +57,28 @@ def try_edit(request):
         req = request.POST
         req.appendlist('pdf_url', pdf_url)
         req.appendlist('pdf_texto', pdf_texto)
-        form = AnonForm(initial={'pdf_url': pdf_url, 'pdf_texto': pdf_texto})
+        instPK, instS, cod = form.instancia_pk, form.instancia_nombre, form.codigo_encontrado
+        if(instPK>-1):
+            print("Conseguí")
+            instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
+            print(instS)
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': cod})
+        elif(instPK==-1):
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': cod})
+        else:
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto})
+        a = get_instancias_ordenaditas()
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,
-                       'form': form})
+                       'form': form,
+                       'selectI': a,
+                       'instancia': instS})
     return None
 
 def try_keep(request):

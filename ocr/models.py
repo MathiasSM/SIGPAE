@@ -266,8 +266,13 @@ class Programa_Borrador(models.Model):
         blank=True,
         null=True)
     objetivos                                           = models.TextField(
-        help_text="Los objetivos de la materia",
-        verbose_name="objetivos",
+        help_text="Los objetivos generales de la materia",
+        verbose_name="objetivos generales",
+        blank=True,
+        null=True)
+    objetivosE                                          = models.TextField(
+        help_text="Los objetivos específicos de la materia",
+        verbose_name="objetivos específicos",
         blank=True,
         null=True)
     contenidos_sinopticos                               = models.TextField(

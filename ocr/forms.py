@@ -38,24 +38,24 @@ class PDFForm(BaseModelForm):
             else:
                 instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
 
-        instancia_pk, codigo_encontrado, instancia_nombre = getCode(instance.texto)
+        self.instancia_pk, self.codigo_encontrado, self.instancia_nombre = getCode(instance.texto)
         
         print('\n')
-        if instancia_pk > -1:
-            instancia_nombre = Instancia.objects.get(pk=instancia_pk).nombre
+        if self.instancia_pk > -1:
+            self.instancia_nombre = Instancia.objects.get(pk=self.instancia_pk).nombre
 
             print("Codigo encontrado, en la tabla y con dependencia asociada:")
-            print("Codigo: "+codigo_encontrado)
-            print("Dependencia: "+instancia_nombre)
+            print("Codigo: "+self.codigo_encontrado)
+            print("Dependencia: "+self.instancia_nombre)
             
-        elif instancia_pk == -1:
+        elif self.instancia_pk == -1:
             print("Codigo encontrado, en la tabla pero sin dependencias asociadas:")
-            print("Codigo: "+codigo_encontrado)
-            print("Instancia: "+instancia_nombre)
+            print("Codigo: "+self.codigo_encontrado)
+            print("Instancia: "+self.instancia_nombre)
 
-        elif instancia_pk == -2:
+        elif self.instancia_pk == -2:
             print("Codigo encontrado, pero no en la tabla:")
-            print("Codigo: "+codigo_encontrado)
+            print("Codigo: "+self.codigo_encontrado)
         else:
             print("No se encontro codigo")
         

@@ -65,7 +65,6 @@ class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
         exclude = ['pdf', 'texto']
-        widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     pdf_url = forms.CharField(max_length = 100, widget = forms.HiddenInput())
     pdf_texto = forms.CharField(max_length = 1000000, widget = forms.HiddenInput())

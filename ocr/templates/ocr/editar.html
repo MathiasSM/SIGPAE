@@ -2,6 +2,16 @@
 {%load static%}
 
 {% block content %}
+{% if messages %}
+  <div id="django-save" class="success-messages">
+    <ul>{% for message in messages %}
+      <li {% if message.tags %} id="{{ message.tags }}" class="success-messages"{% endif %} >
+        <span>{{ message }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endif %}
 <main class="two-col">
     {% block wintab %}
     <section class="wintab">
@@ -135,15 +145,10 @@
       {% endblock infotab %}
     </section>
 </main>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
 {% endblock content %}
 
 {% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>
+<script src="{% static 'js/validateFields.js' %}"></script>
 <script src="{% static 'js/megaform.js' %}"></script>
 {% endblock %}

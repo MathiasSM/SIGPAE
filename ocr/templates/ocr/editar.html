@@ -8,9 +8,9 @@
 {% block content %}
 {% if messages %}
   {% for message in messages %}
-  <div {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %} >
+  <div {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} class="alert-messages" {% else %} class="success-messages" {% endif %} >
     <ul>
-      <li {% if message.tags %} id="{{ message.tags }}" {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %}{% endif %} >
+      <li {% if message.tags %} id="{{ message.tags }}" {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="success-messages" {% endif %}{% endif %} >
         <span>{{ message }}</span>
       </li>
     </ul>
@@ -50,7 +50,7 @@
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.denominacion.id_for_label }}">
-          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}*</label>
+          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}</label>
           {{ form.denominacion }}
           {% if form.denominacion.errors %}<p class="errors">{{ form.denominacion.errors }}</p>
           {% endif %}
@@ -68,45 +68,45 @@
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
-          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}*</label>
+          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
           {{ form.horas_teoria }}
           {% if form.horas_teoria.errors %}<p class="errors">{{ form.horas_teoria.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
-          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}*</label>
+          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
           {{ form.horas_practica }}
           {% if form.horas_practica.errors %}<p class="errors">{{ form.horas_practica.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
-          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}*</label>
+          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
           {{ form.horas_laboratorio }}
           {% if form.horas_laboratorio.errors %}<p class="errors">{{ form.horas_laboratorio.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.creditos.id_for_label }}">
-          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}*</label>
+          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}</label>
           {{ form.creditos }}
           {% if form.creditos.errors %}<p class="errors">{{ form.creditos.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.objetivos.id_for_label }}">
-          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}*</label>
+          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}</label>
           {{ form.objetivos }}
           {% if form.objetivos.errors %}<p class="errors">{{ form.objetivos.errors }}</p>
           {% endif %}
           <a href="#" id="btn-sep-obj">Añadir objetivos específicos</a>
         </div>
         <div class="field" id="field-{{ form.objetivosE.id_for_label }}">
-          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}*</label>
+          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}</label>
           {{ form.objetivosE }}
           {% if form.objetivosE.errors %}<p class="errors">{{ form.objetivosE.errors }}</p>
           {% endif %}
           <a href="#" id="btn-mix-obj">Mezclar objetivos (generales y específicos)</a>
         </div>
         <div class="field" id="field-{{ form.contenidos_sinopticos.id_for_label }}">
-          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}*</label>
+          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}</label>
           {{ form.contenidos_sinopticos }}
           {% if form.contenidos_sinopticos.errors %}<p class="errors">{{ form.contenidos_sinopticos.errors }}</p>
           {% endif %}
@@ -114,7 +114,7 @@
         <div align="center"><h4>Secciones</h4></div>
         <div id="seccionCNT">          
           <div id="seccion1">
-            <label>Sección 1*</label>
+            <label>Sección 1</label>
             <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
             <div align="left"><label>Referencias</label></div>
             <div id="referenciaCNT1">              

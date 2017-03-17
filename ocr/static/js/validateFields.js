@@ -24,18 +24,33 @@ $(document).ready(function() {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
     })
-    /*$("#codigo").attr({
-        "pattern" : "[A-Za-z][A-Za-z]\d\d\d\d"
-    })*/
+    $("#codigo").attr({
+        "pattern" : "[A-Za-z]{2}[0-9]{4}"
+    })
     $("#codigo").on('change invalid', function() {
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
-        /*if(textfield.validity.patternMismatch) {
+        if(textfield.validity.patternMismatch) {
             textfield.setCustomValidity('Código en formato incorrecto');
-        }*/
+        }
+    })
+    $("#field-creditos").attr({
+        "min" : 0,
+        "max" : 16
+    })
+    $("#field-creditos").on('change invalid', function() {
+        var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
+        if (textfield.validity.rangeUnderflow) {
+            textfield.setCustomValidity('Cantidad de créditos debe ser positiva');
+        }
+        if (textfield.validity.rangeOverflow) {
+            textfield.setCustomValidity('Cantidad de créditos debe ser menor o igual a 16');
+        }
+
     })
     $("#instancia").on('change invalid', function() {
         var textfield = $(this).get(0);

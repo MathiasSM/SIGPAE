@@ -59,7 +59,6 @@
 {% endif %}
 {% endblock content %}
 
-{% block scripts %}{{block.super}}
-<script src="{% static 'js/refills-tab.js' %}"></script>
+{% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>
 <script src="{% static 'js/validateFields.js' %}"></script>
 {% endblock %}

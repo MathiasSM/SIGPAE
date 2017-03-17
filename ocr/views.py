@@ -44,7 +44,6 @@ def get_instancias_ordenaditas():
         for i_pk, i_no in insQ:
             insL += [(i_pk, i_no),]
         dic.update({no: insL})
-    print(dic)
     return dic
 
 def try_edit(request):
@@ -58,18 +57,28 @@ def try_edit(request):
         req = request.POST
         req.appendlist('pdf_url', pdf_url)
         req.appendlist('pdf_texto', pdf_texto)
-        instS, cod = form.instancia_nombre, form.codigo_encontrado
-        instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
-        form = AnonForm(initial={'pdf_url': pdf_url,
-                                 'pdf_texto': pdf_texto,
-                                 'instancia': instS,
-                                 'codigo': cod})
+        instPK, instS, cod = form.instancia_pk, form.instancia_nombre, form.codigo_encontrado
+        if(instPK>-1):
+            print("Conseguí")
+            instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
+            print(instS)
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': cod})
+        elif(instPK==-1):
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': cod})
+        else:
+            form = AnonForm(initial={'pdf_url': pdf_url,
+                                     'pdf_texto': pdf_texto})
         a = get_instancias_ordenaditas()
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,
                        'form': form,
-                       'selectI': a})
+                       'selectI': a,
+                       'instancia': instS})
     return None
 
 def try_keep(request):

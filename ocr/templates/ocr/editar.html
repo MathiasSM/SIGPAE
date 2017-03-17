@@ -3,14 +3,15 @@
 
 {% block content %}
 {% if messages %}
-  <div id="django-save" class="success-messages">
-    <ul>{% for message in messages %}
-      <li {% if message.tags %} id="{{ message.tags }}" class="success-messages"{% endif %} >
+  {% for message in messages %}
+  <div {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %} >
+    <ul>
+      <li {% if message.tags %} id="{{ message.tags }}" {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %}{% endif %} >
         <span>{{ message }}</span>
       </li>
-    {% endfor %}
     </ul>
   </div>
+    {% endfor %}
 {% endif %}
 <main class="two-col">
     {% block wintab %}

@@ -4,10 +4,16 @@
 {% block content %}
 <main>
   {% if messages %}
-  <ul class="messages">
-      {% for message in messages %}<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}{{ message }}</li>
-  {% endfor %}</ul>
+  <div id="django-success" class="success-messages">
+    <ul>{% for message in messages %}
+      <li {% if message.tags %} id="{{ message.tags }}" class="success-messages"{% endif %} >
+        <span>{{ message }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
   {% endif %}
+
 <table>
   <tr><th>Código</th><th>Nombre</th><th>Período</th><th>Año</th><th>Acción</th></tr>
   {% for borrador in borradores %}

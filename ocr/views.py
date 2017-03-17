@@ -8,11 +8,6 @@ from .forms import PDFForm, ProgramaForm, AnonForm, Instancia, Decanato
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
     if request.method == 'POST':
-        print('POST:')
-        print(request.POST)
-        print('FILES:')
-        print(request.FILES)
-        print()
         if request.FILES is {}:
             print("Got a 'POST without PDF'")
             messages.error(request, 'No has seleccionado algún archivo')
@@ -46,6 +41,9 @@ def get_instancias_ordenaditas():
         dic.update({no: insL})
     return dic
 
+INSTANCIAS = get_instancias_ordenaditas()
+
+
 def try_edit(request):
     """Vista intermedia/falsa para la generación de html para edición de programa anónimo"""
     print(request.POST)
@@ -59,9 +57,7 @@ def try_edit(request):
         req.appendlist('pdf_texto', pdf_texto)
         instPK, instS, cod = form.instancia_pk, form.instancia_nombre, form.codigo_encontrado
         if(instPK>-1):
-            print("Conseguí")
             instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
-            print(instS)
             form = AnonForm(initial={'pdf_url': pdf_url,
                                      'pdf_texto': pdf_texto,
                                      'codigo': cod})
@@ -71,29 +67,36 @@ def try_edit(request):
                                      'codigo': cod})
         else:
             form = AnonForm(initial={'pdf_url': pdf_url,
-                                     'pdf_texto': pdf_texto})
-        a = get_instancias_ordenaditas()
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': ''})
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,
                        'form': form,
-                       'selectI': a,
+                       'selectI': INSTANCIAS,
                        'instancia': instS})
     return None
 
 def try_keep(request):
     """Vista para subir info del PDF anónimo"""
     if request.method == 'POST':
-        print(request.POST)
         form = AnonForm(request.POST)
+        a = Instancia.objects.values_list('pk',flat=True).get(pk=request.POST['instancia'])
         if form.is_valid():
             instance = form.save()
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)
-            return redirect('ocr:borradores')
+            return render(request, 'ocr/editar_anon.html',
+                          {'form': form,
+                          'selectI': INSTANCIAS,
+                          'instancia': a})
 
         messages.error(request, 'No se ha guardado el borrador')
+        print(request.POST['instancia'])
+        print('TRYING : '+str(a))
         return render(request, 'ocr/editar_anon.html',
-                      {'form': AnonForm(request.POST)})
+                      {'form': form,
+                      'selectI': INSTANCIAS,
+                      'instancia': a})
     return redirect('ocr:index')
 
 
@@ -103,6 +106,7 @@ def editar_borrador(request, draft_id):
         borrador = Programa_Borrador.objects.get(pk=draft_id)
         if request.method == 'POST':
             form = ProgramaForm(request.POST, instance=borrador)
+            a = Instancia.objects.values_list('pk',flat=True).get(pk=request.POST['instancia'])
             print(request.POST)
             if form.is_valid():
                 instance = form.save()
@@ -110,19 +114,25 @@ def editar_borrador(request, draft_id):
                 return render(request, 'ocr/editar_borrador.html',
                               {'pdf_url': '/media/%s' % str(borrador.pdf),
                                'pdf_texto': borrador.texto,
-                               'form': form})
+                               'form': form,
+                               'selectI': INSTANCIAS,
+                               'instancia': a})
             else:
                 messages.error(request, 'Hubo un error al guardar los cambios')
                 return render(request, 'ocr/editar_borrador.html',
                               {'pdf_url': '/media/%s' % str(borrador.pdf),
                                'pdf_texto': borrador.texto,
-                               'form': form})
+                               'form': form,
+                               'selectI': INSTANCIAS,
+                               'instancia': a})
         else:
             form = ProgramaForm(instance=borrador)
             return render(request, 'ocr/editar_borrador.html',
                           {'pdf_url': '/media/%s' % str(borrador.pdf),
                            'pdf_texto': borrador.texto,
-                           'form': form})
+                           'form': form,
+                           'selectI': INSTANCIAS,
+                           'instancia': Instancia.objects.values_list('pk',flat=True).get(pk=draft_id)})
     except Programa_Borrador.DoesNotExist:
         return render(request, 'ocr/borrador_404.html', status=404, context={'draft_id': draft_id})
 

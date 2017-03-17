@@ -2,16 +2,19 @@
 {%load static%}
 
 {% block content %}
+{% if messages %}
+  <div id="django-save" class="success-messages">
+    <ul>{% for message in messages %}
+      <li {% if message.tags %} id="{{ message.tags }}" class="success-messages"{% endif %} >
+        <span>{{ message }}</span>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endif %}
 <main class="two-col">
     {% block wintab %}
     <section class="wintab">
-      {% block upload %}<div class="tab upload-tab">
-          <a href="#" class="tab-link">Subir PDF</a>
-          <div class="tab-content">
-              <h2>Subir otro PDF:</h2>
-              <a href="/ocr">Subir</a>
-          </div>
-      </div>{% endblock %}
       {% block verpdf %}<div class="tab pdf-viewer">
           <a href="#" class="tab-link is-active">Ver PDF</a>
           <div class="tab-content is-open">
@@ -19,14 +22,9 @@
           </div>
       </div>{% endblock %}
       {% block texto %}<div class="tab pdf-viewer">
-          <a href="#" class="tab-link">Texto</a>
+          <a href="#" class="tab-link">Ver Texto Extraído</a>
           <div class="tab-content">
               <textarea rows="4" cols="50" >{{pdf_texto}}</textarea>
-          </div>
-      </div>{% endblock %}
-      {% block posibleinfo %}<div class="tab pdf-viewer">
-          <a href="#" class="tab-link">Posible Info</a>
-          <div class="tab-content">
           </div>
       </div>{% endblock %}
     </section>
@@ -108,7 +106,38 @@
           {% if form.contenidos_sinopticos.errors %}<p class="errors">{{ form.contenidos_sinopticos.errors }}</p>
           {% endif %}
         </div>
-        <div style="align: center;">
+        <div align="center"><h4>Secciones</h4></div>
+        <div id="seccionCNT">          
+          <div id="seccion1">
+            <label>Sección 1</label>
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
+            <div align="left"><label>Referencias</label></div>
+            <div id="referenciaCNT1">              
+              <div id="referencia1-1">
+                <label><small>Referencia 1.1</small></label>
+                <input type="text" name="titulo1-1" placeholder="Título de la referencia">
+                <label><small>Autor</small></label>
+                <input type="text" name="autor-1" placeholder="Autor de la referencia">
+                <label><small>Editorial</small></label>
+                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
+                <label><small>Edición</small></label>
+                <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
+                <label><small>Notas</small></label>
+                <input type="text" name="notas1-1" placeholder="Notas de la referencia">
+              </div>
+            </div>
+            <div align="right">
+              <button id="agregarReferencia1" class="agregarReferencia" type="button" style="float: right;"><small>Agregar referencia</small></button>
+            </div>
+            </br>
+            </br>
+          </div>
+        </div>
+        <div align="center">
+          <hr>
+          <button id="agregarSeccion" type="button" style="float: center;"><small>Agregar sección</small></button>
+        </div>
+        <div style="align: center; background: whitesmoke;">
           <hr><h2 style="text-align: center;">Campos Normados</h2><hr>
         </div>
         <div class="field" id="field-{{ form.estrategias_metodologicas.id_for_label }}">
@@ -126,72 +155,35 @@
         <div class="field" id="field-{{ form.instancia.id_for_label }}">
           <label for="{{ form.instancia.id_for_label }}">{{ form.instancia.label }}</label>
           <select id="{{ form.instancia.id_for_label }}" name="{{ form.instancia.html_name }}" placeholder="{{ form.instancia.help_text|safe }}" required>
-          <option value="">---------</option>
+          <option class="{{instancia}}" value="">---------</option>
           {% for sec,list in selectI.items %}<optgroup label="{{sec}}">
-            {% for l1, l2 in list %}<option class="{{l1}} {{instancia}}" value="{{ l1 }}"{% if instancia and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
+            {% for l1, l2 in list %}<option value="{{ l1 }}"{% if instancia != 'None' and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
             {% endfor %}
           {% endfor %}
           </select>
           {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
           {% endif %}
         </div>
-        <div style="align: center;">
+        <div style="align: center; background: whitesmoke;">
           <hr><h2 style="text-align: center;">Campos Adicionales</h2><hr>
         </div>
-        <div id="seccionCNT">
-          <p><strong>Secciones</strong></p>
-          <div id="seccion1">
-            <label><small>Nombre:</small></label>
-            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">            
-            <div id="referenciaCNT1">
-              <p><strong>Referencias:</strong></p>
-              <div id="referencia1-1">
-                <label><small>Título:</small></label>
-                <input type="text" name="titulo1-1" placeholder="Título de la referencia">
-                <label><small>Autor:</small></label>
-                <input type="text" name="autor-1" placeholder="Autor de la referencia">
-                <label><small>Editorial:</small></label>
-                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
-                <label><small>Edición:</small></label>
-                <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
-                <label><small>Notas:</small></label>
-                <input type="text" name="notas1-1" placeholder="Notas de la referencia">
-              </div>
-            </div>
-            <div align="right">
-              <button id="agregarReferencia1" class="agregarReferencia" type="button" style="float: right;"><small>Agregar referencia</small></button>
-            </div>
-            </br>
-            </br>
-          </div>
-        </div>
-        <div align="right">
-          <button id="agregarSeccion" type="button" style="float: right;"><small>Agregar sección</small></button>
-        </div>
-        </br>
-        </br>
         <div id="adicionalCNT"></div>
-        <div align="right">
-          <button id="agregarAdicional" type="button" style="float: right;"><small>Agregar campo adicional</small></button>
-        </div>
-        </br>
-        </br>
         <div align="center">
-          <input type="submit" value="Submit" />
+          <hr>
+          <button id="agregarAdicional" type="button" style="float: center;"><small>Agregar campo adicional</small></button>
+        </div>
+        <div align="center">
+          <hr>
+          <input type="submit" style="float: center;" value="Submit" />
         </div>
       </form>
       {% endblock infotab %}
     </section>
 </main>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+
 {% endblock content %}
 
 {% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>
+<script src="{% static 'js/validateFields.js' %}"></script>
 <script src="{% static 'js/megaform.js' %}"></script>
 {% endblock %}

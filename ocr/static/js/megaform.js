@@ -35,16 +35,17 @@ $(document).ready(function () {
 
     // Inserción del html
     $(referenciaCNT).append(
-    '<div id="referencia'+num1+'-'+num2+'">\
-      <label><small>Título:</small></label>\
+    '<hr>\
+    <div id="referencia'+num1+'-'+num2+'">\
+      <label><small>Referencia '+num1+'.'+num2+'</small></label>\
       <input type="text" name="titulo'+num1+'-'+num2+'" placeholder="Título de la referencia">\
-      <label><small>Autor:</small></label>\
+      <label><small>Autor</small></label>\
       <input type="text" name="autor-'+num1+'" placeholder="Autor de la referencia">\
-      <label><small>Editorial:</small></label>\
+      <label><small>Editorial</small></label>\
       <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia">\
-      <label><small>Edición:</small></label>\
+      <label><small>Edición</small></label>\
       <input type="text" name="edicion'+num1+'-'+num2+'" placeholder="Edición de la referencia">\
-      <label><small>Notas:</small></label>\
+      <label><small>Notas</small></label>\
       <input type="text" name="notas'+num1+'-'+num2+'" placeholder="Notas de la referencia">\
     </div>');
   });
@@ -56,7 +57,9 @@ $(document).ready(function () {
 
     // Inserción del html
     $(adicionalCNT).append(
-    '<div id="adicional'+num1+'">\
+    '<hr>\
+    <h3>Campo adicional #'+num1+'</h3>\
+    <div id="adicional'+num1+'">\
       <label><small>Tipo:</small></label>\
       <input type="text" name="tipo'+num1+'" placeholder="Tipo de campo adicional">\
       <label><small>Valor:</small></label>\
@@ -74,21 +77,22 @@ $(document).ready(function () {
 
     // Inserción del html
     $(seccionCNT).append(
-    '<div id="seccion'+num1+'">\
-      <label><small>Nombre:</small></label>\
+    '<hr>\
+    <div id="seccion'+num1+'">\
+      <label>Sección '+num1+'</label>\
       <input type="text" name="seccionNombre'+num1+'" placeholder="Nombre de la sección">\
-      <p><strong>Referencias:</strong></p>\
+      <div align="left"><label>Referencias</label></div>\
       <div id="referenciaCNT'+num1+'">\
         <div id="referencia'+num1+'-'+num2+'">\
-          <label><small>Título:</small></label>\
+          <label><small>Referencia '+num1+'.'+num2+'</small></label>\
           <input type="text" name="titulo'+num1+'-'+num2+'" placeholder="Título de la referencia">\
-          <label><small>Autor:</small></label>\
-          <input type="text" name="autor'+num1+'-'+num2+'" placeholder="Autor de la referencia">\
-          <label><small>Editorial:</small></label>\
+          <label><small>Autor</small></label>\
+          <input type="text" name="autor-'+num1+'" placeholder="Autor de la referencia">\
+          <label><small>Editorial</small></label>\
           <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia">\
-          <label><small>Edición:</small></label>\
+          <label><small>Edición</small></label>\
           <input type="text" name="edicion'+num1+'-'+num2+'" placeholder="Edición de la referencia">\
-          <label><small>Notas:</small></label>\
+          <label><small>Notas</small></label>\
           <input type="text" name="notas'+num1+'-'+num2+'" placeholder="Notas de la referencia">\
         </div>\
       </div>\

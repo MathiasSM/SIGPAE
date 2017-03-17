@@ -126,10 +126,71 @@
             {% for l1, l2 in list %}<option class="{{l1}} {{instancia}}" value="{{ l1 }}"{% if instancia and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
             {% endfor %}
           {% endfor %}
+          </select>
           {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
           {% endif %}{% if form.instancia.help_text %}<p class="help">{{ form.instancia.help_text|safe }}</p>{% endif %}
         </div>
-        <input type="submit" value="Submit" />
+
+        <p><strong>Campos Adicionales</strong></p>
+        <div id="adicionalCNT">
+          <div id="adicional1"> 
+            <label><small>Tipo:</small></label>
+            <input type="text" name="tipo1" placeholder="Tipo de campo adicional">
+            <label><small>Valor:</small></label>
+            <input type="text" name="valor1" placeholder="Valor de campo adicional">
+          </div>
+        </div>
+        <div align="right">
+          <button id="agregarAdicional" type="button" style="float: right;"><small>Agregar campo adicional</small></button>
+        </div>
+
+        </br>
+        </br>
+
+        <p><strong>Secciones</strong></p>
+        <div id="seccionCNT">
+          <div id="seccion1">
+            <label><small>Nombre:</small></label>
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
+            
+            <p><strong>Referencias:</strong></p>
+            <div id="referenciaCNT1">
+              <div id="referencia1-1">
+
+                <label><small>Título:</small></label>
+                <input type="text" name="titulo1-1" placeholder="Título de la referencia">
+                <label><small>Autor:</small></label>
+                <input type="text" name="autor-1" placeholder="Autor de la referencia">
+                <label><small>Editorial:</small></label>
+                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
+                <label><small>Edición:</small></label>
+                <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
+                <label><small>Notas:</small></label>
+                <input type="text" name="notas1-1" placeholder="Notas de la referencia">
+
+              </div>
+            </div>
+
+            <div align="right">
+              <button id="agregarseccion" type="button" style="float: right;"><small>Agregar referencia</small></button>
+            </div>
+
+            </br>
+            </br>
+
+          </div>
+        <div>
+        <div align="right">
+          <button id="agregarseccion" type="button" style="float: right;"><small>Agregar sección</small></button>
+        </div>
+
+        </br>
+        </br>
+
+        <div align="center">
+          <input type="submit" value="Submit" />
+        </div>
+
       </form>
       {% endblock infotab %}
     </section>

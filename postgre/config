@@ -1,0 +1,13 @@
+$ sudo su - postgres
+$ psql
+# CREATE DATABASE SIGPAE;
+# CREATE USER SIGPAEUSER WITH PASSWORD '1234qwer';
+# GRANT ALL PRIVILEGES ON DATABASE SIGPAE TO SIGPAEUSER;
+# \q
+$ exit
+
+
+ Para entrar a la base
+psql -U sigpaeuser -h localhost -d sigpae
+
+# \i populate.sql

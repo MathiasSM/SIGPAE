@@ -39,69 +39,69 @@
         {% endfor %}
         {% csrf_token %}
         <div class="field" id="field-{{ form.codigo.id_for_label }}">
-          <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}</label>
+          <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}*</label>
           <input id="{{ form.codigo.id_for_label }}" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
           {% if form.codigo.errors %}<p class="errors">{{ form.codigo.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.denominacion.id_for_label }}">
-          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}</label>
+          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}*</label>
           {{ form.denominacion }}
           {% if form.denominacion.errors %}<p class="errors">{{ form.denominacion.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.fecha_periodo.id_for_label }}">
-          <label for="{{ form.fecha_periodo.id_for_label }}">{{ form.fecha_periodo.label }}</label>
+          <label for="{{ form.fecha_periodo.id_for_label }}">{{ form.fecha_periodo.label }}*</label>
           {{ form.fecha_periodo }}
           {% if form.fecha_periodo.errors %}<p class="errors">{{ form.fecha_periodo.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.fecha_año.id_for_label }}">
-          <label for="{{ form.fecha_año.id_for_label }}">{{ form.fecha_año.label }}</label>
+          <label for="{{ form.fecha_año.id_for_label }}">{{ form.fecha_año.label }}*</label>
           {{ form.fecha_año }}
           {% if form.fecha_año.errors %}<p class="errors">{{ form.fecha_año.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
-          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
+          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}*</label>
           {{ form.horas_teoria }}
           {% if form.horas_teoria.errors %}<p class="errors">{{ form.horas_teoria.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
-          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
+          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}*</label>
           {{ form.horas_practica }}
           {% if form.horas_practica.errors %}<p class="errors">{{ form.horas_practica.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
-          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
+          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}*</label>
           {{ form.horas_laboratorio }}
           {% if form.horas_laboratorio.errors %}<p class="errors">{{ form.horas_laboratorio.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.creditos.id_for_label }}">
-          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}</label>
+          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}*</label>
           {{ form.creditos }}
           {% if form.creditos.errors %}<p class="errors">{{ form.creditos.errors }}</p>
           {% endif %}
         </div>
         <div class="field" id="field-{{ form.objetivos.id_for_label }}">
-          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}</label>
+          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}*</label>
           {{ form.objetivos }}
           {% if form.objetivos.errors %}<p class="errors">{{ form.objetivos.errors }}</p>
           {% endif %}
           <a href="#" id="btn-sep-obj">Añadir objetivos específicos</a>
         </div>
         <div class="field" id="field-{{ form.objetivosE.id_for_label }}">
-          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}</label>
+          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}*</label>
           {{ form.objetivosE }}
           {% if form.objetivosE.errors %}<p class="errors">{{ form.objetivosE.errors }}</p>
           {% endif %}
           <a href="#" id="btn-mix-obj">Mezclar objetivos (generales y específicos)</a>
         </div>
         <div class="field" id="field-{{ form.contenidos_sinopticos.id_for_label }}">
-          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}</label>
+          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}*</label>
           {{ form.contenidos_sinopticos }}
           {% if form.contenidos_sinopticos.errors %}<p class="errors">{{ form.contenidos_sinopticos.errors }}</p>
           {% endif %}
@@ -109,20 +109,20 @@
         <div align="center"><h4>Secciones</h4></div>
         <div id="seccionCNT">          
           <div id="seccion1">
-            <label>Sección 1</label>
+            <label>Sección 1*</label>
             <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
             <div align="left"><label>Referencias</label></div>
             <div id="referenciaCNT1">              
               <div id="referencia1-1">
-                <label><small>Referencia 1.1</small></label>
+                <label><small>Referencia 1.1*</small></label>
                 <input type="text" name="titulo1-1" placeholder="Título de la referencia">
-                <label><small>Autor</small></label>
+                <label><small>Autor*</small></label>
                 <input type="text" name="autor-1" placeholder="Autor de la referencia">
-                <label><small>Editorial</small></label>
+                <label><small>Editorial*</small></label>
                 <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
-                <label><small>Edición</small></label>
+                <label><small>Edición*</small></label>
                 <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
-                <label><small>Notas</small></label>
+                <label><small>Notas*</small></label>
                 <input type="text" name="notas1-1" placeholder="Notas de la referencia">
               </div>
             </div>

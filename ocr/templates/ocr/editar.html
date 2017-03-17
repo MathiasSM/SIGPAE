@@ -1,6 +1,10 @@
 {% extends './base.html' %}
 {%load static%}
 
+{% block page_style_extra %}
+<link rel="stylesheet" href="{% static 'css/sweetalert.css' %}"></link>
+{% endblock %}
+
 {% block content %}
 {% if messages %}
   <div id="django-save" class="success-messages">
@@ -186,4 +190,5 @@
 {% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>
 <script src="{% static 'js/validateFields.js' %}"></script>
 <script src="{% static 'js/megaform.js' %}"></script>
+<script src="{% static 'js/sweetalert.min.js' %}"></script>
 {% endblock %}

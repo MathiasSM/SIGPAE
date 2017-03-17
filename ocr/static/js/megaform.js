@@ -16,13 +16,30 @@ $(document).ready(function () {
 
   $('#btn-mix-obj').on('click', function (e) {
     e.preventDefault();
-    var extra = $('#field-objetivosE');
-    var cont = extra.children('textarea').val();
-    console.log(cont);
-    extra.children('textarea').val('');
-    extra.hide();
-    var gen = $('#field-objetivos').children('textarea');
-    gen.val( gen.val()+'\n'+cont );
+    swal({
+        title: "¿Está seguro de que desea combinar los campos?",
+        text: "Esta acción no se puede deshacer",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#1565C0",
+        confirmButtonText: "Combinar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: false,
+        html: false
+    }, function(isConfirm) {
+        if (isConfirm) { 
+          var extra = $('#field-objetivosE');
+          var cont = extra.children('textarea').val();
+          console.log(cont);
+          extra.children('textarea').val('');
+          extra.hide();
+          var gen = $('#field-objetivos').children('textarea');
+          gen.val( gen.val()+'\n'+cont );
+          swal("",
+          "Se han combinado los campos de manera exitosa",
+          "success");
+        }
+    });
   });
   
   // Función para los botones para añadir unidades externas

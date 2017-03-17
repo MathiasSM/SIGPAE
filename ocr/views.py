@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Programa_Borrador
-from .forms import PDFForm, ProgramaForm, AnonForm
+from .forms import PDFForm, ProgramaForm, AnonForm, Instancia
 
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
@@ -45,7 +45,13 @@ def try_edit(request):
         req = request.POST
         req.appendlist('pdf_url', pdf_url)
         req.appendlist('pdf_texto', pdf_texto)
-        form = AnonForm(initial={'pdf_url': pdf_url, 'pdf_texto': pdf_texto})
+        instS, cod = form.instancia_nombre, form.codigo_encontrado
+        instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
+        form = AnonForm(initial={'pdf_url': pdf_url,
+                                 'pdf_texto': pdf_texto,
+                                 'instancia': instS,
+                                 'codigo': cod})
+        print(instS)
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,

@@ -2,7 +2,7 @@ from django import forms
 from ocr.models import *
 from django.core.files.move import file_move_safe
 from django.conf import settings
-from django.forms import FileInput, HiddenInput
+from django.forms import FileInput, HiddenInput, TextInput
 from ocr.pdf2txt.pdf2txt import *
 from ocr.pdf2txt.txtlibs import *
 from django.utils.text import get_valid_filename
@@ -38,24 +38,24 @@ class PDFForm(BaseModelForm):
             else:
                 instance.texto = convertTxtPdf(settings.MEDIA_ROOT+'/'+instance.pdf.name)
 
-        instancia_pk, codigo_encontrado, instancia_nombre = getCode(instance.texto)
+        instancia_pk, self.codigo_encontrado, self.instancia_nombre = getCode(instance.texto)
         
         print('\n')
         if instancia_pk > -1:
-            instancia_nombre = Instancia.objects.get(pk=instancia_pk).nombre
+            self.instancia_nombre = Instancia.objects.get(pk=instancia_pk).nombre
 
             print("Codigo encontrado, en la tabla y con dependencia asociada:")
-            print("Codigo: "+codigo_encontrado)
-            print("Dependencia: "+instancia_nombre)
+            print("Codigo: "+self.codigo_encontrado)
+            print("Dependencia: "+self.instancia_nombre)
             
         elif instancia_pk == -1:
             print("Codigo encontrado, en la tabla pero sin dependencias asociadas:")
-            print("Codigo: "+codigo_encontrado)
-            print("Instancia: "+instancia_nombre)
+            print("Codigo: "+self.codigo_encontrado)
+            print("Instancia: "+self.instancia_nombre)
 
         elif instancia_pk == -2:
             print("Codigo encontrado, pero no en la tabla:")
-            print("Codigo: "+codigo_encontrado)
+            print("Codigo: "+self.codigo_encontrado)
         else:
             print("No se encontro codigo")
         
@@ -65,6 +65,7 @@ class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
         exclude = ['pdf', 'texto']
+        widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     pdf_url = forms.CharField(max_length = 100, widget = forms.HiddenInput())
     pdf_texto = forms.CharField(max_length = 1000000, widget = forms.HiddenInput())
@@ -91,15 +92,16 @@ class AnonForm(BaseModelForm):
         if commit:
             instance.save()
         return instance
-        
+
 class ProgramaForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = [ 'pdf', 'texto']
+        exclude = ['pdf', 'texto']
+        widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     def save(self, commit=True):
         instance = super(ProgramaForm, self).save(commit=False)
-        
+
         if commit:
             instance.save()
         return instance

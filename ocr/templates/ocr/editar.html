@@ -38,13 +38,13 @@
       <div style="align: center; background: whitesmoke;">
         <hr><h2 style="text-align: center;">Campos Obligatorios</h2><hr>
       </div>
-      <form action="{% block whodoireportto %}{% endblock %}" method="post">
+      <form id="edit" action="{% block whodoireportto %}{% endblock %}" method="post">
         {% for hidden in form.hidden_fields %}{{ hidden }}
         {% endfor %}
         {% csrf_token %}
         <div class="field" id="field-{{ form.codigo.id_for_label }}">
           <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}*</label>
-          <input id="{{ form.codigo.id_for_label }}" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
+          <input data-validation="required" id="{{ form.codigo.id_for_label }}" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
           {% if form.codigo.errors %}<p class="errors">{{ form.codigo.errors }}</p>
           {% endif %}
         </div>
@@ -114,20 +114,20 @@
         <div id="seccionCNT">          
           <div id="seccion1">
             <label>Sección 1*</label>
-            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección" data-validation="required">
             <div align="left"><label>Referencias</label></div>
             <div id="referenciaCNT1">              
               <div id="referencia1-1">
                 <label><small>Referencia 1.1*</small></label>
-                <input type="text" name="titulo1-1" placeholder="Título de la referencia">
+                <input type="text" name="titulo1-1" placeholder="Título de la referencia" data-validation="required">
                 <label><small>Autor*</small></label>
-                <input type="text" name="autor-1" placeholder="Autor de la referencia">
+                <input type="text" name="autor-1" placeholder="Autor de la referencia" data-validation="required">
                 <label><small>Editorial*</small></label>
-                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia">
+                <input type="text" name="editorial1-1" placeholder="Editorial de la referencia" data-validation="required">
                 <label><small>Edición*</small></label>
-                <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
+                <input type="text" name="edicion1-1" placeholder="Edición de la referencia" data-validation="required">
                 <label><small>Notas*</small></label>
-                <input type="text" name="notas1-1" placeholder="Notas de la referencia">
+                <input type="text" name="notas1-1" placeholder="Notas de la referencia" data-validation="required">
               </div>
             </div>
             <div align="right">
@@ -191,4 +191,6 @@
 <script src="{% static 'js/validateFields.js' %}"></script>
 <script src="{% static 'js/megaform.js' %}"></script>
 <script src="{% static 'js/sweetalert.min.js' %}"></script>
+<script src="{% static 'js/jquery.form-validator.min.js' %}"></script>
+<script>$.validate({form : '#edit', lang: 'es', });</script>
 {% endblock %}

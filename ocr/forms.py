@@ -16,8 +16,12 @@ class BaseModelForm(forms.ModelForm):
         for field_name in self.fields:
             field = self.fields.get(field_name)
             if field:
-                field.widget.attrs.update({'placeholder': field.help_text})
-
+                obligatorio = ["denominacion","fecha_periodo","fecha_año","horas_teoria","horas_practica","horas_laboratorio",\
+                                "creditos","objetivos","contenidos_sinopticos"]
+                if field_name in obligatorio:
+                    field.widget.attrs.update({'placeholder': field.help_text, 'data-validation' : 'required'})
+                else:
+                    field.widget.attrs.update({'placeholder': field.help_text})
 
 class PDFForm(BaseModelForm):
     class Meta:

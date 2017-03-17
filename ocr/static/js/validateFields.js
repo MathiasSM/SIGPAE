@@ -23,17 +23,16 @@ $(document).ready(function() {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
     })
+    $("#codigo").replace(/-/g,"");
+    $("#codigo").replace(/ /g,"");
     $("#codigo").attr({
-        "pattern" : "^[A-Za-z][A-Za-z][A-Za-z]\d\d\d$" | "^[A-Za-z][A-Za-z]\d\d\d\d$"
+        "pattern" : "[A-Za-z][A-Za-z][A-Za-z]\d\d\d" | "[A-Za-z][A-Za-z]\d\d\d\d"
     })
     $("#codigo").on('change invalid', function() {
         var textfield = $(this).get(0);
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');  
         }
-        textfield - $(this).val()
-        textfield = textfield.replace(/-/,"");
-        textfield = textfield.replace("\ ","");
         if(textfield.validity.patternMismatch) {
             textfield.setCustomValidity('Código en formato incorrecto');
         }

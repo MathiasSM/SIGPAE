@@ -2,7 +2,7 @@ from django import forms
 from ocr.models import *
 from django.core.files.move import file_move_safe
 from django.conf import settings
-from django.forms import FileInput, HiddenInput
+from django.forms import FileInput, HiddenInput, TextInput
 from ocr.pdf2txt.pdf2txt import *
 from ocr.pdf2txt.txtlibs import *
 from django.utils.text import get_valid_filename
@@ -65,6 +65,7 @@ class AnonForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
         exclude = ['pdf', 'texto']
+        widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     pdf_url = forms.CharField(max_length = 100, widget = forms.HiddenInput())
     pdf_texto = forms.CharField(max_length = 1000000, widget = forms.HiddenInput())
@@ -91,15 +92,16 @@ class AnonForm(BaseModelForm):
         if commit:
             instance.save()
         return instance
-        
+
 class ProgramaForm(BaseModelForm):
     class Meta:
         model = Programa_Borrador
-        exclude = [ 'pdf', 'texto']
+        exclude = ['pdf', 'texto']
+        widgets = {'codigo': TextInput(attrs={'maxlength': '7'},),}
 
     def save(self, commit=True):
         instance = super(ProgramaForm, self).save(commit=False)
-        
+
         if commit:
             instance.save()
         return instance

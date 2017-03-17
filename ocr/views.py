@@ -3,7 +3,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Programa_Borrador
-from .forms import PDFForm, ProgramaForm, AnonForm, Instancia
+from .forms import PDFForm, ProgramaForm, AnonForm, Instancia, Decanato
 
 def index(request):
     """Vista principal del sistema SIGPAE-Histórico"""
@@ -34,6 +34,19 @@ def index(request):
         borradores = Programa_Borrador.objects.all()
         return render(request, 'ocr/index.html', {'form': pdf_form, 'borradores':borradores})
 
+def get_instancias_ordenaditas():
+    """Esto NO es una vista. Función helper para el dropdown de selección de instancia."""
+    secs = Decanato.objects.values_list('pk', 'nombre').order_by('nombre')
+    dic = {}
+    for pk, no in secs:
+        insL = []
+        insQ = Instancia.objects.values_list('pk', 'nombre').filter(decanato=pk).order_by('nombre')
+        for i_pk, i_no in insQ:
+            insL += [(i_pk, i_no),]
+        dic.update({no: insL})
+    print(dic)
+    return dic
+
 def try_edit(request):
     """Vista intermedia/falsa para la generación de html para edición de programa anónimo"""
     print(request.POST)
@@ -51,11 +64,12 @@ def try_edit(request):
                                  'pdf_texto': pdf_texto,
                                  'instancia': instS,
                                  'codigo': cod})
-        print(instS)
+        a = get_instancias_ordenaditas()
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,
                        'pdf_texto':pdf_texto,
-                       'form': form})
+                       'form': form,
+                       'selectI': a})
     return None
 
 def try_keep(request):

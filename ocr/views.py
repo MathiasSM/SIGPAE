@@ -152,6 +152,6 @@ def buscar_publicados(request, codigo, año=9999, periodo=3):
     """Vista de busqueda de PAs"""
     programas = Programa_Borrador.objects.filter(published=True).filter(codigo=codigo).filter(fecha_año__lt=año)
     if programas:
-        return render(request, 'ocr/archivo.html' context={'programas': programa})
+        return render(request, 'ocr/archivo.html', context={'programas': programa})
     else:
         return render(request, 'ocr/archivo.html')

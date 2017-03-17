@@ -123,9 +123,10 @@
           <select id="{{ form.instancia.id_for_label }}" name="{{ form.instancia.html_name }}" placeholder="{{ form.instancia.help_text|safe }}" required>
           <option value="">---------</option>
           {% for sec,list in selectI.items %}<optgroup label="{{sec}}">
-            {% for l1, l2 in list %}<option class="{{l1}} {{instancia}}" value="{{ l1 }}"{% if instancia and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
+            {% for l1, l2 in list %}<option value="{{ l1 }}"{% if instancia != 'None' and instancia == l1 %}selected="selected"{%endif%}>{{ l2 }}</option>
             {% endfor %}
           {% endfor %}
+          </select>
           {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
           {% endif %}{% if form.instancia.help_text %}<p class="help">{{ form.instancia.help_text|safe }}</p>{% endif %}
         </div>

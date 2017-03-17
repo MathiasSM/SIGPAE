@@ -59,9 +59,7 @@ def try_edit(request):
         req.appendlist('pdf_texto', pdf_texto)
         instPK, instS, cod = form.instancia_pk, form.instancia_nombre, form.codigo_encontrado
         if(instPK>-1):
-            print("Conseguí")
             instS = Instancia.objects.values_list('pk', flat=True).get(nombre=instS)
-            print(instS)
             form = AnonForm(initial={'pdf_url': pdf_url,
                                      'pdf_texto': pdf_texto,
                                      'codigo': cod})
@@ -71,7 +69,8 @@ def try_edit(request):
                                      'codigo': cod})
         else:
             form = AnonForm(initial={'pdf_url': pdf_url,
-                                     'pdf_texto': pdf_texto})
+                                     'pdf_texto': pdf_texto,
+                                     'codigo': ''})
         a = get_instancias_ordenaditas()
         return render(request, 'ocr/editar_anon.html',
                       {'pdf_url': pdf_url,

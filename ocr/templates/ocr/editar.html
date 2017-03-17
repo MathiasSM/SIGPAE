@@ -130,7 +130,6 @@
           {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
           {% endif %}{% if form.instancia.help_text %}<p class="help">{{ form.instancia.help_text|safe }}</p>{% endif %}
         </div>
-
         <p><strong>Campos Adicionales</strong></p>
         <div id="adicionalCNT">
           <div id="adicional1"> 
@@ -143,20 +142,16 @@
         <div align="right">
           <button id="agregarAdicional" type="button" style="float: right;"><small>Agregar campo adicional</small></button>
         </div>
-
         </br>
         </br>
-
         <p><strong>Secciones</strong></p>
         <div id="seccionCNT">
           <div id="seccion1">
             <label><small>Nombre:</small></label>
-            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
-            
+            <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">            
             <p><strong>Referencias:</strong></p>
             <div id="referenciaCNT1">
               <div id="referencia1-1">
-
                 <label><small>Título:</small></label>
                 <input type="text" name="titulo1-1" placeholder="Título de la referencia">
                 <label><small>Autor:</small></label>
@@ -167,30 +162,23 @@
                 <input type="text" name="edicion1-1" placeholder="Edición de la referencia">
                 <label><small>Notas:</small></label>
                 <input type="text" name="notas1-1" placeholder="Notas de la referencia">
-
               </div>
             </div>
-
             <div align="right">
-              <button id="agregarseccion" type="button" style="float: right;"><small>Agregar referencia</small></button>
+              <button id="agregarReferencia1" class="agregarReferencia" type="button" style="float: right;"><small>Agregar referencia</small></button>
             </div>
-
             </br>
             </br>
-
           </div>
-        <div>
-        <div align="right">
-          <button id="agregarseccion" type="button" style="float: right;"><small>Agregar sección</small></button>
         </div>
-
+        <div align="right">
+          <button id="agregarSeccion" type="button" style="float: right;"><small>Agregar sección</small></button>
+        </div>
         </br>
         </br>
-
         <div align="center">
           <input type="submit" value="Submit" />
         </div>
-
       </form>
       {% endblock infotab %}
     </section>

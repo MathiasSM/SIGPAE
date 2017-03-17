@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
   var adicionalCNT = $("#adicionalCNT");      // ID del contenedor de los campos adicionales
   var seccionCNT = $("#seccionCNT");          // ID del contenedor de las secciones
   var addAdicional = $("#agregarAdicional");  // ID del botón para añadir campo adicional
@@ -7,24 +7,6 @@ $(document).ready(function () {
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
-  $('#field-objetivosE').hide();
-
-  $('#btn-sep-obj').on('click', function (e) {
-    e.preventDefault();
-    $('#field-objetivosE').show();
-  });
-  
-  $('#btn-mix-obj').on('click', function (e) {
-    e.preventDefault();
-    var extra = $('#field-objetivosE');
-    var cont = extra.children('textarea').val();
-    console.log(cont);
-    extra.children('textarea').val('');
-    extra.hide();
-    var gen = $('#field-objetivos').children('textarea');
-    gen.val( gen.val()+'\n'+cont );
-  });
-  
   // Función para los botones para añadir unidades externas
   $("body").on("click","button.agregarReferencia", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número de seccion correspondiente

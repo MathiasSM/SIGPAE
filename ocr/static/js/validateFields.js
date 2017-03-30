@@ -1,4 +1,26 @@
 $(document).ready(function() {
+    $("#codigo").attr({
+        "pattern" : "[A-Za-z]{2}[0-9]{4}"
+    })
+    $("#codigo").on('change invalid', function() {
+        var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
+        if (textfield.validity.valueMissing) {
+          textfield.setCustomValidity('Este campo es obligatorio');
+        }
+        if(textfield.validity.patternMismatch) {
+            textfield.setCustomValidity('Código en formato incorrecto');
+        }
+    })
+    
+    $("#fecha_periodo").on('change invalid', function() {
+        var textfield = $(this).get(0);
+        textfield.setCustomValidity('');
+        if (textfield.validity.valueMissing) {
+          textfield.setCustomValidity('Este campo es obligatorio');
+        }
+    })
+    
     $("#fecha_año").attr({
         "min" : 1969,
         "max" : ((new Date).getFullYear() + 1)
@@ -14,34 +36,15 @@ $(document).ready(function() {
         }
 
         if (textfield.validity.valueMissing) {
-          textfield.setCustomValidity('Este campo es obligatorio');  
+          textfield.setCustomValidity('Este campo es obligatorio');
         }
     })
-    $("#fecha_periodo").on('change invalid', function() {
-        var textfield = $(this).get(0);
-        textfield.setCustomValidity('');
-        if (textfield.validity.valueMissing) {
-          textfield.setCustomValidity('Este campo es obligatorio');  
-        }
-    })
-    $("#codigo").attr({
-        "pattern" : "[A-Za-z]{2}[0-9]{4}"
-    })
-    $("#codigo").on('change invalid', function() {
-        var textfield = $(this).get(0);
-        textfield.setCustomValidity('');
-        if (textfield.validity.valueMissing) {
-          textfield.setCustomValidity('Este campo es obligatorio');  
-        }
-        if(textfield.validity.patternMismatch) {
-            textfield.setCustomValidity('Código en formato incorrecto');
-        }
-    })
-    $("#field-creditos").attr({
+    
+    $("#creditos").attr({
         "min" : 0,
         "max" : 16
     })
-    $("#field-creditos").on('change invalid', function() {
+    $("#creditos").on('change invalid', function() {
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');
         if (textfield.validity.rangeUnderflow) {
@@ -50,13 +53,13 @@ $(document).ready(function() {
         if (textfield.validity.rangeOverflow) {
             textfield.setCustomValidity('Cantidad de créditos debe ser menor o igual a 16');
         }
-
     })
+    
     $("#instancia").on('change invalid', function() {
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
-          textfield.setCustomValidity('Este campo es obligatorio');  
+          textfield.setCustomValidity('Este campo es obligatorio');
         }
     })
 })

@@ -7,7 +7,14 @@ $(document).ready(function () {
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
-  $('#field-objetivosE').hide();
+  if(/^\s*$/.test($('#objetivosE').val())){
+    $('#field-objetivosE').hide();
+    console.log("HIDE")
+  }
+  else{
+    console.log("DUN HIDE")
+    $('#btn-sep-obj').hide();
+  }
 
   $('#btn-sep-obj').on('click', function (e) {
     e.preventDefault();

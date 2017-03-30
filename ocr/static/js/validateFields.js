@@ -41,10 +41,10 @@ $(document).ready(function() {
     })
     
     $("#creditos").attr({
-        "min" : 0,
         "max" : 16
     })
     $("#creditos").on('change invalid', function() {
+
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');
         if (textfield.validity.rangeUnderflow) {
@@ -60,6 +60,18 @@ $(document).ready(function() {
         textfield.setCustomValidity('');
         if (textfield.validity.valueMissing) {
           textfield.setCustomValidity('Este campo es obligatorio');
+        }
+    })
+    $("#hours-parent").attr({
+        "value" : parseInt($("#horas_teoria").val()) + parseInt($("#horas_practica").val()) + parseInt($("#horas_laboratorio").val()),
+        "min" : 0,
+        "max" : 40
+    })
+    $("#hours-parent").on('change invalid', function(){
+        var x = $(this).get(0);
+        x.setCustomValidity('');
+        if(x.validity.rangeOverflow) {
+            alert("QUIETO MAMAGUEVO!")
         }
     })
 })

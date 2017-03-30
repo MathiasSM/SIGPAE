@@ -88,7 +88,8 @@ $(document).ready(function () {
   $(addAdicional).on('click', function() {
     adicionalCount++;           // Aumentar el contador de campos adicionales
     var num1 = adicionalCount;  // Variable auxiliar para la sustitucion en el html de abajo
-
+    console.log("num1")
+    console.log(num1)
     // Inserción del html
     $(adicionalCNT).append(
     '<hr>\
@@ -98,6 +99,7 @@ $(document).ready(function () {
       <input type="text" name="tipo'+num1+'" placeholder="Tipo de campo adicional">\
       <label><small>Valor:</small></label>\
       <input type="text" name="valor'+num1+'" placeholder="Valor de campo adicional">\
+      <input type="hidden" name="pkvalor'+num1+'" value=-1>\
     </div>');
   });
 

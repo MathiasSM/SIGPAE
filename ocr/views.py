@@ -111,6 +111,7 @@ def try_keep(request):
                 cur_tipo = request.POST.get(iterador_tipos,False)
                 cur_valor = request.POST.get(iterador_valores,False)
             # / GUARDAR CAMPOS EXTRAS
+
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)
             #print(request.POST['pdf_texto'])
             print(str(instance.pdf))
@@ -142,8 +143,10 @@ def editar_borrador(request, draft_id):
                 n_extra = 0
                 iterador_tipos = 'tipo1'
                 iterador_valores = 'valor1'
+                iterador_pkvalores = 'pkvalor1'
                 cur_tipo = request.POST.get(iterador_tipos,False)
                 cur_valor = request.POST.get(iterador_valores,False)
+                cur_pkvalor = request.POST.get(iterador_pkvalores,False)
                 while(cur_tipo):
                     n_extra+=1
                     if(not TipoCampoAdicional.objects.filter(nombre=cur_tipo).exists()):
@@ -152,20 +155,36 @@ def editar_borrador(request, draft_id):
                     else:
                         este_tipo = TipoCampoAdicional.objects.get(nombre=cur_tipo)
 
-                    # el tipo pudo haber cambiado y no ser uno nuevo... falta informacion
-                    if(not CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).filter(programa_borrador=instance).exists()):
+                    # # el tipo pudo haber cambiado y no ser uno nuevo... falta informacion
+                    # if(not CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).filter(programa_borrador=instance).exists()):
+                    #     este_valor = CampoAdicional(texto=cur_valor,
+                    #                             tipo_campo_adicional=este_tipo,
+                    #                             programa_borrador=instance)
+                    # else:
+                    #     este_valor = CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).get(programa_borrador=instance)
+                    
+                    cur_pkvalor = int(cur_pkvalor)
+                    if(cur_pkvalor == -1):
+                        print("nuevo")
                         este_valor = CampoAdicional(texto=cur_valor,
                                                 tipo_campo_adicional=este_tipo,
                                                 programa_borrador=instance)
                     else:
-                        este_valor = CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).get(programa_borrador=instance)
+                        este_valor = CampoAdicional.objects.get(pk=cur_pkvalor)
+                        este_valor.texto = cur_valor
+                        este_valor.tipo_campo_adicional=este_tipo
+
                     este_valor.save()
                     
                     iterador_tipos = 'tipo%s' % (n_extra+1)
                     iterador_valores = 'valor%s' % (n_extra+1)
+                    iterador_pkvalores = 'pkvalor%s' % (n_extra+1)
                     cur_tipo = request.POST.get(iterador_tipos,False)
                     cur_valor = request.POST.get(iterador_valores,False)
+                    cur_pkvalor = request.POST.get(iterador_pkvalores,False)
                 # / GUARDAR CAMPOS EXTRAS
+
+
                 messages.success(request, 'Se han guardado cambios al borrador #%s!' % instance.pk)
                 return render(request, 'ocr/editar_borrador.html',
                               {'pdf_url': '/media/%s' % str(borrador.pdf.name),

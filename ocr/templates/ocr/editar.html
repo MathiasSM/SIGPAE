@@ -181,6 +181,7 @@
           <input type="text" name="tipo{{ forloop.counter }}" placeholder="Tipo de campo adicional" value="{{campo.tipo_campo_adicional.nombre}}">
           <label><small>Valor:</small></label>
           <input type="text" name="valor{{ forloop.counter }}" placeholder="Valor de campo adicional" value="{{ campo.texto }}">
+          <input type="hidden" name="pkvalor{{ forloop.counter }}" value={{campo.pk}}>
         </div>{% endfor %}</div>
         <div align="center">
           <hr>

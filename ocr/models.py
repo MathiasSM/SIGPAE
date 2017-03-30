@@ -376,17 +376,17 @@ class CampoAdicional(models.Model):
         blank=True)
 
     tipo_campo_adicional                                = models.ForeignKey(
-        TipoCampoAdicional, on_delete=models.CASCADE,
+        TipoCampoAdicional, # on_delete=models.CASCADE,
         help_text="tipo de campo adicional",
         verbose_name="campo adicional",null=True)
 
     programa_borrador                                   = models.ForeignKey(
-        Programa_Borrador, #on_delete=models.CASCADE,
+        Programa_Borrador, on_delete=models.CASCADE,
         help_text="El programa asociado",
         verbose_name="programa",null=True)
 
     programa                                            = models.ForeignKey(
-        Programa, #on_delete=models.CASCADE,
+        Programa, on_delete=models.CASCADE,
         help_text="El programa asociado",
         verbose_name="programa",null=True)
 
@@ -398,6 +398,7 @@ class SeccionFuenteInformacion(models.Model):
     class Meta:
         verbose_name = "seccion"
         verbose_name_plural = "secciones"
+        
     subtitulo                                           = models.CharField(
         max_length=100,
         help_text="subtítulo de la sección")

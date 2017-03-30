@@ -9,10 +9,8 @@ $(document).ready(function () {
 
   if(/^\s*$/.test($('#objetivosE').val())){
     $('#field-objetivosE').hide();
-    console.log("HIDE")
   }
   else{
-    console.log("DUN HIDE")
     $('#btn-sep-obj').hide();
   }
 

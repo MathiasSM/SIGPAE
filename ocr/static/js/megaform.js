@@ -11,6 +11,7 @@ $(document).ready(function () {
 
   $('#btn-sep-obj').on('click', function (e) {
     e.preventDefault();
+    $('#btn-sep-obj').hide();
     $('#field-objetivosE').show();
   });
 
@@ -27,7 +28,8 @@ $(document).ready(function () {
         closeOnConfirm: false,
         html: false
     }, function(isConfirm) {
-        if (isConfirm) { 
+        if (isConfirm) {
+          $('#btn-sep-obj').show();
           var extra = $('#field-objetivosE');
           var cont = extra.children('textarea').val();
           console.log(cont);

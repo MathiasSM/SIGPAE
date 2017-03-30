@@ -63,9 +63,21 @@ class PDFAnonimoAdmin(admin.ModelAdmin):
         'texto'
     )
 
+class TipoCampoAdicionalAdmin(admin.ModelAdmin):
+    list_display = (
+        'nombre',
+    )
+class CampoAdicionalAdmin(admin.ModelAdmin):
+    list_display = (
+        'tipo_campo_adicional',
+        'texto',
+        'programa_borrador',
+        
+    )
 
 
-
+admin.site.register(CampoAdicional, CampoAdicionalAdmin)
+admin.site.register(TipoCampoAdicional, TipoCampoAdicionalAdmin)
 admin.site.register(Instancia, InstanciaAdmin)
 admin.site.register(Programa, ProgramaAdmin)
 admin.site.register(Programa_Borrador, ProgramaBorradorAdmin)

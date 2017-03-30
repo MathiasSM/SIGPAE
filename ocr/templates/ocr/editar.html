@@ -8,9 +8,9 @@
 {% block content %}
 {% if messages %}
   {% for message in messages %}
-  <div {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %} >
+  <div {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} class="alert-messages" {% else %} class="success-messages" {% endif %} >
     <ul>
-      <li {% if message.tags %} id="{{ message.tags }}" {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="sucess-messages" {% endif %}{% endif %} >
+      <li {% if message.tags %} id="{{ message.tags }}" {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="alert-messages" {% else %} class="success-messages" {% endif %}{% endif %} >
         <span>{{ message }}</span>
       </li>
     </ul>
@@ -46,78 +46,80 @@
         <div class="field" id="field-{{ form.codigo.id_for_label }}">
           <label for="{{ form.codigo.id_for_label }}">{{ form.codigo.label }}*</label>
           <input data-validation="required" id="{{ form.codigo.id_for_label }}" maxlength="7" name="{{ form.codigo.html_name }}" placeholder="{{ form.codigo.help_text|safe }}" type="text" value="{{ form.codigo.value }}" required />
-          {% if form.codigo.errors %}<p class="errors">{{ form.codigo.errors }}</p>
-          {% endif %}
+          {% if form.codigo.errors %}{{ form.codigo.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.denominacion.id_for_label }}">
-          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}*</label>
+          <label for="{{ form.denominacion.id_for_label }}">{{ form.denominacion.label }}</label>
           {{ form.denominacion }}
-          {% if form.denominacion.errors %}<p class="errors">{{ form.denominacion.errors }}</p>
-          {% endif %}
+          {% if form.denominacion.errors %}{{ form.denominacion.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.fecha_periodo.id_for_label }}">
           <label for="{{ form.fecha_periodo.id_for_label }}">{{ form.fecha_periodo.label }}*</label>
           {{ form.fecha_periodo }}
-          {% if form.fecha_periodo.errors %}<p class="errors">{{ form.fecha_periodo.errors }}</p>
-          {% endif %}
+          {% if form.fecha_periodo.errors %}{{ form.fecha_periodo.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.fecha_año.id_for_label }}">
           <label for="{{ form.fecha_año.id_for_label }}">{{ form.fecha_año.label }}*</label>
           {{ form.fecha_año }}
-          {% if form.fecha_año.errors %}<p class="errors">{{ form.fecha_año.errors }}</p>
-          {% endif %}
+          {% if form.fecha_año.errors %}{{ form.fecha_año.errors }}
+{% endif %}
         </div>
-        <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
-          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}*</label>
-          {{ form.horas_teoria }}
-          {% if form.horas_teoria.errors %}<p class="errors">{{ form.horas_teoria.errors }}</p>
-          {% endif %}
-        </div>
-        <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
-          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}*</label>
-          {{ form.horas_practica }}
-          {% if form.horas_practica.errors %}<p class="errors">{{ form.horas_practica.errors }}</p>
-          {% endif %}
-        </div>
-        <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
-          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}*</label>
-          {{ form.horas_laboratorio }}
-          {% if form.horas_laboratorio.errors %}<p class="errors">{{ form.horas_laboratorio.errors }}</p>
-          {% endif %}
+        <div id="hours-parent">
+          <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
+            <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
+            {{ form.horas_teoria }}
+            {% if form.horas_teoria.errors %}{{ form.horas_teoria.errors }}
+  {% endif %}
+          </div>
+          <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
+            <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
+            {{ form.horas_practica }}
+            {% if form.horas_practica.errors %}{{ form.horas_practica.errors }}
+  {% endif %}
+          </div>
+          <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
+            <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
+            {{ form.horas_laboratorio }}
+            {% if form.horas_laboratorio.errors %}{{ form.horas_laboratorio.errors }}
+  {% endif %}
+          </div>
         </div>
         <div class="field" id="field-{{ form.creditos.id_for_label }}">
-          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}*</label>
+          <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}</label>
           {{ form.creditos }}
-          {% if form.creditos.errors %}<p class="errors">{{ form.creditos.errors }}</p>
-          {% endif %}
+          {% if form.creditos.errors %}{{ form.creditos.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.objetivos.id_for_label }}">
-          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}*</label>
+          <label for="{{ form.objetivos.id_for_label }}">{{ form.objetivos.label }}</label>
           {{ form.objetivos }}
-          {% if form.objetivos.errors %}<p class="errors">{{ form.objetivos.errors }}</p>
-          {% endif %}
+          {% if form.objetivos.errors %}{{ form.objetivos.errors }}
+{% endif %}
           <a href="#" id="btn-sep-obj">Añadir objetivos específicos</a>
         </div>
         <div class="field" id="field-{{ form.objetivosE.id_for_label }}">
-          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}*</label>
+          <label for="{{ form.objetivosE.id_for_label }}">{{ form.objetivosE.label }}</label>
           {{ form.objetivosE }}
-          {% if form.objetivosE.errors %}<p class="errors">{{ form.objetivosE.errors }}</p>
-          {% endif %}
+          {% if form.objetivosE.errors %}{{ form.objetivosE.errors }}
+{% endif %}
           <a href="#" id="btn-mix-obj">Mezclar objetivos (generales y específicos)</a>
         </div>
         <div class="field" id="field-{{ form.contenidos_sinopticos.id_for_label }}">
-          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}*</label>
+          <label for="{{ form.contenidos_sinopticos.id_for_label }}">{{ form.contenidos_sinopticos.label }}</label>
           {{ form.contenidos_sinopticos }}
-          {% if form.contenidos_sinopticos.errors %}<p class="errors">{{ form.contenidos_sinopticos.errors }}</p>
-          {% endif %}
+          {% if form.contenidos_sinopticos.errors %}{{ form.contenidos_sinopticos.errors }}
+{% endif %}
         </div>
         <div align="center"><h4>Secciones</h4></div>
-        <div id="seccionCNT">          
+        <div id="seccionCNT">
           <div id="seccion1">
-            <label>Sección 1*</label>
+            <label>Sección 1</label>
             <input type="text" name="seccionNombre1" placeholder="Nombre de la sección">
             <div align="left"><label>Referencias</label></div>
-            <div id="referenciaCNT1">              
+            <div id="referenciaCNT1">
               <div id="referencia1-1">
                 <label><small>Referencia 1.1</small></label>
                 <input type="text" name="titulo1-1" placeholder="Título de la referencia">
@@ -148,14 +150,14 @@
         <div class="field" id="field-{{ form.estrategias_metodologicas.id_for_label }}">
           <label for="{{ form.estrategias_metodologicas.id_for_label }}">{{ form.estrategias_metodologicas.label }}</label>
           {{ form.estrategias_metodologicas }}
-          {% if form.estrategias_metodologicas.errors %}<p class="errors">{{ form.estrategias_metodologicas.errors }}</p>
-          {% endif %}
+          {% if form.estrategias_metodologicas.errors %}{{ form.estrategias_metodologicas.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.estrategias_evaluacion.id_for_label }}">
           <label for="{{ form.estrategias_evaluacion.id_for_label }}">{{ form.estrategias_evaluacion.label }}</label>
           {{ form.estrategias_evaluacion }}
-          {% if form.estrategias_evaluacion.errors %}<p class="errors">{{ form.estrategias_evaluacion.errors }}</p>
-          {% endif %}
+          {% if form.estrategias_evaluacion.errors %}{{ form.estrategias_evaluacion.errors }}
+{% endif %}
         </div>
         <div class="field" id="field-{{ form.instancia.id_for_label }}">
           <label for="{{ form.instancia.id_for_label }}">{{ form.instancia.label }}</label>
@@ -166,13 +168,20 @@
             {% endfor %}
           {% endfor %}
           </select>
-          {% if form.instancia.errors %}<p class="errors">{{ form.instancia.errors }}</p>
-          {% endif %}
+          {% if form.instancia.errors %}{{ form.instancia.errors }}
+{% endif %}
         </div>
         <div style="align: center; background: whitesmoke;">
           <hr><h2 style="text-align: center;">Campos Adicionales</h2><hr>
         </div>
-        <div id="adicionalCNT"></div>
+        <div id="adicionalCNT">{% for campo in extras %}<hr>
+        <h3>Campo adicional #{{ forloop.counter }}</h3>
+        <div id="adicional{{ forloop.counter }}">
+          <label><small>Tipo:</small></label>
+          <input type="text" name="tipo{{ forloop.counter }}" placeholder="Tipo de campo adicional" value="{{campo.tipo_campo_adicional.nombre}}">
+          <label><small>Valor:</small></label>
+          <input type="text" name="valor{{ forloop.counter }}" placeholder="Valor de campo adicional" value="{{ campo.texto }}">
+        </div>{% endfor %}</div>
         <div align="center">
           <hr>
           <button id="agregarAdicional" type="button" style="float: center;"><small>Agregar campo adicional</small></button>

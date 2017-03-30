@@ -149,6 +149,8 @@ def editar_borrador(request, draft_id):
                 cur_pkvalor = request.POST.get(iterador_pkvalores,False)
                 while(cur_tipo):
                     n_extra+=1
+                    print("n_extra:")
+                    print(n_extra)
                     if(not TipoCampoAdicional.objects.filter(nombre=cur_tipo).exists()):
                         este_tipo = TipoCampoAdicional(nombre=cur_tipo)
                         este_tipo.save()
@@ -163,7 +165,9 @@ def editar_borrador(request, draft_id):
                     # else:
                     #     este_valor = CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).get(programa_borrador=instance)
                     
+                    print("cur_pkvalor:")
                     cur_pkvalor = int(cur_pkvalor)
+                    print(cur_pkvalor)
                     if(cur_pkvalor == -1):
                         print("nuevo")
                         este_valor = CampoAdicional(texto=cur_valor,

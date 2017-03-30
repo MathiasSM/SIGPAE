@@ -3,15 +3,11 @@ $(document).ready(function () {
   var seccionCNT = $("#seccionCNT");          // ID del contenedor de las secciones
   var addAdicional = $("#agregarAdicional");  // ID del botón para añadir campo adicional
   var addSeccion = $("#agregarSeccion");      // ID del botón para añadir seccion
-  var adicionalCount = 0;                     // Contador de campos adicionales
+  var adicionalCount = $("#adicionalCNT > h3").length;                     // Contador de campos adicionales
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
-  if( !(adicionalCNT.is(':empty')) ){
-    adicionalCount = 1;
-    var twoEon = $("#adicional1").nextAll("div");
-    if(twoEon.legth>0) adicionalCount = parseInt( twoEon.last().attr('id').slice(9) )+1;
-  }
+
   var twoSon = $("#seccion1").nextAll("div");
   if(twoSon.length>0) seccionCount = parseInt( twoSon.last().attr('id').slice(7) )+1;
   for(var i=1;i<seccionCount;i++) referenciaCount.push(1);

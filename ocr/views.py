@@ -84,6 +84,8 @@ def try_keep(request):
         form = AnonForm(request.POST)
         a = Instancia.objects.values_list('pk',flat=True).get(pk=request.POST['instancia'])
         
+        
+        
         if form.is_valid():
             instance = form.save()
             # GUARDAR CAMPOS EXTRAS
@@ -128,10 +130,12 @@ def editar_borrador(request, draft_id):
     """Vista de edición de un borrador"""
     try:
         borrador = Programa_Borrador.objects.get(pk=draft_id)
+        campos_extra = CampoAdicional.objects.filter(programa_borrador=borrador)
         if request.method == 'POST':
             form = ProgramaForm(request.POST, instance=borrador)
             a = Instancia.objects.values_list('pk',flat=True).get(pk=request.POST['instancia'])
-            print(request.POST)
+
+            #print(request.POST)
             if form.is_valid():
                 instance = form.save()
                 # GUARDAR CAMPOS EXTRAS
@@ -163,7 +167,8 @@ def editar_borrador(request, draft_id):
                                'pdf_texto': borrador.texto,
                                'form': form,
                                'selectI': INSTANCIAS,
-                               'instancia': a})
+                               'instancia': a,
+                               'extras': campos_extra})
             else:
                 messages.error(request, 'Hubo un error al guardar los cambios')
                 return render(request, 'ocr/editar_borrador.html',
@@ -171,7 +176,8 @@ def editar_borrador(request, draft_id):
                                'pdf_texto': borrador.texto,
                                'form': form,
                                'selectI': INSTANCIAS,
-                               'instancia': a})
+                               'instancia': a,
+                               'extras': campos_extra})
         else:
             form = ProgramaForm(instance=borrador)
             return render(request, 'ocr/editar_borrador.html',
@@ -179,7 +185,8 @@ def editar_borrador(request, draft_id):
                            'pdf_texto': borrador.texto,
                            'form': form,
                            'selectI': INSTANCIAS,
-                           'instancia': Instancia.objects.values_list('pk',flat=True).get(pk=draft_id)})
+                           'instancia': Instancia.objects.values_list('pk',flat=True).get(pk=draft_id),
+                           'extras': campos_extra})
     except Programa_Borrador.DoesNotExist:
         return render(request, 'ocr/borrador_404.html', status=404, context={'draft_id': draft_id})
 

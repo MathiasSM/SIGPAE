@@ -7,12 +7,22 @@ $(document).ready(function () {
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
-  if(/^\s*$/.test($('#objetivosE').val())){
-    $('#field-objetivosE').hide();
+  if( !(adicionalCNT.is(':empty')) ){
+    adicionalCount = 1;
+    var twoEon = $("#adicional1").nextAll("div");
+    if(twoEon.legth>0) adicionalCount = parseInt( twoEon.last().attr('id').slice(9) )+1;
   }
-  else{
-    $('#btn-sep-obj').hide();
+  var twoSon = $("#seccion1").nextAll("div");
+  if(twoSon.length>0) seccionCount = parseInt( twoSon.last().attr('id').slice(7) )+1;
+  for(var i=1;i<seccionCount;i++) referenciaCount.push(1);
+
+  for(var i=0;i<seccionCount;i++){
+    var twoRon = $("#referencia"+i+1+"-1").nextAll("div");
+    if(twoRon.length>0) referenciaCount[i] = parseInt( twoRon.last().attr('id').split('-').last() )+1;
   }
+
+  if(/^\s*$/.test($('#objetivosE').val())) $('#field-objetivosE').hide()
+  else  $('#btn-sep-obj').hide();
 
   $('#btn-sep-obj').on('click', function (e) {
     e.preventDefault();

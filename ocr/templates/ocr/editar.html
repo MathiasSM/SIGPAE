@@ -172,7 +172,14 @@
         <div style="align: center; background: whitesmoke;">
           <hr><h2 style="text-align: center;">Campos Adicionales</h2><hr>
         </div>
-        <div id="adicionalCNT"></div>
+        <div id="adicionalCNT">{% for campo in extras %}<hr>
+        <h3>Campo adicional #{{ forloop.counter }}</h3>
+        <div id="adicional{{ forloop.counter }}">
+          <label><small>Tipo:</small></label>
+          <input type="text" name="tipo{{ forloop.counter }}" placeholder="Tipo de campo adicional" value="{{campo.tipo_campo_adicional.nombre}}">
+          <label><small>Valor:</small></label>
+          <input type="text" name="valor{{ forloop.counter }}" placeholder="Valor de campo adicional" value="{{ campo.texto }}">
+        </div>{% endfor %}</div>
         <div align="center">
           <hr>
           <button id="agregarAdicional" type="button" style="float: center;"><small>Agregar campo adicional</small></button>

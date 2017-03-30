@@ -59,7 +59,7 @@ $(document).ready(function () {
     });
   });
   
-  // Función para los botones para añadir unidades externas
+  // Función para los botones para añadir referencias
   $("body").on("click","button.agregarReferencia", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número de seccion correspondiente
     var referenciaCNT = "#referenciaCNT" + num1;       // Generar el identificador al contenedor de la unidad correspondiente

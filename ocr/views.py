@@ -151,9 +151,14 @@ def editar_borrador(request, draft_id):
                         este_tipo.save()
                     else:
                         este_tipo = TipoCampoAdicional.objects.get(nombre=cur_tipo)
-                    este_valor = CampoAdicional(texto=cur_valor,
+
+                    # el tipo pudo haber cambiado y no ser uno nuevo... falta informacion
+                    if(not CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).filter(programa_borrador=instance).exists()):
+                        este_valor = CampoAdicional(texto=cur_valor,
                                                 tipo_campo_adicional=este_tipo,
                                                 programa_borrador=instance)
+                    else:
+                        este_valor = CampoAdicional.objects.filter(tipo_campo_adicional=este_tipo).get(programa_borrador=instance)
                     este_valor.save()
                     
                     iterador_tipos = 'tipo%s' % (n_extra+1)

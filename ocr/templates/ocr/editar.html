@@ -67,23 +67,25 @@
           {% if form.fecha_año.errors %}{{ form.fecha_año.errors }}
 {% endif %}
         </div>
-        <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
-          <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
-          {{ form.horas_teoria }}
-          {% if form.horas_teoria.errors %}{{ form.horas_teoria.errors }}
-{% endif %}
-        </div>
-        <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
-          <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
-          {{ form.horas_practica }}
-          {% if form.horas_practica.errors %}{{ form.horas_practica.errors }}
-{% endif %}
-        </div>
-        <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
-          <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
-          {{ form.horas_laboratorio }}
-          {% if form.horas_laboratorio.errors %}{{ form.horas_laboratorio.errors }}
-{% endif %}
+        <div id="hours-parent">
+          <div class="field" id="field-{{ form.horas_teoria.id_for_label }}">
+            <label for="{{ form.horas_teoria.id_for_label }}">{{ form.horas_teoria.label }}</label>
+            {{ form.horas_teoria }}
+            {% if form.horas_teoria.errors %}{{ form.horas_teoria.errors }}
+  {% endif %}
+          </div>
+          <div class="field" id="field-{{ form.horas_practica.id_for_label }}">
+            <label for="{{ form.horas_practica.id_for_label }}">{{ form.horas_practica.label }}</label>
+            {{ form.horas_practica }}
+            {% if form.horas_practica.errors %}{{ form.horas_practica.errors }}
+  {% endif %}
+          </div>
+          <div class="field" id="field-{{ form.horas_laboratorio.id_for_label }}">
+            <label for="{{ form.horas_laboratorio.id_for_label }}">{{ form.horas_laboratorio.label }}</label>
+            {{ form.horas_laboratorio }}
+            {% if form.horas_laboratorio.errors %}{{ form.horas_laboratorio.errors }}
+  {% endif %}
+          </div>
         </div>
         <div class="field" id="field-{{ form.creditos.id_for_label }}">
           <label for="{{ form.creditos.id_for_label }}">{{ form.creditos.label }}</label>

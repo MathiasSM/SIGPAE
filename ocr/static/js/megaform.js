@@ -8,7 +8,7 @@ $(document).ready(function () {
   var seccionCount = $("#seccionCNT > div").length; // Contador de secciones
   console.log(seccionCount);
   var referenciaCount = [];                         // Arreglo para contar las referencias de cada seccion
-  var autorCount = [[]];
+  var autorCount = [];
   for(var i=0;i<seccionCount;i++){
     referenciaCount = referenciaCount.concat([$("#referenciaCNT'+(i+1)+' > div").length]);
     autorCount = autorCount.concat([[]])

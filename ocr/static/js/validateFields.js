@@ -44,7 +44,7 @@ $(document).ready(function() {
     $("#creditos").attr({
         "max" : 16
     })
-    $("#creditos").on('input', function() {
+    $("#creditos").on('change invalid input', function() {
 
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');

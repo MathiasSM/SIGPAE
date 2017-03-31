@@ -1,20 +1,20 @@
 $(document).ready(function () {
-  var adicionalCNT = $("#adicionalCNT");      // ID del contenedor de los campos adicionales
-  var seccionCNT = $("#seccionCNT");          // ID del contenedor de las secciones
-  var addAdicional = $("#agregarAdicional");  // ID del botón para añadir campo adicional
-  var addSeccion = $("#agregarSeccion");      // ID del botón para añadir seccion
-  var adicionalCount = $("#adicionalCNT > h3").length;                     // Contador de campos adicionales
-  var seccionCount = 1;                       // Contador de secciones
-  var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
+  var adicionalCNT = $("#adicionalCNT");                  // ID del contenedor de los campos adicionales
+  var seccionCNT = $("#seccionCNT");                      // ID del contenedor de las secciones
+  var addAdicional = $("#agregarAdicional");              // ID del botón para añadir campo adicional
+  var addSeccion = $("#agregarSeccion");                  // ID del botón para añadir seccion
+  var adicionalCount = $("#adicionalCNT > div").length;    // Contador de campos adicionales
 
-
-  var twoSon = $("#seccion1").nextAll("div");
-  if(twoSon.length>0) seccionCount = parseInt( twoSon.last().attr('id').slice(7) )+1;
-  for(var i=1;i<seccionCount;i++) referenciaCount.push(1);
-
+  var seccionCount = $("#seccionCNT > div").length; // Contador de secciones
+  console.log(seccionCount);
+  var referenciaCount = [];                         // Arreglo para contar las referencias de cada seccion
+  var autorCount = [[]];
   for(var i=0;i<seccionCount;i++){
-    var twoRon = $("#referencia"+i+1+"-1").nextAll("div");
-    if(twoRon.length>0) referenciaCount[i] = parseInt( twoRon.last().attr('id').split('-').last() )+1;
+    referenciaCount = referenciaCount.concat([$("#referenciaCNT'+(i+1)+' > div").length]);
+    autorCount = autorCount.concat([[]])
+    for(var j=0; j<referenciaCount[i]; j++){
+      autorCount[i] = autorCount[i].concat([$("#autorCNT'+(i+1)+'-'+(j+1)+' > div").length]);
+    }
   }
 
   if(/^\s*$/.test($('#objetivosE').val())) $('#field-objetivosE').hide()
@@ -43,7 +43,6 @@ $(document).ready(function () {
           $('#btn-sep-obj').show();
           var extra = $('#field-objetivosE');
           var cont = extra.children('textarea').val();
-          console.log(cont);
           extra.children('textarea').val('');
           extra.hide();
           var gen = $('#field-objetivos').children('textarea');
@@ -63,7 +62,9 @@ $(document).ready(function () {
     referenciaCount[num1-1]++;                         // Aumentar el contador de phones para el referencia permitente
     var num2 = referenciaCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
-    var num3 = 1;
+    autorCount[num1-1] = autorCount[num1-1].concat([1]);
+    var num3 = autorCount[num1-1][num2-1];
+
     // Inserción del html
     $(referenciaCNT).append(
     '<hr>\
@@ -97,10 +98,11 @@ $(document).ready(function () {
   $(addSeccion).on('click', function() {
     seccionCount++;                                 // Aumentar el contador de secciones
     referenciaCount = referenciaCount.concat([1]);  // Agregar un nuevo slot contador de referencias
+    autorCount = autorCount.concat([[1]]);
 
     var num1 = seccionCount;                        // Variable auxiliar para la sustitucion en el html de abajo
     var num2 = referenciaCount[num1-1];             // Variable auxiliar para la sustitucion en el html de abajo
-
+    var num3 = autorCount[num1-1][num2-1];
     // Inserción del html
     $(seccionCNT).append(
     '<hr>\

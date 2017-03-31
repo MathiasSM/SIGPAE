@@ -122,7 +122,6 @@
           <label>Sección #{{ forloop.counter }}</label>
           <input type="hidden" name="seccionpk{{ forloop.counter }}" value={{seccion.pk}}>
           <input type="text" name="seccionNombre{{ forloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
-           {{ forloop.counter }}" value={{campo.pk}}>
           <div align="left"><label>Referencias</label></div>
           <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}
             <div id="referencia{{ forloop.parentloop.counter }}-{{ forloop.counter }}">

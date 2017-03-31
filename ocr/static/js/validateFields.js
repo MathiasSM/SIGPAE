@@ -26,7 +26,7 @@ $(document).ready(function() {
         "min" : 1969,
         "max" : ((new Date).getFullYear() + 1)
     })
-    $("#fecha_año").on('input', function() {
+    $("#fecha_año").on('change invalid input', function() {
         var textfield = $(this).get(0);
         textfield.setCustomValidity('');
         if (textfield.validity.rangeUnderflow) {

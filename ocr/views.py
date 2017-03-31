@@ -92,18 +92,22 @@ def try_keep(request):
             n_extra = 0
             iterador_tipos = 'tipo1'
             iterador_valores = 'valor1'
+            iterador_pkvalores = 'pkvalor1'
             cur_tipo = request.POST.get(iterador_tipos,False)
             cur_valor = request.POST.get(iterador_valores,False)
-            while(cur_tipo):
+            cur_pkvalor = request.POST.get(iterador_pkvalores,False)
+            while(cur_pkvalor):
+                cur_pkvalor = int(cur_pkvalor)
                 n_extra+=1
-                if(not TipoCampoAdicional.objects.filter(nombre=cur_tipo).exists()):
-                    este_tipo = TipoCampoAdicional(nombre=cur_tipo)
-                    este_tipo.save()
-                else:
-                    este_tipo = TipoCampoAdicional.objects.get(nombre=cur_tipo)
-                este_valor = CampoAdicional(texto=cur_valor,
-                                            tipo_campo_adicional=este_tipo,
-                                            programa_borrador=instance)
+                if(cur_tipo != '' or cur_valor != ''):
+                    if(not TipoCampoAdicional.objects.filter(nombre=cur_tipo).exists()):
+                        este_tipo = TipoCampoAdicional(nombre=cur_tipo)
+                        este_tipo.save()
+                    else:
+                        este_tipo = TipoCampoAdicional.objects.get(nombre=cur_tipo)
+                    este_valor = CampoAdicional(texto=cur_valor,
+                                                tipo_campo_adicional=este_tipo,
+                                                programa_borrador=instance)
                 este_valor.save()
                 
                 iterador_tipos = 'tipo%s' % (n_extra+1)
@@ -201,7 +205,8 @@ def editar_borrador(request, draft_id):
                 cur_tipo = request.POST.get(iterador_tipos,False)
                 cur_valor = request.POST.get(iterador_valores,False)
                 cur_pkvalor = request.POST.get(iterador_pkvalores,False)
-                while(cur_tipo):
+                while(cur_pkvalor):
+                    cur_pkvalor = int(cur_pkvalor)
                     n_extra+=1
                     if(not TipoCampoAdicional.objects.filter(nombre=cur_tipo).exists()):
                         este_tipo = TipoCampoAdicional(nombre=cur_tipo)
@@ -209,7 +214,6 @@ def editar_borrador(request, draft_id):
                     else:
                         este_tipo = TipoCampoAdicional.objects.get(nombre=cur_tipo)
 
-                    cur_pkvalor = int(cur_pkvalor)
                     if(cur_pkvalor == -1):
                         este_valor = CampoAdicional(texto=cur_valor,
                                                 tipo_campo_adicional=este_tipo,
@@ -220,6 +224,9 @@ def editar_borrador(request, draft_id):
                         este_valor.tipo_campo_adicional=este_tipo
 
                     este_valor.save()
+
+                    if(cur_tipo == '' and cur_valor == ''):
+                        este_valor.delete()
                     
                     iterador_tipos = 'tipo%s' % (n_extra+1)
                     iterador_valores = 'valor%s' % (n_extra+1)
@@ -228,6 +235,7 @@ def editar_borrador(request, draft_id):
                     cur_valor = request.POST.get(iterador_valores,False)
                     cur_pkvalor = request.POST.get(iterador_pkvalores,False)
                 # / GUARDAR CAMPOS EXTRAS
+
 
 
                 messages.success(request, 'Se han guardado cambios al borrador #%s!' % instance.pk)

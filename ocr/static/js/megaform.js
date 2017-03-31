@@ -50,6 +50,8 @@ $(document).ready(function () {
           <div align="right">\
             <button id="agregarAutor'+num1+'-'+num2+'" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>\
           </div>\
+        </br>\
+        </br>\
           <label><small>Editorial</small></label>\
           <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia"">\
           <label><small>Edición</small></label>\
@@ -135,6 +137,7 @@ $(document).ready(function () {
         <button id="agregarAutor'+num1+'-'+num2+'" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>\
       </div>\
       </br>\
+      </br>\
       <label><small>Editorial</small></label>\
       <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia">\
       <label><small>Edición</small></label>\
@@ -144,14 +147,15 @@ $(document).ready(function () {
     </div>');
   });
 
-  // Función para los botones para añadir referencias
+  // Función para los botones para añadir autor
   $("body").on("click","button.agregarAutor", function() {
 
-    var numberPattern = /\d+/g;
-    this.id.match( numberPattern);
-    num1 = numberPattern[0];
-    num2 = numberPattern[1];
-
+    
+    var matchess = this.id.match(/\d+/g);
+    console.log(this.id);
+    num1 = matchess[0];
+    num2 = matchess[1];
+    console.log(matchess);
     var autorCNT = "#autorCNT" + num1 + '-' + num2;
     autorCount[num1-1][num2-1]++;
     var num3 = autorCount[num1-1][num2-1];
@@ -175,8 +179,6 @@ $(document).ready(function () {
   $(addAdicional).on('click', function() {
     adicionalCount++;           // Aumentar el contador de campos adicionales
     var num1 = adicionalCount;  // Variable auxiliar para la sustitucion en el html de abajo
-    console.log("num1")
-    console.log(num1)
     // Inserción del html
     $(adicionalCNT).append(
     '<hr>\

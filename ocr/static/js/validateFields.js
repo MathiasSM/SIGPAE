@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var x = parseInt($("#horas_teoria").val()) +  parseInt($("#horas_practica").val()) + parseInt($("#horas_laboratorio").val())
     $("#codigo").attr({
-        "pattern" : "[A-Za-z]{2}[0-9]{4}"
+        "pattern" : "[A-Za-z]{2}[0-9]{4}|[A-Za-z]{3}[0-9]{3}"
     })
     $("#codigo").on('input', function() {
         var textfield = $(this).get(0);
@@ -33,7 +33,7 @@ $(document).ready(function() {
             textfield.setCustomValidity('El año ingresado debe ser mayor a 1969');
         }
         if (textfield.validity.rangeOverflow) {
-            textfield.setCustomValidity('El año ingresado debe ser menor a ' + ((new Date).getFullYear() + 1));
+            textfield.setCustomValidity('El año ingresado debe ser menor o igual a ' + ((new Date).getFullYear() + 1));
         }
 
         if (textfield.validity.valueMissing) {

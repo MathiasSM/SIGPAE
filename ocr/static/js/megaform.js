@@ -31,7 +31,7 @@ $(document).ready(function () {
     '<hr>\
     <div id="seccion'+num1+'">\
       <label>Sección #'+num1+'</label>\
-      <input type="hidden" name="seccionpk'+num1+'">\
+      <input type="hidden" name="seccionpk'+num1+'" value=-1>\
       <input type="text" name="seccionNombre'+num1+'" placeholder="Nombre de la sección"">\
       <div align="left"><label>Referencias</label></div>\
       <div id="referenciaCNT'+num1+'">\

@@ -71,7 +71,7 @@ $(document).ready(function() {
         var x = $(this).get(0);
         x.setCustomValidity('');
         if(x.validity.rangeOverflow) {
-            alert("QUIETO MAMAGUEVO!")
+            alert("QUIETO!")
         }
     })
 })

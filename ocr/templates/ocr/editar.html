@@ -219,6 +219,9 @@
 {% block scripts %}{{block.super}}<script src="{% static 'js/refills-tab.js' %}"></script>
 <script src="{% static 'js/megaform.js' %}"></script>
 <script src="{% static 'js/sweetalert.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
+<script src="{% static 'js/validateFields.js' %}"></script>
 <script src="{% static 'js/jquery.form-validator.min.js' %}"></script>
 <script>$.validate({form : '#edit', lang: 'es', });</script>
 {% endblock %}

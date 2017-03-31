@@ -9,11 +9,15 @@ $(document).ready(function () {
   console.log(seccionCount);
   var referenciaCount = [];                         // Arreglo para contar las referencias de cada seccion
   var autorCount = [];
+
   for(var i=0;i<seccionCount;i++){
-    referenciaCount = referenciaCount.concat([$("#referenciaCNT'+(i+1)+' > div").length]);
-    autorCount = autorCount.concat([[]])
+    referenciaCount = referenciaCount.concat([$("#referenciaCNT"+(i+1)+" > div").length]);
+    console.log(" "+referenciaCount[i]);
+    autorCount = autorCount.concat([[]]);
     for(var j=0; j<referenciaCount[i]; j++){
-      autorCount[i] = autorCount[i].concat([$("#autorCNT'+(i+1)+'-'+(j+1)+' > div").length]);
+      console.log("#autorCNT"+(i+1)+"-"+(j+1)+" > div");
+      autorCount[i] = autorCount[i].concat([$("#autorCNT"+(i+1)+"-"+(j+1)+" > div").length]);
+      console.log("  "+autorCount[i][j]);
     }
   }
 
@@ -152,10 +156,8 @@ $(document).ready(function () {
 
     
     var matchess = this.id.match(/\d+/g);
-    console.log(this.id);
     num1 = matchess[0];
     num2 = matchess[1];
-    console.log(matchess);
     var autorCNT = "#autorCNT" + num1 + '-' + num2;
     autorCount[num1-1][num2-1]++;
     var num3 = autorCount[num1-1][num2-1];

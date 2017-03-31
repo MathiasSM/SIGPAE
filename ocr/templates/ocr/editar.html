@@ -123,7 +123,7 @@
           <input type="hidden" name="seccionpk{{ forloop.counter }}" value={{seccion.pk}}>
           <input type="text" name="seccionNombre{{ forloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
           <div align="left"><label>Referencias</label></div>
-          <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}
+          <div id="referenciaCNT{{ forloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}
             <div id="referencia{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
               <label><small>Referencia {{ forloop.parentloop.counter }}.{{ forloop.counter }}</small></label>
               <input type="hidden" name="referenciapk{{ forloop.parentloop.counter }}-{{ forloop.counter }}" value={{referencia.pk}}>
@@ -140,6 +140,8 @@
               <div align="right">
                 <button id="agregarAutor{{ forloop.parentloop.counter}}-{{forloop.counter }}" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>
               </div>
+              </br>
+              </br>
               <label><small>Editorial</small></label>
               <input type="text" name="editorial{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Editorial de la referencia" value="{{referencia.editorial}}">
               <label><small>Edición</small></label>

@@ -120,19 +120,23 @@
       <div id="seccionCNT">{% for seccion in secciones %}
         <div id="seccion{{ forloop.parentloop.counter }}">
           <label>Sección #{{ forloop.counter }}</label>
+          <input type="hidden" name="seccionpk{{ forloop.counter }}" value={{seccion.pk}}>
           <input type="text" name="seccionNombre{{ forloop.parentloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
+           {{ forloop.counter }}" value={{campo.pk}}>
           <div align="left"><label>Referencias</label></div>
           <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}
             <div id="referencia{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
               <label><small>Referencia {{ forloop.parentloop.counter }}.{{ forloop.counter }}</small></label>
+              <input type="hidden" name="referenciapk{{ forloop.parentloop.counter }}-{{ forloop.counter }}" value={{referencia.pk}}>
               <input type="text" name="titulo{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Título de la referencia" value="{{referencia.titulo}}">
               <div id="autorCNT{{ forloop.parentloop.counter }}-{{ forloop.counter }}">{%for autor in referencia.autorreferencia_set.all%}
                 <div id="autor{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
                   <label><small>Autor {{ forloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.counter }}.{{ forloop.counter }}</small></label>
+                  <input type="hidden" name="autorpk{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" value={{autor.pk}}>
                   <input type="text" name="nombres{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Nombres" value="{{autor.nombres}}">
                   <input type="text" name="apellidos{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Apellidos" value="{{autor.apellidos}}">
-                  {% endfor %}
                 </div>
+                {% endfor %}
               </div>
               <div align="right">
                 <button id="agregarAutor{{ forloop.parentloop.counter}}-{{forloop.counter }}" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>

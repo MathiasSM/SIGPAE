@@ -108,7 +108,7 @@ def try_keep(request):
                     este_valor = CampoAdicional(texto=cur_valor,
                                                 tipo_campo_adicional=este_tipo,
                                                 programa_borrador=instance)
-                este_valor.save()
+                    este_valor.save()
                 
                 iterador_tipos = 'tipo%s' % (n_extra+1)
                 iterador_valores = 'valor%s' % (n_extra+1)
@@ -119,8 +119,11 @@ def try_keep(request):
             # # GUARDAR LAS SECCIONES DE LAS REFERENCIAS
             # seccion_cnt = 1
             # iterador_seccion_nombre = 'seccionNombre%s' % (seccion_cnt)
+            # iterador_seccion_pk = 'seccionpk%s' %s (seccion_cnt)
             # cur_seccion_nombre = request.POST.get(iterador_seccion_nombre,False)
-            # while(cur_seccion_nombre):
+            # cur_seccion_pk = request.POST.get(iterador_seccion_pk,False)
+            # while(cur_seccion_pk):
+            #     cur_seccion_pk = int(cur_seccion_pk)
             #     esta_seccion = SeccionFuenteInformacion(subtitulo=cur_seccion_nombre,programa_boorador=instance)
             #     esta_seccion.save()
 
@@ -130,11 +133,14 @@ def try_keep(request):
             #     iterador_referencia_editorial = 'editorial%s-%s' % (seccion_cnt, referencia_cnt)
             #     iterador_referencia_edicion = 'edicion%s-%s' % (seccion_cnt, referencia_cnt)
             #     iterador_referencia_notas = 'notas%s-%s' % (seccion_cnt, referencia_cnt)
+            #     iterador_referencia_pk = 'referenciapk%s-%s' % (seccion_cnt, referencia_cnt)
             #     cur_referencia_titulo = request.POST.get(iterador_referencia_titulo,False)
             #     cur_referencia_editorial = request.POST.get(iterador_referencia_editorial,False)
             #     cur_referencia_edicion = request.POST.get(iterador_referencia_edicion,False)
             #     cur_referencia_notas = request.POST.get(iterador_referencia_notas,False)
-            #     while(cur_referencia_titulo):
+            #     cur_referencia_pk = request.POST.get(iterador_referencia_pk,False)
+            #     while(cur_referencia_pk):
+            #         cur_referencia_pk = int (cur_referencia_pk)
             #         esta_referencia = ReferenciaBibliografica(titulo=cur_referencia_titulo,
             #                                         editorial=cur_referencia_editorial,
             #                                         edicion=cur_referencia_edicion,
@@ -146,12 +152,21 @@ def try_keep(request):
             #         autor_cnt = 1
             #         iterador_autor_nombres = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
             #         iterador_autor_apellidos = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
-            #         cur_autor_nombres = request.POST.get(,False)
-            #         cur_autor_apellidos = request.POST.get(,False)
+            #         iterador_autor_pk = 'autorpk%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
+            #         cur_autor_nombres = request.POST.get(iterador_autor_nombres,False)
+            #         cur_autor_apellidos = request.POST.get(iterador_autor_apellidos,False)
+            #         cur_autor_pk = request.POST.get(iterador_autor_pk,False)
             #         while(cur_autor_nombres):
             #             este_autor = AutorReferencia(nombres=cur_autor_nombres,
             #                                         apellidos=cur_autor_apellidos,
             #                                         referencia=esta_referencia)
+            #             autor_cnt += 1
+            #             iterador_autor_nombres = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
+            #             iterador_autor_apellidos = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
+            #             iterador_autor_pk = 'autorpk%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
+            #             cur_autor_nombres = request.POST.get(iterador_autor_nombres,False)
+            #             cur_autor_apellidos = request.POST.get(iterador_autor_apellidos,False)
+            #             cur_autor_pk = request.POST.get(iterador_autor_pk,False)
             #         # / GUARDAR LOS AUTORES PARA ESTA REFERENCIA
 
             #         referencia_cnt += 1
@@ -159,15 +174,19 @@ def try_keep(request):
             #         iterador_referencia_editorial = 'editorial%s-%s' % (seccion_cnt, referencia_cnt)
             #         iterador_referencia_edicion = 'edicion%s-%s' % (seccion_cnt, referencia_cnt)
             #         iterador_referencia_notas = 'notas%s-%s' % (seccion_cnt, referencia_cnt)
+            #         iterador_referencia_pk = 'referenciapk%s-%s' % (seccion_cnt, referencia_cnt)
             #         cur_referencia_titulo = request.get(iterador_referencia_titulo,False)
             #         cur_referencia_editorial = request.get(iterador_referencia_editorial,False)
             #         cur_referencia_edicion = request.get(iterador_referencia_edicion,False)
             #         cur_referencia_notas = request.get(iterador_referencia_notas,False)
+            #         cur_referencia_pk = request.POST.get(iterador_referencia_pk,False)
             #     # / GUARDAR LAS REFERENCIAS DE LA SECCION
 
             #     seccion_cnt += 1
             #     iterador_seccion_nombre = 'seccionNombre%s' % (seccion_cnt)
+            #     iterador_seccion_pk = 'seccionpk%s' %s (seccion_cnt)
             #     cur_seccion_nombre = request.POST.get(iterador_seccion_nombre,False)
+            #     cur_seccion_pk = request.POST.get(iterador_seccion_pk,False)
             # # / GUARDAR LAS SECCIONES DE LAS REFERENCIAS
             
             messages.success(request, 'Se ha guardado el borrador #%s con éxito!' % instance.pk)

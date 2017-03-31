@@ -118,8 +118,6 @@ $(document).ready(function () {
       </br>\
     </div>');
   });
-});
-
 
   // Función para el botón para añadir campos adicionales
   $(addAdicional).on('click', function() {
@@ -139,3 +137,7 @@ $(document).ready(function () {
       <input type="hidden" name="pkvalor'+num1+'" value=-1>\
     </div>');
   });
+});
+
+
+  

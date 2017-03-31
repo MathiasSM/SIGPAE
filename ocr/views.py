@@ -263,9 +263,12 @@ def editar_borrador(request, draft_id):
                 cur_seccion_nombre = request.POST.get(iterador_seccion_nombre,False)
                 cur_seccion_pk = request.POST.get(iterador_seccion_pk,False)
                 while(cur_seccion_pk):
-                    print(cur_seccion_pk)
                     cur_seccion_pk = int(cur_seccion_pk)
-                    esta_seccion = SeccionFuenteInformacion(subtitulo=cur_seccion_nombre,programa_borrador=instance)
+                    if(cur_seccion_pk == -1):
+                        esta_seccion = SeccionFuenteInformacion(subtitulo=cur_seccion_nombre,programa_borrador=instance)
+                    else:
+                        esta_seccion = SeccionFuenteInformacion.objects.get(pk=cur_seccion_pk)
+                        esta_seccion.subtitulo=cur_seccion_nombre
                     esta_seccion.save()
 
                     # GUARDAR LAS REFERENCIAS DE LA SECCION
@@ -282,11 +285,19 @@ def editar_borrador(request, draft_id):
                     cur_referencia_pk = request.POST.get(iterador_referencia_pk,False)
                     while(cur_referencia_pk):
                         cur_referencia_pk = int (cur_referencia_pk)
-                        esta_referencia = ReferenciaBibliografica(titulo=cur_referencia_titulo,
+                        if(cur_referencia_pk == -1):
+                            esta_referencia = ReferenciaBibliografica(titulo=cur_referencia_titulo,
                                                         editorial=cur_referencia_editorial,
                                                         edicion=cur_referencia_edicion,
                                                         notas=cur_referencia_notas,
                                                         seccion=esta_seccion)
+                        else:
+                            esta_referencia = ReferenciaBibliografica.objects.get(pk = cur_referencia_pk)
+                            esta_referencia.titulo=cur_referencia_titulo
+                            esta_referencia.editorial=cur_referencia_editorial
+                            esta_referencia.edicion=cur_referencia_edicion
+                            esta_referencia.notas=cur_referencia_notas
+
                         esta_referencia.save()
 
                         # GUARDAR LOS AUTORES PARA ESTA REFERENCIA
@@ -297,10 +308,17 @@ def editar_borrador(request, draft_id):
                         cur_autor_nombres = request.POST.get(iterador_autor_nombres,False)
                         cur_autor_apellidos = request.POST.get(iterador_autor_apellidos,False)
                         cur_autor_pk = request.POST.get(iterador_autor_pk,False)
-                        while(cur_autor_nombres):
-                            este_autor = AutorReferencia(nombres=cur_autor_nombres,
+                        while(cur_autor_pk):
+                            cur_autor_pk = int(cur_autor_pk)
+                            if(cur_autor_pk == -1):
+                                este_autor = AutorReferencia(nombres=cur_autor_nombres,
                                                         apellidos=cur_autor_apellidos,
                                                         referencia=esta_referencia)
+                            else:
+                                este_autor = AutorReferencia.objects.get(pk=cur_autor_pk)
+                                este_autor.nombres=cur_autor_nombres
+                                este_autor.apellidos=cur_autor_apellidos
+                            este_autor.save()
                             autor_cnt += 1
                             iterador_autor_nombres = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
                             iterador_autor_apellidos = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)

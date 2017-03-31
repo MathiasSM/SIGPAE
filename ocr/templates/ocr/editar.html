@@ -113,26 +113,29 @@
         {% if form.contenidos_sinopticos.errors %}{{ form.contenidos_sinopticos.errors }}
         {% endif %}
       </div>
+
+
+
       <div align="center"><h4>Secciones</h4></div>
       <div id="seccionCNT">{% for seccion in secciones %}
         <div id="seccion{{ forloop.parentloop.counter }}">
           <label>Sección #{{ forloop.counter }}</label>
           <input type="text" name="seccionNombre{{ forloop.parentloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
           <div align="left"><label>Referencias</label></div>
-          <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for for referencia in seccion.referenciabibliografica_set.all()%}
+          <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}
             <div id="referencia{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
               <label><small>Referencia {{ forloop.parentloop.counter }}.{{ forloop.counter }}</small></label>
               <input type="text" name="titulo{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Título de la referencia" value="{{referencia.titulo}}">
-              <div id="autorCNT{{ forloop.parentloop.counter }}-{{ forloop.counter }}">{%for autor in referencia.autorreferencia_set.all()%}
+              <div id="autorCNT{{ forloop.parentloop.counter }}-{{ forloop.counter }}">{%for autor in referencia.autorreferencia_set.all%}
                 <div id="autor{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}">
                   <label><small>Autor {{ forloop.parentloop.parentloop.counter }}.{{ forloop.parentloop.counter }}.{{ forloop.counter }}</small></label>
                   <input type="text" name="nombres{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Nombres" value="{{autor.nombres}}">
                   <input type="text" name="apellidos{{ forloop.parentloop.parentloop.counter }}-{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Apellidos" value="{{autor.apellidos}}">
                   {% endfor %}
                 </div>
-                <div align="right">
-                  <button id="agregarAutor{{ forloop.parentloop.counter-forloop.counter }}" class="agregarAutor" type="button" style="float: right;"><small>Agregar referencia</small></button>
-                </div>
+              </div>
+              <div align="right">
+                <button id="agregarAutor{{ forloop.parentloop.counter}}-{{forloop.counter }}" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>
               </div>
               <label><small>Editorial</small></label>
               <input type="text" name="editorial{{ forloop.parentloop.counter }}-{{ forloop.counter }}" placeholder="Editorial de la referencia" value="{{referencia.editorial}}">

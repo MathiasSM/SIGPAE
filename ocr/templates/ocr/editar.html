@@ -118,10 +118,10 @@
 
       <div align="center"><h4>Secciones</h4></div>
       <div id="seccionCNT">{% for seccion in secciones %}
-        <div id="seccion{{ forloop.parentloop.counter }}">
+        <div id="seccion{{ forloop.counter }}">
           <label>Sección #{{ forloop.counter }}</label>
           <input type="hidden" name="seccionpk{{ forloop.counter }}" value={{seccion.pk}}>
-          <input type="text" name="seccionNombre{{ forloop.parentloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
+          <input type="text" name="seccionNombre{{ forloop.counter }}" placeholder="Nombre de la sección" value="{{seccion.subtitulo}}">
            {{ forloop.counter }}" value={{campo.pk}}>
           <div align="left"><label>Referencias</label></div>
           <div id="referenciaCNT{{ forloop.parentloop.counter }}"> {%for referencia in seccion.referenciabibliografica_set.all%}

@@ -144,6 +144,27 @@ $(document).ready(function () {
     </div>');
   });
 
+  // Función para los botones para añadir referencias
+  $("body").on("click","button.agregarAutor", function() {
+
+    var numberPattern = /\d+/g;
+    this.id.match( numberPattern);
+    num1 = numberPattern[0];
+    num2 = numberPattern[1];
+
+    var autorCNT = "#autorCNT" + num1 + '-' + num2;
+    autorCount[num1-1][num2-1]++;
+    var num3 = autorCount[num1-1][num2-1];
+
+    $(autorCNT).append(
+      '<hr>\
+      <div id="autor'+num1+'-'+num2+'-'+num3+'">\
+      <label><small>Autor '+num1+'.'+num2+'.'+num3+'</small></label>\
+      <input type="hidden" name="autorpk'+num1+'-'+num2+'-'+num3+'" value=-1>\
+      <input type="text" name="nombres'+num1+'-'+num2+'-'+num3+'" placeholder="Nombres"">\
+      <input type="text" name="apellidos'+num1+'-'+num2+'-'+num3+'" placeholder="Apellidos"">\
+      </div>');
+    });
 
   // Función para el botón para añadir secciones
   $(addSeccion).on('click', function() {

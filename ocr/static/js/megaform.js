@@ -111,7 +111,6 @@ $(document).ready(function () {
       <label>Sección #'+num1+'</label>\
       <input type="hidden" name="seccionpk'+num1+'">\
       <input type="text" name="seccionNombre'+num1+'" placeholder="Nombre de la sección"">\
-       '+num1+'">\
       <div align="left"><label>Referencias</label></div>\
       <div id="referenciaCNT'+num1+'">\
         <div id="referencia'+num1+'-'+num2+'">\

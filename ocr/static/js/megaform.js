@@ -3,16 +3,22 @@ $(document).ready(function () {
   var seccionCNT = $("#seccionCNT");          // ID del contenedor de las secciones
   var addAdicional = $("#agregarAdicional");  // ID del botón para añadir campo adicional
   var addSeccion = $("#agregarSeccion");      // ID del botón para añadir seccion
-  var adicionalCount = 0;                     // Contador de campos adicionales
+  var adicionalCount = $("#adicionalCNT > h3").length;                     // Contador de campos adicionales
   var seccionCount = 1;                       // Contador de secciones
   var referenciaCount = [1];                  // Arreglo para contar las referencias (Por defecto 1)
 
-  if(/^\s*$/.test($('#objetivosE').val())){
-    $('#field-objetivosE').hide();
+
+  var twoSon = $("#seccion1").nextAll("div");
+  if(twoSon.length>0) seccionCount = parseInt( twoSon.last().attr('id').slice(7) )+1;
+  for(var i=1;i<seccionCount;i++) referenciaCount.push(1);
+
+  for(var i=0;i<seccionCount;i++){
+    var twoRon = $("#referencia"+i+1+"-1").nextAll("div");
+    if(twoRon.length>0) referenciaCount[i] = parseInt( twoRon.last().attr('id').split('-').last() )+1;
   }
-  else{
-    $('#btn-sep-obj').hide();
-  }
+
+  if(/^\s*$/.test($('#objetivosE').val())) $('#field-objetivosE').hide()
+  else  $('#btn-sep-obj').hide();
 
   $('#btn-sep-obj').on('click', function (e) {
     e.preventDefault();
@@ -49,10 +55,10 @@ $(document).ready(function () {
     });
   });
   
-  // Función para los botones para añadir unidades externas
+  // Función para los botones para añadir referencias
   $("body").on("click","button.agregarReferencia", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número de seccion correspondiente
-    var referenciaCNT = "#referenciaCNT" + num1;       // Generar el identificador al contenedor de la unidad correspondiente
+    var referenciaCNT = "#referenciaCNT" + num1;       // Generar el identificador al contenedor de la referencia correspondiente
 
     referenciaCount[num1-1]++;                         // Aumentar el contador de phones para el referencia permitente
     var num2 = referenciaCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
@@ -74,22 +80,7 @@ $(document).ready(function () {
     </div>');
   });
 
-  // Función para el botón para añadir campos adicionales
-  $(addAdicional).on('click', function() {
-    adicionalCount++;           // Aumentar el contador de campos adicionales
-    var num1 = adicionalCount;  // Variable auxiliar para la sustitucion en el html de abajo
 
-    // Inserción del html
-    $(adicionalCNT).append(
-    '<hr>\
-    <h3>Campo adicional #'+num1+'</h3>\
-    <div id="adicional'+num1+'">\
-      <label><small>Tipo:</small></label>\
-      <input type="text" name="tipo'+num1+'" placeholder="Tipo de campo adicional">\
-      <label><small>Valor:</small></label>\
-      <input type="text" name="valor'+num1+'" placeholder="Valor de campo adicional">\
-    </div>');
-  });
 
   // Función para el botón para añadir secciones
   $(addSeccion).on('click', function() {
@@ -127,4 +118,26 @@ $(document).ready(function () {
       </br>\
     </div>');
   });
+
+  // Función para el botón para añadir campos adicionales
+  $(addAdicional).on('click', function() {
+    adicionalCount++;           // Aumentar el contador de campos adicionales
+    var num1 = adicionalCount;  // Variable auxiliar para la sustitucion en el html de abajo
+    console.log("num1")
+    console.log(num1)
+    // Inserción del html
+    $(adicionalCNT).append(
+    '<hr>\
+    <h3>Campo adicional #'+num1+'</h3>\
+    <div id="adicional'+num1+'">\
+      <label><small>Tipo:</small></label>\
+      <input type="text" name="tipo'+num1+'" placeholder="Tipo de campo adicional">\
+      <label><small>Valor:</small></label>\
+      <input type="text" name="valor'+num1+'" placeholder="Valor de campo adicional">\
+      <input type="hidden" name="pkvalor'+num1+'" value=-1>\
+    </div>');
+  });
 });
+
+
+  

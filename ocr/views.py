@@ -156,7 +156,7 @@ def try_keep(request):
                     cur_autor_nombres = request.POST.get(iterador_autor_nombres,False)
                     cur_autor_apellidos = request.POST.get(iterador_autor_apellidos,False)
                     cur_autor_pk = request.POST.get(iterador_autor_pk,False)
-                    while(cur_autor_nombres):
+                    while(cur_autor_pk):
                         este_autor = AutorReferencia(nombres=cur_autor_nombres,
                                                     apellidos=cur_autor_apellidos,
                                                     referencia=esta_referencia)
@@ -175,6 +175,10 @@ def try_keep(request):
                         cur_autor_pk = request.POST.get(iterador_autor_pk,False)
                     # / GUARDAR LOS AUTORES PARA ESTA REFERENCIA
 
+                    if(cur_referencia_titulo=='' and cur_referencia_editorial=='' and cur_referencia_edicion=='' and cur_referencia_notas==''):
+                        if(not esta_referencia.autorreferencia_set.exists()):
+                            esta_referencia.delete()
+
                     referencia_cnt += 1
                     iterador_referencia_titulo = 'titulo%s-%s' % (seccion_cnt, referencia_cnt)
                     iterador_referencia_editorial = 'editorial%s-%s' % (seccion_cnt, referencia_cnt)
@@ -187,6 +191,10 @@ def try_keep(request):
                     cur_referencia_notas = request.POST.get(iterador_referencia_notas,False)
                     cur_referencia_pk = request.POST.get(iterador_referencia_pk,False)
                 # / GUARDAR LAS REFERENCIAS DE LA SECCION
+
+
+                if(cur_seccion_nombre=='' and not esta_seccion.referenciabibliografica_set.exists()):
+                    esta_seccion.delete()
 
                 seccion_cnt += 1
                 iterador_seccion_nombre = 'seccionNombre%s' % (seccion_cnt)
@@ -338,6 +346,12 @@ def editar_borrador(request, draft_id):
                             cur_autor_pk = request.POST.get(iterador_autor_pk,False)
                         # / GUARDAR LOS AUTORES PARA ESTA REFERENCIA
 
+
+                        if(cur_referencia_titulo=='' and cur_referencia_editorial=='' and cur_referencia_edicion=='' and cur_referencia_notas==''):
+                            if(not esta_referencia.autorreferencia_set.exists()):
+                                esta_referencia.delete()
+
+
                         referencia_cnt += 1
                         iterador_referencia_titulo = 'titulo%s-%s' % (seccion_cnt, referencia_cnt)
                         iterador_referencia_editorial = 'editorial%s-%s' % (seccion_cnt, referencia_cnt)
@@ -350,6 +364,9 @@ def editar_borrador(request, draft_id):
                         cur_referencia_notas = request.POST.get(iterador_referencia_notas,False)
                         cur_referencia_pk = request.POST.get(iterador_referencia_pk,False)
                     # / GUARDAR LAS REFERENCIAS DE LA SECCION
+
+                    if(cur_seccion_nombre=='' and not esta_seccion.referenciabibliografica_set.exists()):
+                        esta_seccion.delete()
 
                     seccion_cnt += 1
                     iterador_seccion_nombre = 'seccionNombre%s' % (seccion_cnt)

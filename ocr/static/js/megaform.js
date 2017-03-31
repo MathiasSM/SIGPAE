@@ -142,8 +142,8 @@ $(document).ready(function () {
   // Función para los botones para añadir autor
   $("body").on("click","button.agregarAutor", function() {
     var matchess = this.id.match(/\d+/g);
-    num1 = matchess[0];
-    num2 = matchess[1];
+    num1 = parseInt(matchess[0]);
+    num2 = parseInt(matchess[1]);
     anadirUnAutor(num1, num2);  
   });
 

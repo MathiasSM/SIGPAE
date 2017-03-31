@@ -63,14 +63,26 @@ $(document).ready(function () {
     referenciaCount[num1-1]++;                         // Aumentar el contador de phones para el referencia permitente
     var num2 = referenciaCount[num1-1];                // Variable auxiliar para la sustitucion en el html de abajo
 
+    var num3 = 1;
     // Inserción del html
     $(referenciaCNT).append(
     '<hr>\
     <div id="referencia'+num1+'-'+num2+'">\
       <label><small>Referencia '+num1+'.'+num2+'</small></label>\
+      <input type="hidden" name="referenciapk'+num1+'-'+num2+'" value=-1>\
       <input type="text" name="titulo'+num1+'-'+num2+'" placeholder="Título de la referencia">\
-      <label><small>Autor</small></label>\
-      <input type="text" name="autor-'+num1+'" placeholder="Autor de la referencia">\
+      <div id="autorCNT'+num1+'-'+num2+'">\
+        <div id="autor'+num1+'-'+num2+'-'+num3+'">\
+          <label><small>Autor '+num1+'-'+num2+'-'+num3+'</small></label>\
+          <input type="hidden" name="autorpk'+num1+'-'+num2+'-'+num3+'" value=-1>\
+          <input type="text" name="nombres'+num1+'-'+num2+'-'+num3+'" placeholder="Nombres">\
+          <input type="text" name="apellidos'+num1+'-'+num2+'-'+num3+'" placeholder="Apellidos">\
+        </div>\
+      </div>\
+      <div align="right">\
+        <button id="agregarAutor'+num1+'-'+num2+'" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>\
+      </div>\
+      </br>\
       <label><small>Editorial</small></label>\
       <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia">\
       <label><small>Edición</small></label>\
@@ -79,7 +91,6 @@ $(document).ready(function () {
       <input type="text" name="notas'+num1+'-'+num2+'" placeholder="Notas de la referencia">\
     </div>');
   });
-
 
 
   // Función para el botón para añadir secciones

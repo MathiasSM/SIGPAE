@@ -54,7 +54,7 @@ $(document).ready(function () {
         }
     });
   });
-  
+
   // Función para los botones para añadir referencias
   $("body").on("click","button.agregarReferencia", function() {
     var num1 = parseInt(this.id.match(/\d+/g), 10 );   // Obtener el número de seccion correspondiente
@@ -100,33 +100,46 @@ $(document).ready(function () {
 
     var num1 = seccionCount;                        // Variable auxiliar para la sustitucion en el html de abajo
     var num2 = referenciaCount[num1-1];             // Variable auxiliar para la sustitucion en el html de abajo
+    var num3 = 1;
 
     // Inserción del html
     $(seccionCNT).append(
     '<hr>\
     <div id="seccion'+num1+'">\
-      <label>Sección '+num1+'</label>\
-      <input type="text" name="seccionNombre'+num1+'" placeholder="Nombre de la sección">\
+      <label>Sección #'+num1+'</label>\
+      <input type="hidden" name="seccionpk'+num1+'">\
+      <input type="text" name="seccionNombre'+num1+'" placeholder="Nombre de la sección"">\
+       '+num1+'">\
       <div align="left"><label>Referencias</label></div>\
       <div id="referenciaCNT'+num1+'">\
         <div id="referencia'+num1+'-'+num2+'">\
           <label><small>Referencia '+num1+'.'+num2+'</small></label>\
-          <input type="text" name="titulo'+num1+'-'+num2+'" placeholder="Título de la referencia">\
-          <label><small>Autor</small></label>\
-          <input type="text" name="autor-'+num1+'" placeholder="Autor de la referencia">\
+          <input type="hidden" name="referenciapk'+num1+'-'+num2+'" value=-1>\
+          <input type="text" name="titulo'+num1+'-'+num2+'" placeholder="Título de la referencia"">\
+          <div id="autorCNT'+num1+'-'+num2+'">\
+            <div id="autor'+num1+'-'+num2+'-'+num3+'">\
+              <label><small>Autor '+num1+'.'+num2+'.'+num3+'</small></label>\
+              <input type="hidden" name="autorpk'+num1+'-'+num2+'-'+num3+'" value=-1>\
+              <input type="text" name="nombres'+num1+'-'+num2+'-'+num3+'" placeholder="Nombres"">\
+              <input type="text" name="apellidos'+num1+'-'+num2+'-'+num3+'" placeholder="Apellidos"">\
+            </div>\
+          </div>\
+          <div align="right">\
+            <button id="agregarAutor'+num1+'-'+num2+'" class="agregarAutor" type="button" style="float: right;"><small>Agregar autor</small></button>\
+          </div>\
           <label><small>Editorial</small></label>\
-          <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia">\
+          <input type="text" name="editorial'+num1+'-'+num2+'" placeholder="Editorial de la referencia"">\
           <label><small>Edición</small></label>\
-          <input type="text" name="edicion'+num1+'-'+num2+'" placeholder="Edición de la referencia">\
+          <input type="text" name="edicion'+num1+'-'+num2+'" placeholder="Edición de la referencia"">\
           <label><small>Notas</small></label>\
-          <input type="text" name="notas'+num1+'-'+num2+'" placeholder="Notas de la referencia">\
+          <input type="text" name="notas'+num1+'-'+num2+'" placeholder="Notas de la referencia"">\
         </div>\
       </div>\
       <div align="right">\
         <button id="agregarReferencia'+num1+'" class="agregarReferencia" type="button" style="float: right;"><small>Agregar referencia</small></button>\
       </div>\
-      </br>\
-      </br>\
+    </br>\
+    </br>\
     </div>');
   });
 
@@ -149,6 +162,3 @@ $(document).ready(function () {
     </div>');
   });
 });
-
-
-  

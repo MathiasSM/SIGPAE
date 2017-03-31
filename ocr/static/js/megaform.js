@@ -6,20 +6,8 @@ $(document).ready(function () {
   var adicionalCount = $("#adicionalCNT > div").length;    // Contador de campos adicionales
 
   var seccionCount = $("#seccionCNT > div").length; // Contador de secciones
-  console.log(seccionCount);
   var referenciaCount = [];                         // Arreglo para contar las referencias de cada seccion
   var autorCount = [];
-
-  for(var i=0;i<seccionCount;i++){
-    referenciaCount = referenciaCount.concat([$("#referenciaCNT"+(i+1)+" > div").length]);
-    console.log(" "+referenciaCount[i]);
-    autorCount = autorCount.concat([[]]);
-    for(var j=0; j<referenciaCount[i]; j++){
-      console.log("#autorCNT"+(i+1)+"-"+(j+1)+" > div");
-      autorCount[i] = autorCount[i].concat([$("#autorCNT"+(i+1)+"-"+(j+1)+" > div").length]);
-      console.log("  "+autorCount[i][j]);
-    }
-  }
 
   function anadirUnAutor(num1, num2){
     var autorCNT = "#autorCNT" + num1 + '-' + num2;
@@ -95,9 +83,18 @@ $(document).ready(function () {
     anadirUnaReferencia(num1);
   }
 
-
-
   if(seccionCount == 0) anadirUnaSeccion();
+  for(var i=0;i<seccionCount;i++){
+    referenciaCount = referenciaCount.concat([$("#referenciaCNT"+(i+1)+" > div").length]);
+    autorCount = autorCount.concat([[]]);
+    if(referenciaCount[i] == 0) anadirUnaReferencia(i+1);
+    for(var j=0; j<referenciaCount[i]; j++){
+      autorCount[i] = autorCount[i].concat([$("#autorCNT"+(i+1)+"-"+(j+1)+" > div").length]);
+      if(autorCount[i][j] == 0) anadirUnAutor(i+1,j+1);
+    }
+  }
+
+  
 
   if(/^\s*$/.test($('#objetivosE').val())) $('#field-objetivosE').hide()
   else  $('#btn-sep-obj').hide();

@@ -161,6 +161,11 @@ def try_keep(request):
                                                     apellidos=cur_autor_apellidos,
                                                     referencia=esta_referencia)
                         este_autor.save()
+
+                        if(cur_autor_nombres == '' and cur_autor_apellidos == ''):
+                            este_autor.delete()
+
+
                         autor_cnt += 1
                         iterador_autor_nombres = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
                         iterador_autor_apellidos = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
@@ -318,7 +323,12 @@ def editar_borrador(request, draft_id):
                                 este_autor = AutorReferencia.objects.get(pk=cur_autor_pk)
                                 este_autor.nombres=cur_autor_nombres
                                 este_autor.apellidos=cur_autor_apellidos
+
                             este_autor.save()
+
+                            if(cur_autor_nombres == '' and cur_autor_apellidos == ''):
+                                este_autor.delete()
+
                             autor_cnt += 1
                             iterador_autor_nombres = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
                             iterador_autor_apellidos = 'nombres%s-%s-%s' % (seccion_cnt, referencia_cnt, autor_cnt)
